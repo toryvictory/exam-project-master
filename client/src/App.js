@@ -18,6 +18,7 @@ import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatCo
 import PrivateRoute from './components/PrivateRoute';
 import Spinner from './components/Spinner/Spinner';
 import { refreshAuthRequest } from './actions/authActionCreators';
+import HowItWorks from "./pages/HowItWorks/HowItWorks";
 
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 
@@ -53,6 +54,7 @@ function App() {
           <Route path={['/login', '/signup']} component={AuthPage} />
           {/*<Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={RegistrationPage} />*/}
+          <Route path="/howItWorks" component={HowItWorks} />
           <PrivateRoute
             roles={['customer']}
             exact
