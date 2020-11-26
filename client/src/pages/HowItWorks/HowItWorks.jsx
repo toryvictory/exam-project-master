@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import IntroductoryVideoAndText from "./IntroductoryVideoAndText/IntroductoryVideoAndText";
 import styles from "./HowItWorks.module.sass";
 import Steps from "./Steps/Steps";
+import StartContestButton from "./StartContestButton/StartContestButton";
 
 const HowItWorks = () => {
     return (
@@ -16,6 +17,7 @@ const HowItWorks = () => {
                 <div className={styles.sectionContainer}>
                     <Steps/>
                 </div>
+                <StartContestButton/>
             </main>
             <Footer/>
         </>

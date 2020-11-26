@@ -1,0 +1,24 @@
+@import "./../../../common/styles/_templates.sass"
+@import "./../../../common/styles/_vars.sass"
+
+.buttonContainer
+ color: white
+ text-align: center
+ background-color: $background-color-accent
+ max-width: 1276px
+ margin: 0 auto
+
+.startButton
+ color: white
+ font-family: 'Raleway', sans-serif
+ font-weight: 700
+ font-size: 20px
+ text-transform: uppercase
+ text-align: center
+ background-color: $background-color-accent
+ border: 2px solid white
+ border-radius: 5px
+ margin: 35px auto
+ padding: 18px
+ &:hover
+  @extend %button-hover
