@@ -1,0 +1,39 @@
+@import "./../../../common/styles/_templates.sass"
+@import "./../../../common/styles/_vars.sass"
+
+.sectionContainer
+ @extend %two-column-grid
+
+.videoContainer
+ position: relative
+ height: 0
+ overflow: hidden
+ padding-top: 312px / 555px * 100%
+
+.video
+ position: absolute
+ top: 0
+ left: 0
+ width: 100%
+ height: 100%
+
+.textContainer
+ font-family: 'Raleway', sans-serif
+ h2
+  color: $bold-text-color
+  font-size: 36px
+  font-weight: 700
+  margin: 0 0 45px 0
+ p
+  color: $regular-text-color
+  font-size: 16px
+  line-height: 25px
+  font-weight: 400
+
+@media screen and (max-width: $medium-breakpoint)
+ .sectionContainer
+  display: block
+  margin: 0 5%
+ .textContainer
+  margin: 10px 0
+
