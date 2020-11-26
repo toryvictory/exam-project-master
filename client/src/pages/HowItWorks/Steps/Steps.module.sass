@@ -1,4 +1,5 @@
 @import "./../../../common/styles/_vars.sass"
+@import "./../../../common/styles/_templates.sass"
 
 .stepsContainer
  max-width: 1150px
@@ -14,9 +15,7 @@
  margin-bottom: 50px
 
 .list
- display: grid
- grid-template-columns: 1fr 1fr 1fr 1fr 1fr
- column-gap: 40px
+ @extend %five-column-grid
  list-style-type: none
  margin: 0
  padding: 0
