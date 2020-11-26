@@ -1,0 +1,29 @@
+@import "./../../../common/styles/_vars.sass"
+
+.stepsContainer
+ max-width: 1150px
+ margin: 0 auto
+
+.sectionHeader
+ color: $bold-text-color
+ font-family: "Raleway", sans-serif
+ font-weight: 700
+ font-size: 36px
+ text-align: center
+ text-transform: capitalize
+ margin-bottom: 50px
+
+.list
+ display: grid
+ grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+ column-gap: 40px
+ list-style-type: none
+ margin: 0
+ padding: 0
+ @media screen and (max-width: $large-breakpoint)
+   display: grid
+   grid-template-columns: 1fr 1fr
+ @media screen and (max-width: $medium-breakpoint)
+   display: block
+
+
