@@ -1,0 +1,71 @@
+@import "./../../../common/styles/vars"
+@import "./../../../common/styles/templates"
+
+.sectionContainer
+ background-color: $background-color-blue
+ font-family: 'Raleway', sans-serif
+
+.contentContainer
+ display: flex
+ max-width: 1170px
+ margin: 0 auto
+ padding: 35px 0
+ color: #ffffff
+ &::before
+  content: ""
+  align-self: flex-start
+  box-sizing: border-box
+  min-height: 100px
+  min-width: 100px
+  border-radius: 100%
+  background-image: url("email-outline.svg")
+  background-repeat: no-repeat
+  background-position: center
+  background-size: 50px 50px
+  background-color: #ffffff
+  margin-right: 40px
+
+.articleContainer
+ flex-shrink: 1
+ margin-right: 40px
+ .heading
+  font-size: 25px
+  font-weight: 700
+  margin: 0
+  padding: 12px 0 20px
+ .text
+  font-size: 20px
+  font-weight: 400
+  .anchor
+   color: $accent-text-color
+   text-decoration: none
+   cursor: pointer
+
+.getInTouchButton
+ align-self: flex-start
+ border: 2px solid #ffffff
+ border-radius: 5px
+ background-color: $background-color-blue
+ color: #ffffff
+ font-size: 20px
+ font-weight: 700
+ white-space: nowrap
+ padding: 22px 40px
+ margin-right: 20px
+ &:hover
+  @extend %button-hover
+
+@media screen and (max-width: 1200px)
+ .contentContainer::before
+  content: none
+  max-width: 0
+  max-height: 0
+ .contentContainer
+  flex-direction: column
+  margin-left: 20px
+ .getInTouchButton
+  align-self: flex-end
+
+
+
+

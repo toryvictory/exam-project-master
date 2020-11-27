@@ -6,6 +6,7 @@ import styles from "./HowItWorks.module.sass";
 import Steps from "./Steps/Steps";
 import StartContestButton from "./StartContestButton/StartContestButton";
 import FAQ from "./FAQ/FAQ";
+import GetInTouchPanel from "./GetInTouchPanel/GetInTouchPanel";
 
 const HowItWorks = () => {
     return (
@@ -22,6 +23,7 @@ const HowItWorks = () => {
                 <div className={styles.sectionContainer}>
                     <FAQ/>
                 </div>
+                <GetInTouchPanel/>
             </main>
             <Footer/>
         </>
