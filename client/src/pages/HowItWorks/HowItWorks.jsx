@@ -5,7 +5,7 @@ import IntroductoryVideoAndText from "./IntroductoryVideoAndText/IntroductoryVid
 import styles from "./HowItWorks.module.sass";
 import Steps from "./Steps/Steps";
 import StartContestButton from "./StartContestButton/StartContestButton";
-import StyledHeading from "../../components/StyledHeading/StyledHeading";
+import FAQ from "./FAQ/FAQ";
 
 const HowItWorks = () => {
     return (
@@ -19,7 +19,9 @@ const HowItWorks = () => {
                     <Steps/>
                 </div>
                 <StartContestButton/>
-                <StyledHeading h2={'Frequently Asked Questions'}/>
+                <div className={styles.sectionContainer}>
+                    <FAQ/>
+                </div>
             </main>
             <Footer/>
         </>
