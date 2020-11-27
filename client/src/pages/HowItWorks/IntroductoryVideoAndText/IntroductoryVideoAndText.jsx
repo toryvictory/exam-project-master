@@ -8,7 +8,7 @@ const IntroductoryVideoAndText = () => {
     return (
         <section className={styles.sectionContainer}>
             <div className={styles.videoContainer}>
-                <iframe className={styles.video} allowTransparency="true" title="Wistia video player" allowFullScreen frameBorder="0"
+                <iframe className={styles.video} title="Wistia video player" allowFullScreen frameBorder="0"
     scrolling="no" src="https://fast.wistia.net/embed/iframe/vfxvect60o" />
               </div>
             <article className={styles.textContainer}>

@@ -6,7 +6,7 @@ import stepsData from "./stepsData";
 const Steps = () => {
     const steps = stepsData.map(({h3, paragraph}, index) => {
         return (
-            <li>
+            <li key={index}>
         <Step key={index} stepNumber={index+1} h3={stepsData[index].h3} p={stepsData[index].paragraph}/>
             </li>);
     });
