@@ -1,4 +1,5 @@
 @import "./../../../../common/styles/_vars.sass"
+@import "./../../../../common/styles/_templates.sass"
 
 .stepContainer
   max-width: $medium-breakpoint
@@ -22,14 +23,11 @@
   color: white
 
 .heading
-  color: $bold-text-color
-  font-family: 'Raleway', sans-serif
+  @extend %bold-text
+  @extend %overflow-ellipsis
   font-size: 16px
-  font-weight: 700
   height: 38px
 
 .paragraph
-  color: $regular-text-color
-  font-family: 'Raleway', sans-serif
+  @extend %regular-text
   font-size: 14px
-  font-weight: 400

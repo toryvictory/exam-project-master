@@ -6,9 +6,7 @@
  margin: 0 auto
 
 .sectionHeader
- color: $bold-text-color
- font-family: "Raleway", sans-serif
- font-weight: 700
+ @extend %bold-text
  font-size: 36px
  text-align: center
  text-transform: capitalize
@@ -16,9 +14,7 @@
 
 .list
  @extend %five-column-grid
- list-style-type: none
- margin: 0
- padding: 0
+ @extend %list-prevent-default
  @media screen and (max-width: $large-breakpoint)
    display: grid
    grid-template-columns: 1fr 1fr

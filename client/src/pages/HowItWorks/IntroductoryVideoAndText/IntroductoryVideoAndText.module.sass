@@ -1,6 +1,9 @@
 @import "./../../../common/styles/_templates.sass"
 @import "./../../../common/styles/_vars.sass"
 
+$video-width: 555px
+$video-height: 312px
+
 .sectionContainer
  @extend %two-column-grid
 
@@ -8,7 +11,7 @@
  position: relative
  height: 0
  overflow: hidden
- padding-top: 312px / 555px * 100%
+ padding-top: $video-height / $video-width * 100%
 
 .video
  position: absolute
@@ -20,15 +23,13 @@
 .textContainer
  font-family: 'Raleway', sans-serif
  h2
-  color: $bold-text-color
+  @extend %bold-text
   font-size: 36px
-  font-weight: 700
   margin: 0 0 45px 0
  p
-  color: $regular-text-color
+  @extend %regular-text
   font-size: 16px
   line-height: 25px
-  font-weight: 400
 
 @media screen and (max-width: $medium-breakpoint)
  .sectionContainer
