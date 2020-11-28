@@ -1,0 +1,37 @@
+@import "./../../../common/styles/_vars.sass"
+@import "./../../../common/styles/_templates.sass"
+
+.panelContainer
+  background-color: $background-copyright
+  .flexContainer
+    display: flex
+    justify-content: space-between
+    max-width: 1170px
+    padding: 40px 0 25px
+    margin: 0 auto
+    .logoCopyrightContainer
+      display: flex
+      align-items: center
+      .copyright
+        border-left: 1px solid #3d4141
+        padding: 10px 0 10px 30px
+        color: $footer-text-color
+        font-family: 'Lato', sans-serif
+        font-size: 14px
+      img
+        padding-right: 30px
+    .iconsContainer
+      @extend %list-prevent-default
+      display: flex
+      justify-content: space-evenly
+      .icon
+        width: 18px
+        height: 18px
+        border-radius: 50%
+        border: 1px solid white
+        background-color: $footer-text-color
+        color: $background-color-accent
+        padding: 10px
+        margin: 0 5px 0 15px
+
+
