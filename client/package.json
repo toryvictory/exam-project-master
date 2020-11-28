@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mdi/js": "^5.8.55",
+    "@mdi/react": "^1.4.0",
     "axios": "^0.18.1",
     "card-validator": "^6.1.0",
     "chalk": "^2.4.2",
