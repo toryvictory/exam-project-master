@@ -7,7 +7,7 @@ const FooterItem = ({ item }) => {
             <h4>{item.title}</h4>
             <ul>
                 {item.items.map((i) => (
-                    <li>
+                    <li key={i}>
                         <a key={i} href="https://google.com">
                             {i}
                         </a>

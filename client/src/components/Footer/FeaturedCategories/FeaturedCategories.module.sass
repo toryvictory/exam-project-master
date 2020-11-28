@@ -4,9 +4,13 @@
 .container
   background-color: $footer-background
   padding-bottom: 80px
+  @media screen and (max-width: $medium-breakpoint)
+    display: none
   .textContainer
     max-width: 1140px
     margin: 0 auto
+    @media screen and (max-width: $large-breakpoint)
+      margin-left: 40px
     .heading
       font-size: 20px
       color: #ffffff

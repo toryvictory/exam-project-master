@@ -4,8 +4,15 @@
 .sectionContainer
   background-color: $footer-background
   padding: 80px 0 40px
+  @media screen and (max-width: $small-breakpoint)
+    display: none
   .textContainer
     @extend %list-prevent-default
     max-width: 1140px
     margin: 0 auto
     column-count: 4
+    @media screen and (max-width: $large-breakpoint)
+      margin-left: 40px
+    @media screen and (max-width: $medium-breakpoint)
+      column-count: 2
+
