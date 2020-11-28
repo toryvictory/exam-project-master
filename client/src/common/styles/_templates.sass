@@ -7,6 +7,13 @@
   max-width: 1150px
   margin: 0 auto
 
+%four-column-grid
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  column-gap: 40px
+  max-width: 1140px
+  margin: 0 auto
+
 %five-column-grid
   display: grid
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr
@@ -35,3 +42,13 @@
 %overflow-ellipsis
   text-overflow: ellipsis
   overflow: hidden
+
+%footer-anchor-item
+  font-family: 'Lato', sans-serif
+  font-size: 14px
+  font-weight: 300
+  color: #abadad
+  text-decoration: none
+  &:hover
+    color: $footer-accent-color
+    text-decoration: underline

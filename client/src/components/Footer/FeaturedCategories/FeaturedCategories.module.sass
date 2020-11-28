@@ -1,0 +1,29 @@
+@import "./../../../common/styles/_vars.sass"
+@import "./../../../common/styles/_templates.sass"
+
+.container
+  background-color: $footer-background
+  padding-bottom: 80px
+  .textContainer
+    max-width: 1140px
+    margin: 0 auto
+    .heading
+      font-size: 20px
+      color: #ffffff
+      font-family: 'Lato', sans-serif
+      font-weight: 700
+      margin: 0 0 20px
+      padding-bottom: 30px
+      border-bottom: 1px solid #555959
+      text-transform: uppercase
+    .categoryList
+      @extend %list-prevent-default
+      column-count: 4
+      li
+        padding-bottom: 7px
+
+.category
+  @extend %footer-anchor-item
+
+.ratingDesc
+  padding-top: 30px
