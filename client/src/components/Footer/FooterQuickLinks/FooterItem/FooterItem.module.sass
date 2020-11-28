@@ -1,0 +1,21 @@
+@import "./../../../../common/styles/templates"
+
+.itemContainer
+  display: flex
+  flex-direction: column
+  break-inside: avoid
+  h4
+    font-family: 'Raleway', sans-serif
+    font-size: 16px
+    color: #fff
+    display: block
+    padding-bottom: 20px
+    margin: 0
+  ul
+    @extend %list-prevent-default
+    margin-bottom: 30px
+    li
+      padding-bottom: 7px
+      a
+        @extend %footer-anchor-item
+        font-family: 'Raleway', sans-serif

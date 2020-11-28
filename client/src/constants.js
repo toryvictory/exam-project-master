@@ -51,20 +51,7 @@ export default {
   FooterItems: [
     {
       title: 'SQUADHELP',
-      items: ['About', 'Contact', 'How It Works?', 'Testimonials', 'Our Work'],
-    },
-    {
-      title: 'RESOURCES',
-      items: [
-        'How It Works',
-        'Become a Creative',
-        'Business Name Generator',
-        'Discussion Forum',
-        'Blog',
-        'Download eBook',
-        'Pricing',
-        'Help & FAQs',
-      ],
+      items: ['About', 'Contact', 'Testimonials', 'Our Work'],
     },
     {
       title: 'OUR SERVICES',
@@ -77,6 +64,25 @@ export default {
         'Audience Testing',
         'Trademark Research & Filling',
         'Managed Agency Service',
+      ],
+    },
+    {
+      title: 'RESOURCES',
+      items: [
+        'How It Works',
+        'Become a Creative',
+        'Discussion Forum',
+        'Blog',
+        'Download eBook',
+        'Pricing',
+        'Help & FAQs',
+      ],
+    },
+    {
+      title: 'IMPORTANT GUIDELINES',
+      items: [
+        'Tips For Contest Holders',
+        'Tips For Contestants',
       ],
     },
     {
