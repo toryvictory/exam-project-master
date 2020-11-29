@@ -6,7 +6,7 @@ import styles from './Footer.module.sass';
 
 const Footer = () => {
   return (
-      <section>
+      <section className={styles.footerContainer}>
         <FooterQuickLinks/>
         <FeaturedCategories/>
         <CopyrightAndContactsPanel/>

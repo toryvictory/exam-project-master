@@ -11,7 +11,7 @@ import ScrollUpButton from "../../components/ScrollUpButton/ScrollUpButton";
 
 const HowItWorks = () => {
     return (
-        <>
+        <div className={styles.pageContainer}>
             <Header/>
             <main>
                 <div className={styles.sectionContainer}>
@@ -28,7 +28,7 @@ const HowItWorks = () => {
             </main>
             <Footer/>
             <ScrollUpButton/>
-        </>
+        </div>
     );
 };
 
