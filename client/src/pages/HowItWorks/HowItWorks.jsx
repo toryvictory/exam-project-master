@@ -7,6 +7,7 @@ import Steps from "./Steps/Steps";
 import StartContestButton from "./StartContestButton/StartContestButton";
 import FAQ from "./FAQ/FAQ";
 import GetInTouchPanel from "./GetInTouchPanel/GetInTouchPanel";
+import ScrollUpButton from "../../components/ScrollUpButton/ScrollUpButton";
 
 const HowItWorks = () => {
     return (
@@ -26,6 +27,7 @@ const HowItWorks = () => {
                 <GetInTouchPanel/>
             </main>
             <Footer/>
+            <ScrollUpButton/>
         </>
     );
 };
