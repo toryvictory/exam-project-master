@@ -255,11 +255,9 @@ function Header() {
               </li>
             </ul>
           </div>
-          {user && user.role === ROLES.CUSTOMER && (
             <Link className={styles.startContestBtn} to="/startContest">
               START CONTEST
             </Link>
-          )}
         </div>
       </div>
     </div>
