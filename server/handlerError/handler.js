@@ -34,6 +34,7 @@ exports.httpErrorHandler = (err, req, res, next) => {
     res.status(err.status).send({
       errors: [err],
     });
+    return;
   }
   next(err);
 };
