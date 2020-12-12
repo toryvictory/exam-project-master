@@ -13,11 +13,14 @@ import BackButton from "../../components/BackButton/BackButton";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
+import { useHistory } from "react-router-dom";
 
 const ContestCreationPage = (props) => {
+
+  const history = useHistory();
   const submitDataContest = (values) => {
     props.saveContest({ type: props.contestType, info: values });
-    props.history.push(
+    history.push(
       props.bundleStore.bundle[props.contestType] === "payment"
         ? "/payment"
         : props.bundleStore.bundle[props.contestType] + "Contest"

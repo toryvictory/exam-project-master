@@ -3,10 +3,14 @@ import { ROLES } from '../../constants';
 import CustomerDashboard from '../../components/CustomerDashboard/CustomerDashboard';
 import CreatorDashboard from '../../components/CreatorDashboard/CreatorDashboard';
 import Header from '../../components/Header/Header';
-import { connect } from 'react-redux';
+import {useSelector} from 'react-redux';
+import {userSelector} from "../../selectors";
+import {useHistory} from 'react-router-dom';
+
 
 const Dashboard = props => {
-  const { role, history } = props;
+  const { role } = useSelector(userSelector);
+  const history = useHistory();
   return (
     <div>
       <Header />
@@ -19,8 +23,4 @@ const Dashboard = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return state.userStore.data;
-};
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;
