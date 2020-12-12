@@ -1,6 +1,7 @@
 import axios from 'axios';
 import CONTANTS from '../constants';
 import history from '../browserHistory';
+import {auth} from "./http";
 
 const instance = axios.create({
   baseURL: CONTANTS.BASE_URL,
@@ -8,10 +9,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   config => {
-    const token = window.localStorage.getItem(CONTANTS.ACCESS_TOKEN);
-    if (token) {
-      config.headers = { ...config.headers, Authorization: token };
-    }
+      if (auth.token) {
+          config.headers['Authorization'] = `Bearer ${auth.token}`;
+      }
     return config;
   },
   err => Promise.reject(err)
