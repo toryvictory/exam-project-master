@@ -63,8 +63,8 @@ module.exports.getContestById = async (req, res, next) => {
           model: Offer,
           required: false,
           where:
-            req.tokenData.role === CONSTANTS.CREATOR
-              ? { userId: req.tokenData.userId }
+            req.tokenPayload.role === CONSTANTS.CREATOR
+              ? { userId: req.tokenPayload.userId }
               : {},
           attributes: { exclude: ['userId', 'contestId'] },
           include: [
@@ -78,7 +78,7 @@ module.exports.getContestById = async (req, res, next) => {
             {
               model: Rating,
               required: false,
-              where: { userId: req.tokenData.userId },
+              where: { userId: req.tokenPayload.userId },
               attributes: { exclude: ['userId', 'offerId'] },
             },
           ],
@@ -113,7 +113,7 @@ module.exports.updateContest = async (req, res, next) => {
   try {
     const updatedContest = await contestQueries.updateContest(req.body, {
       id: contestId,
-      userId: req.tokenData.userId,
+      userId: req.tokenPayload.userId,
     });
     res.send(updatedContest);
   } catch (e) {
@@ -129,7 +129,7 @@ module.exports.setNewOffer = async (req, res, next) => {
   } else {
     obj.text = req.body.offerData;
   }
-  obj.userId = req.tokenData.userId;
+  obj.userId = req.tokenPayload.userId;
   obj.contestId = req.body.contestId;
   try {
     const result = await contestQueries.createOffer(obj);
@@ -138,7 +138,7 @@ module.exports.setNewOffer = async (req, res, next) => {
     controller
       .getNotificationController()
       .emitEntryCreated(req.body.customerId);
-    const user = { ...req.tokenData, id: req.tokenData.userId };
+    const user = { ...req.tokenPayload, id: req.tokenPayload.userId };
     res.send({ ...result, User: user });
   } catch (e) {
     return next(new ServerError());
@@ -259,7 +259,7 @@ module.exports.setOfferStatus = async (req, res, next) => {
 
 module.exports.getCustomersContests = (req, res, next) => {
   Contest.findAll({
-    where: { status: req.headers.status, userId: req.tokenData.userId },
+    where: { status: req.headers.status, userId: req.tokenPayload.userId },
     limit: req.body.limit,
     offset: req.body.offset ? req.body.offset : 0,
     order: [['id', 'DESC']],
@@ -300,7 +300,7 @@ module.exports.getContests = (req, res, next) => {
       {
         model: Offer,
         required: req.body.ownEntries,
-        where: req.body.ownEntries ? { userId: req.tokenData.userId } : {},
+        where: req.body.ownEntries ? { userId: req.tokenPayload.userId } : {},
         attributes: ['id'],
       },
     ],
