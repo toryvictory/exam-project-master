@@ -2,7 +2,7 @@ import ACTION from "../actions/actionTypes";
 import CONSTANTS from "../constants";
 
 const initialState = {
-  isFetching: true,
+  isFetching: false,
   error: null,
   contests: [],
   customerFilter: CONSTANTS.CONTEST_STATUS_ACTIVE,
