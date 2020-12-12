@@ -9,7 +9,7 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import Header from '../../components/Header/Header';
 
 const StartContestPage = props => {
-  if (props.userStore.data.role !== ROLES.CUSTOMER) {
+  if (props.auth.user.role !== ROLES.CUSTOMER) {
     props.history.replace('/');
   }
 
@@ -114,8 +114,8 @@ const StartContestPage = props => {
 };
 
 const mapStateToProps = state => {
-  const { bundleStore, userStore } = state;
-  return { bundleStore, userStore };
+  const { bundleStore, auth } = state;
+  return { bundleStore, auth };
 };
 
 const mapDispatchToProps = dispatch => {

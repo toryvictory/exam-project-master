@@ -19,7 +19,7 @@ const UserInfo = (props) => {
     props.updateUser(formData);
   };
 
-  const { isEdit, changeEditMode, data } = props;
+  const { isEdit, changeEditMode, user } = props;
   const {
     avatar,
     firstName,
@@ -28,7 +28,7 @@ const UserInfo = (props) => {
     email,
     role,
     balance,
-  } = data;
+  } = user;
   return (
     <div className={styles.mainContainer}>
       {isEdit ? (
@@ -85,9 +85,9 @@ const UserInfo = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const { data } = state.userStore;
+  const { user } = state.auth;
   const { isEdit } = state.userProfile;
-  return { data, isEdit };
+  return { user, isEdit };
 };
 
 const mapDispatchToProps = (dispatch) => {
