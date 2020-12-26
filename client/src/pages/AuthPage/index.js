@@ -1,7 +1,7 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { loginRequest, signUpRequest } from '../../actions/authActionCreators';
+import { loginRequest, signUpRequest } from '../../actions/auth/authActionCreators';
 import SignInForm from '../../components/forms/SignInForm';
 import SignUpForm from '../../components/forms/SignUpForm';
 import { userSelector } from '../../selectors';

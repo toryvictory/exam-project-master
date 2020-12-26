@@ -1,47 +1,13 @@
-import { put } from 'redux-saga/effects';
-import ACTION from '../actions/actionTypes';
-import * as restController from '../api/rest/restController';
-import { controller } from '../api/ws/socketController';
-
-export function* privateSaga(action) {
-  yield put({ type: ACTION.GET_USER_REQUEST });
-  try {
-    const { data } = yield restController.getUser();
-    yield put({ type: ACTION.GET_USER_SUCCESS, data: data });
-    controller.subscribe(data.id);
-  } catch (e) {
-    yield put({ type: ACTION.GET_USER_ERROR, error: e.response });
-  }
-}
-
-export function* notAuthorizeSaga(action) {
-  yield put({ type: ACTION.GET_USER_REQUEST });
-  try {
-    const { data } = yield restController.getUser();
-    action.replace('/');
-    yield put({ type: ACTION.GET_USER_SUCCESS, data: data });
-  } catch (e) {
-    yield put({ type: ACTION.GET_USER_ERROR, error: e });
-  }
-}
+import {put} from "redux-saga/effects";
+import * as restController from "../api/rest/restController";
+import * as EDIT_USER_ACTION_CREATORS from "../actions/user/editUserActionCreators";
 
 export function* updateUserData(action) {
-  try {
-    const { data } = yield restController.updateUser(action.data);
-    yield put({ type: ACTION.UPDATE_USER_DATA_SUCCESS, data: data });
-    yield put({ type: ACTION.CHANGE_EDIT_MODE_ON_USER_PROFILE, data: false });
-  } catch (e) {
-    yield put({ type: ACTION.UPDATE_USER_DATA_ERROR, error: e.response });
-  }
-}
-
-export function* headerRequest() {
-  yield put({ type: ACTION.GET_USER_REQUEST });
-  try {
-    const { data } = yield restController.getUser();
-    yield put({ type: ACTION.GET_USER_SUCCESS, data: data });
-    controller.subscribe(data.id);
-  } catch (e) {
-    yield put({ type: ACTION.GET_USER_ERROR, error: e.response });
-  }
+    try {
+        yield put(EDIT_USER_ACTION_CREATORS.updateUserDataRequest());
+        const { data : { user } } = yield restController.updateUser(action.payload.values);
+        yield put(EDIT_USER_ACTION_CREATORS.updateUserDataSuccess(user));
+    } catch (e) {
+        yield put(EDIT_USER_ACTION_CREATORS.updateUserDataError(e));
+    }
 }

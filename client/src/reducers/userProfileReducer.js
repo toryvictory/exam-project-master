@@ -1,4 +1,5 @@
 import ACTION from "../actions/actionTypes";
+import USER_PROFILE_ACTION_TYPES from "../actions/userProfile/userProfileActionTypes";
 import CONSTANTS from "../constants";
 
 const initialState = {
@@ -14,10 +15,10 @@ export default function (state = initialState, action) {
         profileModeView: action.data,
       };
     }
-    case ACTION.CHANGE_EDIT_MODE_ON_USER_PROFILE: {
+    case USER_PROFILE_ACTION_TYPES.CHANGE_EDIT_MODE_ON_USER_PROFILE: {
       return {
         ...state,
-        isEdit: action.data,
+        isEdit: action.payload.data,
       };
     }
     default:

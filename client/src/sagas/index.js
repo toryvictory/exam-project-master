@@ -25,7 +25,9 @@ import {
   removeChatFromCatalogSaga,
   changeCatalogName,
 } from './chatSagas';
-import AUTH_ACTION_TYPES from '../actions/authActionTypes';
+import {updateUserData} from './userSaga';
+import AUTH_ACTION_TYPES from '../actions/auth/authActionTypes';
+import EDIT_USER_ACTION_TYPES from "../actions/user/editUserActionTypes";
 
 function* rootSaga() {
   // my super cool code
@@ -37,6 +39,7 @@ function* rootSaga() {
     AuthSagas.refreshAuthSaga
   );
   yield takeLatest(AUTH_ACTION_TYPES.LOGOUT_REQUEST, AuthSagas.logoutSaga);
+  yield takeLatest(EDIT_USER_ACTION_TYPES.UPDATE_USER_DATA, updateUserData);
   // legacy
   yield takeEvery(ACTION.GET_DATA_FOR_CONTEST_ACTION, dataForContestSaga);
   yield takeLatest(ACTION.PAYMENT_ACTION, paymentSaga);
@@ -66,6 +69,7 @@ function* rootSaga() {
     removeChatFromCatalogSaga
   );
   yield takeLatest(ACTION.CHANGE_CATALOG_NAME_REQUEST, changeCatalogName);
+
 }
 
 export default rootSaga;

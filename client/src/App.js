@@ -17,7 +17,7 @@ import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import PrivateRoute from './components/PrivateRoute';
 import Spinner from './components/Spinner/Spinner';
-import { refreshAuthRequest } from './actions/authActionCreators';
+import { refreshAuthRequest } from './actions/auth/authActionCreators';
 
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const HowItWorks = lazy(() => import('./pages/HowItWorks/HowItWorks'));

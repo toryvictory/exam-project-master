@@ -5,7 +5,7 @@ import CONSTANTS, { ROLES } from '../../constants';
 import Icon from "@mdi/react";
 import { mdiPhone } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutRequest } from '../../actions/authActionCreators';
+import { logoutRequest } from '../../actions/auth/authActionCreators';
 import { authSelector } from '../../selectors';
 import DropDownNavigation from "./DropDownNavigation/DropDownNavigation";
 

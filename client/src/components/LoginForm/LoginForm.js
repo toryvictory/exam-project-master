@@ -8,7 +8,7 @@ import FormInput from '../FormInput/FormInput';
 import customValidator from '../../validators/validator';
 import Schems from '../../validators/validationSchems';
 import Error from '../../components/Error/Error';
-import { loginRequest } from '../../actions/authActionCreators';
+import { loginRequest } from '../../actions/auth/authActionCreators';
 
 class LoginForm extends React.Component {
   componentWillUnmount() {
