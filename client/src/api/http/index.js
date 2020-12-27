@@ -13,13 +13,13 @@ export const auth = new AuthApi({ client });
 export const userApi = new UserApi( { client });
 
 client.interceptors.request.use(
-    config => {
-      if (auth.token) {
-        config.headers['Authorization'] = `Bearer ${auth.token}`;
-      }
-      return config;
-    },
+    auth.interceptRequest,
     err => Promise.reject(err)
+);
+
+client.interceptors.response.use(
+    response => response,
+    auth.interceptResponseError
 );
 
 export default client;

@@ -8,12 +8,8 @@ class AuthApi {
         this.#_token = null;
         this.url = '/auth';
 
-        this.#_client.interceptors.request.use(
-            this.interceptRequest,
-            err => Promise.reject(err));
         this.#_client.interceptors.response.use(
-            this.interceptResponse,
-            this.interceptResponseError
+            this.interceptResponse
         );
     }
 
