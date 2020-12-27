@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const moment = require('moment');
 const { Op } = require('sequelize');
 const uuid = require('uuid/v1');
+const _ = require('lodash');
 const CONSTANTS = require('../constants');
 const {
   sequelize,
@@ -11,6 +12,7 @@ const {
   CreditCard,
   Offer,
   Rating,
+  User,
 } = require('../models');
 
 const NotFound = require('../errors/UserNotFoundError');
@@ -79,6 +81,32 @@ const BadRequestError = require('../errors/BadRequestError');
 //     }
 //   }
 // };
+
+module.exports.updateUser = async (req, res, next) => {
+  try {
+    const {
+      body: data,
+      tokenPayload: { userId },
+    } = req;
+
+    const [updatedCount, [updatedUser]] = await User.update(data, {
+      where: { id: userId },
+      returning: true,
+    });
+    if (updatedCount !== 1) {
+      throw new ServerError('cannot update user');
+    }
+    const userData = updatedUser.get();
+    const user = _.omit(userData, ['password']);
+    res.status(200).send(
+      {
+        user,
+      },
+    );
+  } catch (err) {
+    next(err);
+  }
+};
 
 function getQuery(offerId, userId, mark, isFirst, transaction) {
   const getCreateQuery = () => ratingQueries.createRating(
@@ -195,30 +223,6 @@ module.exports.payment = async (req, res, next) => {
     res.send();
   } catch (err) {
     await transaction.rollback();
-    next(err);
-  }
-};
-
-module.exports.updateUser = async (req, res, next) => {
-  try {
-    if (req.file) {
-      req.body.avatar = req.file.filename;
-    }
-    const updatedUser = await userQueries.updateUser(
-      req.body,
-      req.tokenPayload.userId,
-    );
-    res.send({
-      firstName: updatedUser.firstName,
-      lastName: updatedUser.lastName,
-      displayName: updatedUser.displayName,
-      avatar: updatedUser.avatar,
-      email: updatedUser.email,
-      balance: updatedUser.balance,
-      role: updatedUser.role,
-      id: updatedUser.id,
-    });
-  } catch (err) {
     next(err);
   }
 };
