@@ -2,10 +2,10 @@ import {REFRESH_TOKEN_KEY} from '../../constants';
 
 class AuthApi {
     #_client;
-    token;
+    #_token;
     constructor({client}) {
         this.#_client = client;
-        this.token = null;
+        this.#_token = null;
         this.url = '/auth';
 
         this.#_client.interceptors.request.use(
@@ -15,6 +15,10 @@ class AuthApi {
             this.interceptResponse,
             this.interceptResponseError
         );
+    }
+
+    get token() {
+        return this.#_token;
     }
 
     /**
@@ -55,7 +59,7 @@ class AuthApi {
     };
 
     logout = () => {
-        this.token = null;
+        this.#_token = null;
         localStorage.removeItem(REFRESH_TOKEN_KEY);
     };
 
@@ -78,7 +82,7 @@ class AuthApi {
                     tokenPair: {accessToken, refreshToken},
                 },
             } = data;
-            this.token = accessToken;
+            this.#_token = accessToken;
             localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
         }
         return response;
