@@ -15,6 +15,9 @@ router.use('/auth', authRouter);
 
 router.use(checkAuthorization);
 
+// router.post('/updateUser', upload.uploadAvatar, userController.updateUser);
+router.patch('/updateUser', userController.updateUser);
+
 router.post('/dataForContest', contestController.dataForContest);
 
 router.post(
@@ -66,8 +69,6 @@ router.post(
   basicMiddlewares.onlyForCustomer,
   userController.changeMark,
 );
-
-router.post('/updateUser', upload.uploadAvatar, userController.updateUser);
 
 router.post(
   '/cashout',

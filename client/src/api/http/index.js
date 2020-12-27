@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '../../app/config';
 import AuthApi from './AuthApi';
+import UserApi from "./UserApi";
 
 const {
   api: { http },
@@ -9,6 +10,7 @@ const {
 const client = axios.create(http);
 
 export const auth = new AuthApi({ client });
+export const userApi = new UserApi( { client });
 
 client.interceptors.request.use(
     config => {
