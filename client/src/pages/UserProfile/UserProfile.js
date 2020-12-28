@@ -27,64 +27,65 @@ const UserProfile = (props) => {
     error,
     clearPaymentStore,
   } = props;
-  return (
-    <div>
-      <Header />
-      <div className={styles.mainContainer}>
-        <div className={styles.aside}>
-          <span className={styles.headerAside}>Select Option</span>
-          <div className={styles.optionsContainer}>
-            <div
-              className={classNames(styles.optionContainer, {
-                [styles.currentOption]:
-                  profileModeView === CONSTANTS.USER_INFO_MODE,
-              })}
-              onClick={() => changeProfileModeView(CONSTANTS.USER_INFO_MODE)}
-            >
-              UserInfo
-            </div>
-            {role === CONSTANTS.CREATOR && (
-              <div
-                className={classNames(styles.optionContainer, {
-                  [styles.currentOption]:
-                    profileModeView === CONSTANTS.CASHOUT_MODE,
-                })}
-                onClick={() => changeProfileModeView(CONSTANTS.CASHOUT_MODE)}
-              >
-                Cashout
+    return (
+        <div>
+          <Header/>
+          <div className={styles.mainContainer}>
+            <div className={styles.aside}>
+              <span className={styles.headerAside}>Select Option</span>
+              <div className={styles.optionsContainer}>
+                <div
+                    className={classNames(styles.optionContainer, {
+                      [styles.currentOption]:
+                      profileModeView === CONSTANTS.USER_INFO_MODE,
+                    })}
+                    onClick={() => changeProfileModeView(CONSTANTS.USER_INFO_MODE)}
+                >
+                  UserInfo
+                </div>
+                {role === CONSTANTS.CREATOR && (
+                    <div
+                        className={classNames(styles.optionContainer, {
+                          [styles.currentOption]:
+                          profileModeView === CONSTANTS.CASHOUT_MODE,
+                        })}
+                        onClick={() => changeProfileModeView(CONSTANTS.CASHOUT_MODE)}
+                    >
+                      Cashout
+                    </div>
+                )}
               </div>
+            </div>
+            {profileModeView === CONSTANTS.USER_INFO_MODE ? (
+                <UserInfo/>
+            ) : (
+                <div className={styles.container}>
+                  {parseInt(balance) === 0 ? (
+                      <span className={styles.notMoney}>
+                There is no money on your balance
+              </span>
+                  ) : (
+                      <div>
+                        {error && (
+                            <Error
+                                data={error.data}
+                                status={error.status}
+                                clearError={clearPaymentStore}
+                            />
+                        )}
+                        <PayForm sendRequest={pay}/>
+                      </div>
+                  )}
+                </div>
             )}
           </div>
         </div>
-        {profileModeView === CONSTANTS.USER_INFO_MODE ? (
-          <UserInfo />
-        ) : (
-          <div className={styles.container}>
-            {parseInt(balance) === 0 ? (
-              <span className={styles.notMoney}>
-                There is no money on your balance
-              </span>
-            ) : (
-              <div>
-                {error && (
-                  <Error
-                    data={error.data}
-                    status={error.status}
-                    clearError={clearPaymentStore}
-                  />
-                )}
-                <PayForm sendRequest={pay} />
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
+    );
+  };
+
 
 const mapStateToProps = (state) => {
-  const { balance, role } = state.auth.user;
+  const { balance, role } = state.auth.user || {};
   const { profileModeView } = state.userProfile;
   const { error } = state.payment;
   return { balance, role, profileModeView, error };
