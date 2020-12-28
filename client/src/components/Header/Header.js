@@ -5,6 +5,7 @@ import CONSTANTS, { ROLES } from '../../constants';
 import Icon from "@mdi/react";
 import { mdiPhone } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { logoutRequest } from '../../actions/auth/authActionCreators';
 import { authSelector } from '../../selectors';
 import DropDownNavigation from "./DropDownNavigation/DropDownNavigation";
@@ -13,10 +14,15 @@ function Header() {
   const { isFetching, user } = useSelector(authSelector);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const logoutAction = useCallback(() => void dispatch(logoutRequest()), [
+  const logoutAction = useCallback(() => {
+    history.push('/');
+    dispatch(logoutRequest());
+  }, [
     dispatch,
     logoutRequest,
+    history,
   ]);
 
   const renderLoginButtons = () => {
