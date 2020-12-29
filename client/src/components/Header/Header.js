@@ -55,20 +55,22 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="http:/www.google.com"
+                <a
+                  href="http://www.google.com"
+                  target="_blank"
                   style={{ textDecoration: 'none' }}
                 >
                   <span>Messages</span>
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  to="http:/www.google.com"
+                <a
+                  href="http://www.google.com"
+                  target="_blank"
                   style={{ textDecoration: 'none' }}
                 >
                   <span>Affiliate Dashboard</span>
-                </Link>
+                </a>
               </li>
               <li>
                 <span onClick={logoutAction}>Logout</span>
@@ -118,11 +120,13 @@ function Header() {
         </div>
       </div>
       <div className={styles.navContainer}>
-        <img
-          src={`${CONSTANTS.STATIC_IMAGES_PATH}blue-logo.png`}
-          className={styles.logo}
-          alt="blue_logo"
-        />
+        <Link to="/">
+          <img
+            src={`${CONSTANTS.STATIC_IMAGES_PATH}blue-logo.png`}
+            className={styles.logo}
+            alt="blue_logo"
+          />
+        </Link>
         <div className={styles.leftNav}>
           <DropDownNavigation/>
             <Link className={styles.startContestBtn} to="/startContest">
