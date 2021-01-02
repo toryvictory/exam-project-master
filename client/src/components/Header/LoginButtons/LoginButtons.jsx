@@ -10,6 +10,7 @@ import CONSTANTS from "../../../constants";
 const LoginButtons = () => {
 
     const user = useSelector(userSelector);
+    const { avatar } = user;
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -27,9 +28,7 @@ const LoginButtons = () => {
                 <div className={styles.userInfo}>
                     <img
                         src={
-                            user.avatar === 'anon.png'
-                                ? CONSTANTS.ANONYM_IMAGE_PATH
-                                : `${CONSTANTS.publicURL}${user.avatar}`
+                            avatar ? `${CONSTANTS.publicURL}${avatar}` : CONSTANTS.ANONYM_IMAGE_PATH
                         }
                         alt="user"
                     />

@@ -2,10 +2,12 @@ import React from "react";
 import classNames from "classnames";
 
 const ImageUpload = (props) => {
+
+  let value;
   const onChange = (e) => {
     const node = window.document.getElementById("imagePreview");
     const {
-      input: { onChange },
+       onChange
     } = props;
     const file = e.target.files[0];
     const imageType = /image.*/;
@@ -19,22 +21,22 @@ const ImageUpload = (props) => {
       };
       reader.readAsDataURL(file);
     }
+    value = e.target.value;
   };
-  const {
-    input: { value },
-  } = props;
+
   const { uploadContainer, inputContainer, imgStyle } = props.classes;
   return (
     <div className={uploadContainer}>
       <div className={inputContainer}>
         <span>Support only images (*.png, *.gif, *.jpeg)</span>
         <input
-          id="fileInput"
+          id="file"
+          name="file"
           type="file"
           accept=".jpg, .png, .jpeg"
           onChange={onChange}
         />
-        <label htmlFor="fileInput">Chose file</label>
+        <label htmlFor="file">Chose file</label>
       </div>
       <img id="imagePreview" className={classNames({ [imgStyle]: !!value })} />
     </div>

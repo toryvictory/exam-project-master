@@ -84,6 +84,9 @@ const BadRequestError = require('../errors/BadRequestError');
 
 module.exports.updateUser = async (req, res, next) => {
   try {
+    if (req.file) {
+      req.body.avatar = req.file.filename;
+    }
     const {
       body: data,
       tokenPayload: { userId },

@@ -38,10 +38,8 @@ const UserInfo = () => {
             ) : (
                 <div className={styles.infoContainer}>
                     <img
-                        src={
-                            avatar === "anon.png"
-                                ? CONSTANTS.ANONYM_IMAGE_PATH
-                                : `${CONSTANTS.publicURL}${avatar}`
+                        src = {
+                            avatar ? `${CONSTANTS.publicURL}${avatar}` : CONSTANTS.ANONYM_IMAGE_PATH
                         }
                         className={styles.avatar}
                         alt="user"

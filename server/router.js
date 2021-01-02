@@ -15,8 +15,7 @@ router.use('/auth', authRouter);
 
 router.use(checkAuthorization);
 
-// router.post('/updateUser', upload.uploadAvatar, userController.updateUser);
-router.patch('/updateUser', userController.updateUser);
+router.patch('/updateUser', upload.uploadAvatar, userController.updateUser);
 
 router.post('/dataForContest', contestController.dataForContest);
 
