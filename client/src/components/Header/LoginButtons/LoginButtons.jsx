@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../../selectors";
 import { Link, useHistory } from "react-router-dom";
 import React, { useCallback } from "react";
+import Icon from "@mdi/react";
+import { mdiChevronDown } from '@mdi/js';
 import { logoutRequest } from "../../../actions/auth/authActionCreators";
 import styles from "../Header.module.sass";
 import CONSTANTS from "../../../constants";
@@ -10,7 +12,7 @@ import CONSTANTS from "../../../constants";
 const LoginButtons = () => {
 
     const user = useSelector(userSelector);
-    const { avatar } = user;
+    const { avatar, displayName } = user || {};
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -32,11 +34,8 @@ const LoginButtons = () => {
                         }
                         alt="user"
                     />
-                    <span>{`Hi, ${user.displayName}`}</span>
-                    <img
-                        src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`}
-                        alt="menu"
-                    />
+                    <span>{`Hi, ${displayName}`}</span>
+                    <Icon path={mdiChevronDown} className={styles.iconChevron}/>
                     <ul>
                         <li>
                             <Link to="/dashboard" style={{textDecoration: 'none'}}>

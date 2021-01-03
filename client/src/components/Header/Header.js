@@ -26,30 +26,37 @@ function Header() {
         </span>
         <a href="http://www.google.com">Read Announcement</a>
       </div>
-      <div className={styles.loginSignUpHeaders}>
-        <div className={styles.numberContainer}>
-          <Icon path={mdiPhone} className={styles.icon}/>
-          <span>(877)&nbsp;355-3585</span>
+
+        <div className={styles.loginSignUpHeaders}>
+            <div className={styles.headerRow}>
+                <div className={styles.numberContainer}>
+                  <Icon path={mdiPhone} className={styles.icon}/>
+                  <span>(877)&nbsp;355-3585</span>
+                </div>
+                <div className={styles.userButtonsContainer}>
+                  <LoginButtons/>
+                </div>
+            </div>
         </div>
-        <div className={styles.userButtonsContainer}>
-          <LoginButtons/>
-        </div>
-      </div>
+
       <div className={styles.navContainer}>
-        <Link to="/">
-          <img
-            src={`${CONSTANTS.STATIC_IMAGES_PATH}blue-logo.png`}
-            className={styles.logo}
-            alt="blue_logo"
-          />
-        </Link>
-        <div className={styles.leftNav}>
-          <DropDownNavigation/>
-          <Link className={styles.startContestBtn} to="/startContest">
-              START CONTEST
-          </Link>
-        </div>
+          <div className={styles.headerRow}>
+            <Link to="/">
+              <img
+                src={`${CONSTANTS.STATIC_IMAGES_PATH}blue-logo.png`}
+                className={styles.logo}
+                alt="blue_logo"
+              />
+            </Link>
+            <div className={styles.leftNav}>
+              <DropDownNavigation/>
+              <Link className={styles.startContestBtn} to="/startContest">
+                  START CONTEST
+              </Link>
+            </div>
+          </div>
       </div>
+
     </div>
   );
 }
