@@ -36,14 +36,14 @@ function SignInForm(props) {
             <h2>LOGIN TO YOUR ACCOUNT</h2>
             <Form>
               <div className={styles.inputContainer}>
-              <Field name="email"
+              <Field name="email" placeholder="Email address"
                      className={classNames(styles.input, {[styles.notValid]: errors.email && touched.email })}/>
                 { errors.email && touched.email ?
                     (<div className={styles.fieldWarning}>{errors.email}</div>)
                     : null }
               </div>
               <div className={styles.inputContainer}>
-              <Field name="password"
+              <Field name="password" placeholder="Password"
                      className={classNames(styles.input, {[styles.notValid]: errors.password && touched.password})} />
                 { errors.password && touched.password ?
                     (<div className={styles.fieldWarning}>{errors.password}</div>)
