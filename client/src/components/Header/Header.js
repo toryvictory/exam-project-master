@@ -11,7 +11,8 @@ import CONSTANTS from '../../constants';
 
 function Header() {
 
-  const { isFetching } = useSelector(authSelector);
+  const { isFetching, user } = useSelector(authSelector);
+  const { role } = user || {};
 
   if (isFetching) {
     return null;
@@ -50,9 +51,9 @@ function Header() {
             </Link>
             <div className={styles.leftNav}>
               <DropDownNavigation/>
-              <Link className={styles.startContestBtn} to="/startContest">
+                { (role === CONSTANTS.CUSTOMER) && <Link className={styles.startContestBtn} to="/startContest">
                   START CONTEST
-              </Link>
+              </Link> }
             </div>
           </div>
       </div>
