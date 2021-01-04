@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { ROLES } from './../../../constants';
+import styles from "./SignUpForm.module.sass";
+import classNames from "classnames";
 
 const initialValues = {
-  firstName: 'Test',
-  lastName: 'Testovich',
-  displayName: 'teset' + Date.now(),
-  email: `test${Date.now()}@gmail.com`,
-  password: 'Test12345',
-  confirmPassword: 'Test12345',
+  firstName: '',
+  lastName: '',
+  displayName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
   role: ROLES.CUSTOMER,
 };
 
@@ -51,41 +53,82 @@ function SignUpForm(props) {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      {() => (
+      {({errors, touched}) => (
+          <div className={styles.signUpFormContainer}>
+          <div className={styles.headerFormContainer}>
+            <h2>CREATE AN ACCOUNT</h2>
+            <h4>We always keep your name and email address private.</h4>
+          </div>
         <Form>
-          <Field name="firstName" />
-          <ErrorMessage name="firstName" />
-          <br />
-          <Field name="lastName" />
-          <ErrorMessage name="lastName" />
-          <br />
-          <Field name="displayName" />
-          <ErrorMessage name="firstName" />
-          <br />
-          <Field name="email" />
-          <ErrorMessage name="email" />
-          <br />
-          <Field name="password" />
-          <ErrorMessage name="password" />
-          <br />
-          <Field name="confirmPassword" />
-          <ErrorMessage name="confirmPassword" />
-          <br />
+        <div className={styles.row}>
+          <div className={styles.inputContainer}>
+          <Field name="firstName" placeholder="First name"
+                 className={classNames(styles.input, {[styles.notValid]: errors.firstName && touched.firstName })}
+          />
+            { errors.firstName && touched.firstName ?
+                (<div className={styles.fieldWarning}>{errors.firstName}</div>)
+                : null }
+          </div>
+          <div className={styles.inputContainer}>
+          <Field name="lastName" placeholder="Last name"
+                 className={classNames(styles.input, {[styles.notValid]: errors.lastName && touched.lastName })} />
+            { errors.lastName && touched.lastName ?
+                (<div className={styles.fieldWarning}>{errors.lastName}</div>)
+                : null }
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.inputContainer}>
+          <Field name="displayName" placeholder="Display name"
+                 className={classNames(styles.input, {[styles.notValid]: errors.displayName && touched.displayName })} />
+            { errors.displayName && touched.displayName ?
+                (<div className={styles.fieldWarning}>{errors.displayName}</div>)
+                : null }
+          </div>
+          <div className={styles.inputContainer}>
+          <Field name="email" placeholder="Email address"
+                 className={classNames(styles.input, {[styles.notValid]: errors.email && touched.email })} />
+            { errors.email && touched.email ?
+                (<div className={styles.fieldWarning}>{errors.email}</div>)
+                : null }
+          </div>
+          </div>
+        <div className={styles.row}>
+          <div className={styles.inputContainer}>
+          <Field name="password" placeholder="Password"
+                 className={classNames(styles.input, {[styles.notValid]: errors.password && touched.password })} />
+            { errors.password && touched.password ?
+                (<div className={styles.fieldWarning}>{errors.password}</div>)
+                : null }
+          </div>
+          <div className={styles.inputContainer}>
+          <Field name="confirmPassword" placeholder="Confirm password"
+                 className={classNames(styles.input, {[styles.notValid]: errors.confirmPassword && touched.confirmPassword })} />
+            { errors.confirmPassword && touched.confirmPassword ?
+                (<div className={styles.fieldWarning}>{errors.confirmPassword}</div>)
+                : null }
+          </div>
+          </div>
+
           {roles.map(r => (
-            <Fragment key={r}>
+            <div className={styles.choseRoleContainer} key={r}>
               <label>
                 <Field name="role" type="radio" value={r} />
                 <span>{r}</span>
               </label>
               <br />
-            </Fragment>
+            </div>
           ))}
           <ErrorMessage name="role" />
-          <br />
-          <button type="submit">Sign Up</button>
+
+          <button type="submit" className={styles.submitContainer}>
+            <span className={styles.inscription}>Create Account</span>
+        </button>
         </Form>
+          </div>
       )}
     </Formik>
+
   );
 }
 
