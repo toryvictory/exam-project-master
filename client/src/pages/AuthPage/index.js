@@ -5,7 +5,7 @@ import { loginRequest, signUpRequest } from '../../actions/auth/authActionCreato
 import SignInForm from '../../components/forms/SignInForm';
 import SignUpForm from '../../components/forms/SignUpForm';
 import { userSelector } from '../../selectors';
-import styles from "../RegistrationPage/RegistrationPage.module.sass";
+import styles from "./AuthPage.module.sass";
 import CONSTANTS from "../../constants";
 
 function AuthPage() {
@@ -46,7 +46,9 @@ function AuthPage() {
                   </Link>
                     </div>
                 </div>
-                  <Form onSubmit={handleSubmit} />
+                    <div className={styles.formContainer}>
+                      <Form onSubmit={handleSubmit} />
+                    </div>
             </div>
             { !isLogin &&
             <div className={styles.footer}>
