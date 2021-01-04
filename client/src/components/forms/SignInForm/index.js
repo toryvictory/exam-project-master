@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import classNames from "classnames";
+import styles from "./SignInForm.module.sass";
 
 const initialValues = {
   email: '',
@@ -29,15 +31,31 @@ function SignInForm(props) {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      {() => (
-        <Form>
-          <Field name="email" />
-          <ErrorMessage name="email" />
-          <Field name="password" />
-          <ErrorMessage name="password" />
-
-          <button type="submit">Sign Up</button>
-        </Form>
+      {({touched, errors, isSubmitting}) => (
+          <div className={styles.loginForm}>
+            <h2>LOGIN TO YOUR ACCOUNT</h2>
+            <Form>
+              <div className={styles.inputContainer}>
+              <Field name="email"
+                     className={classNames(styles.input, {[styles.notValid]: errors.email && touched.email })}/>
+                { errors.email && touched.email ?
+                    (<div className={styles.fieldWarning}>{errors.email}</div>)
+                    : null }
+              </div>
+              <div className={styles.inputContainer}>
+              <Field name="password"
+                     className={classNames(styles.input, {[styles.notValid]: errors.password && touched.password})} />
+                { errors.password && touched.password ?
+                    (<div className={styles.fieldWarning}>{errors.password}</div>)
+                    : null }
+              </div>
+              <button type="submit" className={styles.submitContainer}>
+                <span className={styles.inscription}>
+                 {isSubmitting ? 'Submitting...' : 'LOGIN'}
+                </span>
+              </button>
+            </Form>
+          </div>
       )}
     </Formik>
   );
