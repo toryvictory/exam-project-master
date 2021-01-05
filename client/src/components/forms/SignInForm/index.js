@@ -1,9 +1,13 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import classNames from "classnames";
 import styles from "./SignInForm.module.sass";
+import {useDispatch, useSelector} from "react-redux";
+import { authSelector } from "../../../selectors";
+import Error from "../../Error/Error";
+import { logoutRequest } from '../../../actions/auth/authActionCreators';
 
 const initialValues = {
   email: '',
@@ -25,6 +29,9 @@ function SignInForm(props) {
     [onSubmit]
   );
 
+  const { error, isFetching } = useSelector(authSelector);
+  const dispatch = useDispatch();
+
   return (
     <Formik
       initialValues={initialValues}
@@ -33,6 +40,13 @@ function SignInForm(props) {
     >
       {({touched, errors, isSubmitting}) => (
           <div className={styles.loginForm}>
+            {error && (
+                <Error
+                    data={error.response.data}
+                    status={error.response.status}
+                    clearError={()=>dispatch(logoutRequest())}
+                />
+            )}
             <h2>LOGIN TO YOUR ACCOUNT</h2>
             <Form>
               <div className={styles.inputContainer}>
@@ -51,7 +65,7 @@ function SignInForm(props) {
               </div>
               <button type="submit" className={styles.submitContainer}>
                 <span className={styles.inscription}>
-                 {isSubmitting ? 'Submitting...' : 'LOGIN'}
+                 {isFetching ? 'Submitting...' : 'LOGIN'}
                 </span>
               </button>
             </Form>

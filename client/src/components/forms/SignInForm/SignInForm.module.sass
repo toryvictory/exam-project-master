@@ -22,6 +22,10 @@
     margin-right: 20px
     @media(max-width: 850px)
       align-self: auto
+    &:focus
+      outline: none
+      border: 3px solid white
+      border-radius: 10px
 
 
   .inscription
@@ -61,7 +65,9 @@
       flex: 1
       @media(max-width: 1400px)
         align-self: normal
-
+      &:focus
+        border: 3px solid lightseagreen
+        border-radius: 10px
     .notValid
       border: 2px solid red !important
 
