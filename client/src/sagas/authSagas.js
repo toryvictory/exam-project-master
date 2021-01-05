@@ -15,7 +15,7 @@ const createAuthSaga = apiMethod =>
       yield put(AuthActionCreators.authRequestSuccess(data));
     } catch (err) {
       yield put(AuthActionCreators.authRequestFailed(err));
-      yield put(AuthActionCreators.logoutRequest());
+      yield Api.auth.logout();
     }
   };
 

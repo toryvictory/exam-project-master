@@ -1,10 +1,14 @@
-import React, { useCallback, Fragment } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { ROLES } from './../../../constants';
+import { Formik, Form, Field} from 'formik';
+import { ROLES } from '../../../constants';
 import styles from "./SignUpForm.module.sass";
 import classNames from "classnames";
+import Error from "../../Error/Error";
+import {useDispatch, useSelector} from "react-redux";
+import {authSelector} from "../../../selectors";
+import {logoutRequest} from "../../../actions/auth/authActionCreators";
 
 const initialValues = {
   firstName: '',
@@ -47,6 +51,9 @@ function SignUpForm(props) {
     [onSubmit]
   );
 
+  const { error, isFetching } = useSelector(authSelector);
+  const dispatch = useDispatch();
+
   return (
     <Formik
       initialValues={initialValues}
@@ -55,6 +62,13 @@ function SignUpForm(props) {
     >
       {({errors, touched}) => (
           <div className={styles.signUpFormContainer}>
+            {error && (
+                <Error
+                    data={error.response.data}
+                    status={error.response.status}
+                    clearError={()=>dispatch(logoutRequest())}
+                />
+            )}
           <div className={styles.headerFormContainer}>
             <h2>CREATE AN ACCOUNT</h2>
             <h4>We always keep your name and email address private.</h4>
@@ -114,15 +128,15 @@ function SignUpForm(props) {
             <div className={styles.choseRoleContainer} key={r}>
               <label>
                 <Field name="role" type="radio" value={r} />
-                <span>{r}</span>
+                <span className={styles.radioLabel}>{`Join as a ${r}`}</span>
               </label>
               <br />
             </div>
           ))}
-          <ErrorMessage name="role" />
-
           <button type="submit" className={styles.submitContainer}>
-            <span className={styles.inscription}>Create Account</span>
+            <span className={styles.inscription}>
+              {isFetching ? 'Submitting...' : 'Create Account'}
+            </span>
         </button>
         </Form>
           </div>

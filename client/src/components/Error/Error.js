@@ -2,8 +2,9 @@ import React from "react";
 import styles from "./Error.module.sass";
 
 const Error = (props) => {
+  const { status, data, clearError } = props;
   const getMessage = () => {
-    const { status, data } = props;
+
     switch (status) {
       case 404:
         return data;
@@ -20,10 +21,9 @@ const Error = (props) => {
     }
   };
 
-  const { clearError } = props;
   return (
     <div className={styles.errorContainer}>
-      <span>{getMessage()}</span>
+      <span>{data?.errors[0]?.message || getMessage()}</span>
       <i className="far fa-times-circle" onClick={() => clearError()} />
     </div>
   );

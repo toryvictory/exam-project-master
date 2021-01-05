@@ -2,12 +2,12 @@
 const { ValidationError } = require('yup');
 const { Sequelize: { BaseError, UniqueConstraintError } } = require('../models');
 
-const errorMapper = (err) => ({ title: err.message ?? 'Bad request' });
+const errorMapper = (err) => ({ message: err.message ?? 'Bad request' });
 
 exports.yupErrorHandler = (err, req, res, next) => {
   if (err instanceof ValidationError) {
     res.status(400).send({
-      errors: err?.errors?.map(errorMapper) ?? [{ title: 'validation error' }],
+      errors: err?.errors?.map(errorMapper) ?? [{ message: 'validation error' }],
     });
     return;
   }
@@ -42,7 +42,7 @@ exports.httpErrorHandler = (err, req, res, next) => {
 exports.errorHandler = (err, req, res, next) => {
   res.status(500).send({
     errors: [{
-      title: err?.message || 'Internal server error',
+      message: err?.message || 'Internal server error',
     }],
   });
 };
