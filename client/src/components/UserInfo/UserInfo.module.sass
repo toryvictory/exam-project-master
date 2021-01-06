@@ -22,7 +22,6 @@
     transition: background-color  0.2s
     @media(max-width: 420px)
       margin: 20px 0
-      margin-left: 0
     &:hover
       transition: background-color  0.2s
       background-color: #f27e51
@@ -40,15 +39,19 @@
     .infoBlock
       display: flex
       flex-direction: row
+      flex-wrap: wrap
       margin-bottom: 25px
       align-items: center
-      width: 200px
+      width: 250px
       justify-content: space-between
       .label
         font-family: sans-serif
         font-size: 16px
         color: #515b5f
+        padding-right: 15px
       .info
         font-size: 16px
         color: #455a89
+        margin-left: auto
+
 

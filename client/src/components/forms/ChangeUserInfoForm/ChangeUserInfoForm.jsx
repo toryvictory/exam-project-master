@@ -59,7 +59,7 @@ const ChangeUserInfoForm = (props) => {
                 )
                 }
             >
-                {(formProps) => <Form className={styles.updateContainer}>
+                {(formProps) => <Form className={styles.updateContainer} >
 
                     <MyTextInput
                         label="First Name"
