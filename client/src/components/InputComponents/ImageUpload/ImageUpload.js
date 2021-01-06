@@ -1,9 +1,7 @@
 import React from "react";
-import classNames from "classnames";
 
 const ImageUpload = (props) => {
 
-  let value;
   const onChange = (e) => {
     const node = window.document.getElementById("imagePreview");
     const {
@@ -21,14 +19,13 @@ const ImageUpload = (props) => {
       };
       reader.readAsDataURL(file);
     }
-    value = e.target.value;
   };
 
   const { uploadContainer, inputContainer, imgStyle } = props.classes;
   return (
     <div className={uploadContainer}>
       <div className={inputContainer}>
-        <span>Support only images (*.png, *.gif, *.jpeg)</span>
+        <span>Supports only images (*.png, *.gif, *.jpeg)</span>
         <input
           id="file"
           name="file"
@@ -36,9 +33,9 @@ const ImageUpload = (props) => {
           accept=".jpg, .png, .jpeg"
           onChange={onChange}
         />
-        <label htmlFor="file">Chose file</label>
+        <label htmlFor="file">Choose file</label>
       </div>
-      <img id="imagePreview" className={classNames({ [imgStyle]: !!value })} />
+      <img id="imagePreview" className={imgStyle} alt='' />
     </div>
   );
 };

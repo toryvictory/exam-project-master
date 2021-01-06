@@ -2,26 +2,29 @@ import React, { useCallback } from "react";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
-import { userSelector } from "../../../selectors";
+import { authSelector } from "../../../selectors";
+import classNames from "classnames";
 import ImageUpload from "../../InputComponents/ImageUpload/ImageUpload";
-import styles from "../../UpdateUserInfoForm/UpdateUserInfoForm.module.sass";
+import styles from "./ChangeUserInfoForm.module.sass";
 
 const MyTextInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
     return (
-        <>
-            <label htmlFor={props.id || props.name}>{label}</label>
-            <input className="text-input" {...field} {...props} />
+        <div className={styles.container}>
+            <label className={styles.label} htmlFor={props.id || props.name}>{label}</label>
+            <div className={styles.inputContainer}>
+            <input className={classNames(styles.input, {[styles.notValid]: meta.touched && meta.error})} {...field} {...props} />
             {meta.touched && meta.error ? (
-                <div className="error">{meta.error}</div>
+                <div className={styles.error}>{meta.error}</div>
             ) : null}
-        </>
+            </div>
+        </div>
     );
 };
 
 const ChangeUserInfoForm = (props) => {
 
-    const user = useSelector(userSelector);
+    const { user, isFetching } = useSelector(authSelector);
 
     const { onSubmit } = props;
 
@@ -52,11 +55,11 @@ const ChangeUserInfoForm = (props) => {
                     (values) => {
                         onSubmit(prepareData(values));
                     },
-                    [onSubmit, prepareData]
+                    [onSubmit]
                 )
                 }
             >
-                {(formProps) => <Form>
+                {(formProps) => <Form className={styles.updateContainer}>
 
                     <MyTextInput
                         label="First Name"
@@ -84,7 +87,7 @@ const ChangeUserInfoForm = (props) => {
                         }}
                     />
 
-                    <button type="submit">Submit</button>
+                    <button type="submit">{isFetching ? 'Submitting' : 'Submit'}</button>
                 </Form>
                 }
             </Formik>
