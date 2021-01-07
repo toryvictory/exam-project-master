@@ -1,5 +1,5 @@
 import axios from 'axios';
-import CONTANTS from '../constants';
+import CONTANTS, {REFRESH_TOKEN_KEY} from '../constants';
 import history from '../browserHistory';
 import {auth} from "./http";
 
@@ -24,17 +24,45 @@ instance.interceptors.response.use(
     }
     return response;
   },
-  err => {
-    if (
-      err.response.status === 408 &&
-      history.location.pathname !== '/login' &&
-      history.location.pathname !== '/registration' &&
-      history.location.pathname !== '/'
-    ) {
-      history.replace('/login');
-    }
-    return Promise.reject(err);
-  }
+  // err => {
+  //     console.log(err.response);
+  //   if (
+  //     err.response.status === 408 &&
+  //     history.location.pathname !== '/login' &&
+  //     history.location.pathname !== '/registration' &&
+  //     history.location.pathname !== '/'
+  //   ) {
+  //     history.replace('/login');
+  //   }
+  //   return Promise.reject(err);
+  // }
+    async error => {
+        const {response, config} = error;
+        const {url, baseURL} = config;
+        const {status} = response;
+
+        console.log(error.response);
+
+        if (status !== 401) {
+            throw error;
+        }
+
+        if (
+            status === 401 &&
+            (url.replace(baseURL, "")) !== `${this.url}/refresh` &&
+            localStorage.getItem(REFRESH_TOKEN_KEY)
+        ) {
+            try {
+                await this.refresh({
+                    refreshToken: localStorage.getItem(REFRESH_TOKEN_KEY),
+                });
+                return auth.client(config);
+            } catch {
+                this.logout();
+                throw error;
+            }
+        }
+}
 );
 
 export default instance;

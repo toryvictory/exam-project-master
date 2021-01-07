@@ -175,7 +175,7 @@ module.exports.payment = async (req, res, next) => {
         cvc, expiry, price, number,
       },
     } = req;
-    const squadhelpCreditCardNumber = process.env.SQUADHELP_CREDIT_CARD_NUMBER;
+    const squadhelpCreditCardNumber = process.env.SQUADHELP_CREDIT_CARD_NUMBER || CONSTANTS.SQUADHELP_BANK_NUMBER;
 
     const clientCreditCard = await CreditCard.findOne({
       where: {
