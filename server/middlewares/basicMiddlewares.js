@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Contest } = require('../models/index');
+const { Contest, User } = require('../models/index');
 const NotFound = require('../errors/UserNotFoundError');
 const RightsError = require('../errors/RightsError');
 const ServerError = require('../errors/ServerError');
@@ -20,6 +20,10 @@ module.exports.parseBody = (req, res, next) => {
 module.exports.canGetContest = async (req, res, next) => {
   let result = null;
   try {
+    const user = await User.findOne({
+      where: { id: req.tokenPayload.userId },
+    });
+    req.tokenPayload.role = user.role;
     if (req.tokenPayload.role === CONSTANTS.CUSTOMER) {
       result = await Contest.findOne({
         where: { id: req.headers.contestid, userId: req.tokenPayload.userId },

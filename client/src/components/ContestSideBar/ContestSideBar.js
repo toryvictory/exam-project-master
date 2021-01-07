@@ -59,7 +59,7 @@ const ContestSideBar = (props) => {
             </div>
           </div>
         </div>
-        {props.data.id !== User.id && (
+        {props.user.id !== User.id && (
           <div className={styles.infoCustomerContainer}>
             <span className={styles.labelCustomerInfo}>
               About Contest Holder
@@ -88,7 +88,7 @@ const ContestSideBar = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return state.userStore;
+  return state.auth;
 };
 
 export default connect(mapStateToProps, null)(ContestSideBar);

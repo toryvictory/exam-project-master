@@ -34,7 +34,7 @@ class CatalogListContainer extends React.Component {
 
   render() {
     const { catalogList, isShowChatsInCatalog } = this.props.chatStore;
-    const { id } = this.props.userStore.data;
+    const { id } = this.props.auth.user;
     return (
       <>
         {isShowChatsInCatalog ? (
@@ -52,8 +52,8 @@ class CatalogListContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { chatStore, userStore } = state;
-  return { chatStore, userStore };
+  const { chatStore, auth } = state;
+  return { chatStore, auth };
 };
 
 const mapDispatchToProps = (dispatch) => {

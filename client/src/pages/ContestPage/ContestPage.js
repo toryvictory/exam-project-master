@@ -63,7 +63,7 @@ class ContestPage extends React.Component {
 
   needButtons = (offerStatus) => {
     const contestCreatorId = this.props.contestByIdStore.contestData.User.id;
-    const userId = this.props.userStore.data.id;
+    const userId = this.props.auth.user.id;
     const contestStatus = this.props.contestByIdStore.contestData.status;
     return (
       contestCreatorId === userId &&
@@ -88,7 +88,7 @@ class ContestPage extends React.Component {
 
   findConversationInfo = (interlocutorId) => {
     const { messagesPreview } = this.props.chatStore;
-    const { id } = this.props.userStore.data;
+    const { id } = this.props.auth.user;
     const participants = [id, interlocutorId];
     participants.sort(
       (participant1, participant2) => participant1 - participant2
@@ -115,7 +115,7 @@ class ContestPage extends React.Component {
   };
 
   render() {
-    const { role } = this.props.userStore.data;
+    const { role } = this.props.auth.user;
     const {
       contestByIdStore,
       changeShowImage,
@@ -213,8 +213,8 @@ class ContestPage extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { contestByIdStore, userStore, chatStore } = state;
-  return { contestByIdStore, userStore, chatStore };
+  const { contestByIdStore, auth, chatStore } = state;
+  return { contestByIdStore, auth, chatStore };
 };
 
 const mapDispatchToProps = (dispatch) => {

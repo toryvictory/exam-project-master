@@ -23,6 +23,7 @@ const DialogBox = (props) => {
     text,
     createAt,
   } = chatPreview;
+  const { avatar } = interlocutor;
   const isFavorite = favoriteList[participants.indexOf(userId)];
   const isBlocked = blackList[participants.indexOf(userId)];
   return (
@@ -41,12 +42,10 @@ const DialogBox = (props) => {
       }
     >
       <img
-        src={
-          interlocutor.avatar === "anon.png"
-            ? CONSTANTS.ANONYM_IMAGE_PATH
-            : `${CONSTANTS.publicURL}${interlocutor.avatar}`
-        }
-        alt="user"
+          src={
+              avatar ? `${CONSTANTS.publicURL}${avatar}` : CONSTANTS.ANONYM_IMAGE_PATH
+          }
+          alt="user"
       />
       <div className={styles.infoContainer}>
         <div className={styles.interlocutorInfo}>
@@ -68,8 +67,8 @@ const DialogBox = (props) => {
               )
             }
             className={classNames({
-              ["far fa-heart"]: !isFavorite,
-              ["fas fa-heart"]: isFavorite,
+              "far fa-heart": !isFavorite,
+              "fas fa-heart": isFavorite,
             })}
           />
           <i
@@ -83,16 +82,16 @@ const DialogBox = (props) => {
               )
             }
             className={classNames({
-              ["fas fa-user-lock"]: !isBlocked,
-              ["fas fa-unlock"]: isBlocked,
+              "fas fa-user-lock": !isBlocked,
+              "fas fa-unlock": isBlocked,
             })}
           />
           <i
             onClick={(event) => catalogOperation(event, _id)}
             className={classNames({
-              ["far fa-plus-square"]:
+              "far fa-plus-square":
                 chatMode !== CONSTANTS.CATALOG_PREVIEW_CHAT_MODE,
-              ["fas fa-minus-circle"]:
+              "fas fa-minus-circle":
                 chatMode === CONSTANTS.CATALOG_PREVIEW_CHAT_MODE,
             })}
           />
