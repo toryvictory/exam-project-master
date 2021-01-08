@@ -1,0 +1,6 @@
+# server/public/images is the folder for image uploads which needs to be empty in the git repository
+
+#ignore all files in the folder
+*
+#do not ignore gitignore
+!.gitignore
