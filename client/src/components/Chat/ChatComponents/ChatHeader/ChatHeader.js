@@ -46,12 +46,10 @@ const ChatHeader = (props) => {
       <div className={styles.infoContainer}>
         <div>
           <img
-            src={
-              avatar === "anon.png"
-                ? CONSTANTS.ANONYM_IMAGE_PATH
-                : `${CONSTANTS.publicURL}${avatar}`
-            }
-            alt="user"
+              src={
+                avatar ? `${CONSTANTS.publicURL}${avatar}` : CONSTANTS.ANONYM_IMAGE_PATH
+              }
+              alt="user"
           />
           <span>{firstName}</span>
         </div>
@@ -68,8 +66,8 @@ const ChatHeader = (props) => {
                 )
               }
               className={classNames({
-                ["far fa-heart"]: !isFavorite(chatData, userId),
-                ["fas fa-heart"]: isFavorite(chatData, userId),
+                "far fa-heart": !isFavorite(chatData, userId),
+                "fas fa-heart": isFavorite(chatData, userId),
               })}
             />
             <i
@@ -83,8 +81,8 @@ const ChatHeader = (props) => {
                 )
               }
               className={classNames({
-                ["fas fa-user-lock"]: !isBlocked(chatData, userId),
-                ["fas fa-unlock"]: isBlocked(chatData, userId),
+                "fas fa-user-lock": !isBlocked(chatData, userId),
+                "fas fa-unlock": isBlocked(chatData, userId),
               })}
             />
           </div>
