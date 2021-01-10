@@ -20,11 +20,11 @@ const OfferForm = (props) => {
         <Field
           name="offerData"
           component={ImageUpload}
-          classes={{
+          classes={({
             uploadContainer: styles.imageUploadContainer,
             inputContainer: styles.uploadInputContainer,
             imgStyle: styles.imgStyle,
-          }}
+          })}
         />
       );
     } else {
@@ -45,7 +45,7 @@ const OfferForm = (props) => {
     }
   };
 
-  const setOffer = (values) => {
+  const setOffer = async (values) => {
     props.clearOfferError();
     const data = new FormData();
     const { contestId, contestType, customerId, reset } = props;
@@ -53,7 +53,7 @@ const OfferForm = (props) => {
     data.append("contestType", contestType);
     data.append("offerData", values.offerData);
     data.append("customerId", customerId);
-    props.setNewOffer(data);
+    await props.setNewOffer(data);
     reset();
   };
 

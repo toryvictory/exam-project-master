@@ -78,8 +78,8 @@ const ChangeUserInfoForm = (props) => {
                     />
 
                    <ImageUpload
-                        onChange = {(file) => {
-                            formProps.setFieldValue("file", file)}}
+                        input = {({onChange: (file) => {
+                            formProps.setFieldValue("file", file)}})}
                         classes={{
                             uploadContainer: styles.imageUploadContainer,
                             inputContainer: styles.uploadInputContainer,
