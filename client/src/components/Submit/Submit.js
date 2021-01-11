@@ -1,8 +1,10 @@
-import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
 
 const ModalSubmit = (props) => {
-  const { closeModal, denied, submit, show } = props;
+  const {
+    closeModal, denied, submit, show,
+  } = props;
   return (
     <Modal show={show} onHide={closeModal}>
       <Modal.Header closeButton onClick={closeModal}>

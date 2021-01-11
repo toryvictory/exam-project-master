@@ -1,8 +1,10 @@
 import React from 'react';
-import styles from './OfferBox.module.sass';
-import CONSTANTS from '../../constants';
 import { connect } from 'react-redux';
 import Rating from 'react-rating';
+import { withRouter } from 'react-router-dom';
+import { isEqual } from 'lodash';
+import classNames from 'classnames';
+import { confirmAlert } from 'react-confirm-alert';
 import {
   changeMark,
   clearChangeMarkError,
@@ -10,19 +12,17 @@ import {
   changeShowImage,
   changeModalShow,
 } from '../../actions/actionCreator';
-import { withRouter } from 'react-router-dom';
-import { isEqual } from 'lodash';
-import classNames from 'classnames';
-import { confirmAlert } from 'react-confirm-alert';
+import CONSTANTS from '../../constants';
+import styles from './OfferBox.module.sass';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './confirmStyle.css';
 
-const OfferBox = props => {
+const OfferBox = (props) => {
   const findConversationInfo = () => {
     const { messagesPreview, id } = props;
     const participants = [id, props.data.User.id];
     participants.sort(
-      (participant1, participant2) => participant1 - participant2
+      (participant1, participant2) => participant1 - participant2,
     );
     for (let i = 0; i < messagesPreview.length; i++) {
       if (isEqual(participants, messagesPreview[i].participants)) {
@@ -44,8 +44,7 @@ const OfferBox = props => {
       buttons: [
         {
           label: 'Yes',
-          onClick: () =>
-            props.setOfferStatus(props.data.User.id, props.data.id, 'resolve'),
+          onClick: () => props.setOfferStatus(props.data.User.id, props.data.id, 'resolve'),
         },
         {
           label: 'No',
@@ -61,8 +60,7 @@ const OfferBox = props => {
       buttons: [
         {
           label: 'Yes',
-          onClick: () =>
-            props.setOfferStatus(props.data.User.id, props.data.id, 'reject'),
+          onClick: () => props.setOfferStatus(props.data.User.id, props.data.id, 'reject'),
         },
         {
           label: 'No',
@@ -71,7 +69,7 @@ const OfferBox = props => {
     });
   };
 
-  const changeMark = value => {
+  const changeMark = (value) => {
     props.clearError();
     props.changeMark({
       mark: value,
@@ -89,7 +87,7 @@ const OfferBox = props => {
           className={classNames('fas fa-times-circle reject', styles.reject)}
         />
       );
-    } else if (status === CONSTANTS.OFFER_STATUS_WON) {
+    } if (status === CONSTANTS.OFFER_STATUS_WON) {
       return (
         <i
           className={classNames('fas fa-check-circle resolve', styles.resolve)}
@@ -106,8 +104,12 @@ const OfferBox = props => {
     });
   };
 
-  const { data, role, id, contestType } = props;
-  const { avatar, firstName, lastName, email, rating } = props.data.User;
+  const {
+    data, role, id, contestType,
+  } = props;
+  const {
+    avatar, firstName, lastName, email, rating,
+  } = props.data.User;
   return (
     <div className={styles.offerContainer}>
       {offerStatus()}
@@ -115,13 +117,13 @@ const OfferBox = props => {
         <div className={styles.userInfo}>
           <div className={styles.creativeInfoContainer}>
             <img
-                src={
+              src={
                   avatar ? `${CONSTANTS.publicURL}${avatar}` : CONSTANTS.ANONYM_IMAGE_PATH
                 }
-                alt="user"
+              alt="user"
             />
             <div className={styles.nameAndEmail}>
-              <span>{firstName + ' ' + lastName}</span>
+              <span>{`${firstName} ${lastName}`}</span>
               <span>{email}</span>
             </div>
           </div>
@@ -130,37 +132,35 @@ const OfferBox = props => {
             <Rating
               initialRating={rating}
               fractions={2}
-              fullSymbol={
+              fullSymbol={(
                 <img
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}star.png`}
                   alt="star"
                 />
-              }
-              placeholderSymbol={
+              )}
+              placeholderSymbol={(
                 <img
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}star.png`}
                   alt="star"
                 />
-              }
-              emptySymbol={
+              )}
+              emptySymbol={(
                 <img
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}star-outline.png`}
                   alt="star-outline"
                 />
-              }
-              readonly={true}
+              )}
+              readonly
             />
           </div>
         </div>
         <div className={styles.responseConainer}>
           {contestType === CONSTANTS.LOGO_CONTEST ? (
             <img
-              onClick={() =>
-                props.changeShowImage({
-                  imagePath: data.fileName,
-                  isShowOnFull: true,
-                })
-              }
+              onClick={() => props.changeShowImage({
+                imagePath: data.fileName,
+                isShowOnFull: true,
+              })}
               className={styles.responseLogo}
               src={`${CONSTANTS.publicURL}${data.fileName}`}
               alt="logo"
@@ -171,24 +171,24 @@ const OfferBox = props => {
           {data.User.id !== id && (
             <Rating
               fractions={2}
-              fullSymbol={
+              fullSymbol={(
                 <img
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}star.png`}
                   alt="star"
                 />
-              }
-              placeholderSymbol={
+              )}
+              placeholderSymbol={(
                 <img
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}star.png`}
                   alt="star"
                 />
-              }
-              emptySymbol={
+              )}
+              emptySymbol={(
                 <img
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}star-outline.png`}
                   alt="star"
                 />
-              }
+              )}
               onClick={changeMark}
               placeholderRating={data.mark}
             />
@@ -212,22 +212,22 @@ const OfferBox = props => {
   );
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    changeMark: data => dispatch(changeMark(data)),
-    clearError: () => dispatch(clearChangeMarkError()),
-    goToExpandedDialog: data => dispatch(goToExpandedDialog(data)),
-    changeShowImage: data => dispatch(changeShowImage(data)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  changeMark: (data) => dispatch(changeMark(data)),
+  clearError: () => dispatch(clearChangeMarkError()),
+  goToExpandedDialog: (data) => dispatch(goToExpandedDialog(data)),
+  changeShowImage: (data) => dispatch(changeShowImage(data)),
+});
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { changeMarkError, isShowModal } = state.contestByIdStore;
   const { id, role } = state.auth.user;
   const { messagesPreview } = state.chatStore;
-  return { changeMarkError, id, role, messagesPreview, isShowModal };
+  return {
+    changeMarkError, id, role, messagesPreview, isShowModal,
+  };
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(OfferBox)
+  connect(mapStateToProps, mapDispatchToProps)(OfferBox),
 );

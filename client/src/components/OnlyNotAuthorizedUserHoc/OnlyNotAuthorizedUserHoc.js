@@ -1,19 +1,15 @@
 import React from 'react';
-import { onlyForNotAuthorize } from '../../actions/actionCreator';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { onlyForNotAuthorize } from '../../actions/actionCreator';
 import Spinner from '../Spinner/Spinner';
 
-const OnlyNotAuthorizedUserHoc = Component => {
-  const mapStateToProps = state => {
-    return state.auth;
-  };
+const OnlyNotAuthorizedUserHoc = (Component) => {
+  const mapStateToProps = (state) => state.auth;
 
-  const mapDispatchToProps = dispatch => {
-    return {
-      checkAuth: data => dispatch(onlyForNotAuthorize(data)),
-    };
-  };
+  const mapDispatchToProps = (dispatch) => ({
+    checkAuth: (data) => dispatch(onlyForNotAuthorize(data)),
+  });
 
   class HocForLoginSignUp extends React.Component {
     componentDidMount() {
@@ -23,7 +19,7 @@ const OnlyNotAuthorizedUserHoc = Component => {
     render() {
       if (this.props.isFetching) {
         return <Spinner />;
-      } else if (!this.props.data) {
+      } if (!this.props.data) {
         return <Component history={this.props.history} />;
       }
       return null;

@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./ProgressBar.module.sass";
+import React from 'react';
+import styles from './ProgressBar.module.sass';
 
 const ProgressBar = (props) => {
   const renderProgress = () => {
@@ -11,10 +11,10 @@ const ProgressBar = (props) => {
   };
 
   const renderBar = (count) => {
-    const currentStep = props.currentStep;
+    const { currentStep } = props;
     let classOuter = styles.outerNotActive;
     let classInner = styles.innerNotActive;
-    let classProgress = "";
+    let classProgress = '';
     if (count === currentStep) {
       classOuter = styles.outerActive;
       classInner = styles.innerActive;
@@ -28,9 +28,9 @@ const ProgressBar = (props) => {
       <div className={classProgress} key={count}>
         <div className={styles.progressBarContainer}>
           <div className={classOuter}>
-            <div className={classInner}></div>
+            <div className={classInner} />
           </div>
-          {count !== 3 && <div className={styles.lineBar}></div>}
+          {count !== 3 && <div className={styles.lineBar} />}
         </div>
       </div>
     );

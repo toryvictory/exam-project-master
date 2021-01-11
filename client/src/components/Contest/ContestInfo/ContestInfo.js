@@ -5,8 +5,10 @@ import LogoContestSpecialInfo from './LogoContestSpecialInfo';
 import NameContestSpecialInfo from './NameContestSpecialInfo';
 import TaglineContestSpecialInfo from './TaglineContestSpecialInfo';
 
-const ContestInfo = props => {
-  const { changeEditContest, userId, contestData, role, goChat } = props;
+const ContestInfo = (props) => {
+  const {
+    changeEditContest, userId, contestData, role, goChat,
+  } = props;
   const {
     typeOfTagline,
     brandStyle,
@@ -70,7 +72,8 @@ const ContestInfo = props => {
         </div>
         <div className={styles.dataContainer}>
           <span className={styles.label}>
-            Description target customers of company{' '}
+            Description target customers of company
+            {' '}
           </span>
           <span className={styles.data}>{targetCustomer}</span>
         </div>

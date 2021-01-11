@@ -1,23 +1,22 @@
-import React from "react";
-import styles from "./Error.module.sass";
+import React from 'react';
+import styles from './Error.module.sass';
 
 const Error = (props) => {
   const { status, data, clearError } = props;
   const getMessage = () => {
-
     switch (status) {
       case 404:
         return data;
       case 400:
-        return "Check the input data";
+        return 'Check the input data';
       case 409:
         return data;
       case 403:
-        return "Bank decline transaction";
+        return 'Bank decline transaction';
       case 406:
         return data;
       default:
-        return "Server Error";
+        return 'Server Error';
     }
   };
 

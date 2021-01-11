@@ -1,20 +1,22 @@
-import {REFRESH_TOKEN_KEY} from '../../constants';
+import { REFRESH_TOKEN_KEY } from '../../constants';
 
 class AuthApi {
     #_client;
-    #_token;
-    constructor({client}) {
-        this.#_client = client;
-        this.#_token = null;
-        this.url = '/auth';
 
-        this.#_client.interceptors.response.use(
-            this.interceptResponse
-        );
+    #_token;
+
+    constructor({ client }) {
+      this.#_client = client;
+      this.#_token = null;
+      this.url = '/auth';
+
+      this.#_client.interceptors.response.use(
+        this.interceptResponse,
+      );
     }
 
     get token() {
-        return this.#_token;
+      return this.#_token;
     }
 
     /**
@@ -24,9 +26,7 @@ class AuthApi {
      * @param {string} data.password
      * @returns {Promise}
      */
-    login = data => {
-        return this.#_client.post(`${this.url}/login`, data);
-    };
+    login = (data) => this.#_client.post(`${this.url}/login`, data);
 
     /**
      *
@@ -40,9 +40,7 @@ class AuthApi {
      * @param {string} data.role
      * @returns {Promise}
      */
-    signUp = data => {
-        return this.#_client.post(`${this.url}/signup`, data);
-    };
+    signUp = (data) => this.#_client.post(`${this.url}/signup`, data);
 
     /**
      *
@@ -50,64 +48,62 @@ class AuthApi {
      * @param {string} data.refreshToken
      * @returns {Promise}
      */
-    refresh = data => {
-        return this.#_client.post(`${this.url}/refresh`, data);
-    };
+    refresh = (data) => this.#_client.post(`${this.url}/refresh`, data);
 
     logout = () => {
-        this.#_token = null;
-        localStorage.removeItem(REFRESH_TOKEN_KEY);
+      this.#_token = null;
+      localStorage.removeItem(REFRESH_TOKEN_KEY);
     };
 
-    interceptRequest = config => {
-        if (this.token) {
-            config.headers['Authorization'] = `Bearer ${this.token}`;
-        }
-        return config;
+    interceptRequest = (config) => {
+      if (this.token) {
+        config.headers.Authorization = `Bearer ${this.token}`;
+      }
+      return config;
     };
 
-    interceptResponse = response => {
+    interceptResponse = (response) => {
+      const {
+        config: { url, baseURL },
+        data,
+      } = response;
+
+      if (url.replace(baseURL, '').indexOf(this.url) === 0) {
         const {
-            config: {url, baseURL},
-            data,
-        } = response;
-
-        if (url.replace(baseURL, "").indexOf(this.url) === 0) {
-            const {
-                data: {
-                    tokenPair: {accessToken, refreshToken},
-                },
-            } = data;
-            this.#_token = accessToken;
-            localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
-        }
-        return response;
+          data: {
+            tokenPair: { accessToken, refreshToken },
+          },
+        } = data;
+        this.#_token = accessToken;
+        localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+      }
+      return response;
     };
 
-    interceptResponseError = async error => {
-        const {response, config} = error;
-        const {url, baseURL} = config;
-        const {status} = response;
+    interceptResponseError = async (error) => {
+      const { response, config } = error;
+      const { url, baseURL } = config;
+      const { status } = response;
 
-        if (status !== 401) {
-            throw error;
-        }
+      if (status !== 401) {
+        throw error;
+      }
 
-        if (
-            status === 401 &&
-            (url.replace(baseURL, "")) !== `${this.url}/refresh` &&
-            localStorage.getItem(REFRESH_TOKEN_KEY)
-        ) {
-            try {
-                await this.refresh({
-                    refreshToken: localStorage.getItem(REFRESH_TOKEN_KEY),
-                });
-                return this.#_client(config);
-            } catch {
-                this.logout();
-                throw error;
-            }
+      if (
+        status === 401
+            && (url.replace(baseURL, '')) !== `${this.url}/refresh`
+            && localStorage.getItem(REFRESH_TOKEN_KEY)
+      ) {
+        try {
+          await this.refresh({
+            refreshToken: localStorage.getItem(REFRESH_TOKEN_KEY),
+          });
+          return this.#_client(config);
+        } catch {
+          this.logout();
+          throw error;
         }
+      }
     };
 }
 

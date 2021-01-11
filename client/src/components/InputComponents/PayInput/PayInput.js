@@ -1,6 +1,6 @@
-import React from "react";
-import classNames from "classnames";
-import InputMask from "react-input-mask";
+import React from 'react';
+import classNames from 'classnames';
+import InputMask from 'react-input-mask';
 
 const PayInput = (props) => {
   const {
@@ -14,7 +14,7 @@ const PayInput = (props) => {
     isInputMask,
     mask,
   } = props;
-  if (name === "sum") {
+  if (name === 'sum') {
     return (
       <div className={classes.container}>
         <input
@@ -25,10 +25,15 @@ const PayInput = (props) => {
             [classes.notValid]: touched && error,
           })}
         />
-        {touched && error && <span className={classes.error}>{error}!</span>}
+        {touched && error && (
+        <span className={classes.error}>
+          {error}
+          !
+        </span>
+        )}
       </div>
     );
-  } else if (isInputMask) {
+  } if (isInputMask) {
     return (
       <div className={classes.container}>
         <InputMask
@@ -42,25 +47,34 @@ const PayInput = (props) => {
           })}
           onFocus={() => changeFocus(name)}
         />
-        {touched && error && <span className={classes.error}>{error}!</span>}
-      </div>
-    );
-  } else {
-    return (
-      <div className={classes.container}>
-        <input
-          {...input}
-          placeholder={label}
-          type={type}
-          className={classNames(classes.input, {
-            [classes.notValid]: touched && error,
-          })}
-          onFocus={() => changeFocus(name)}
-        />
-        {touched && error && <span className={classes.error}>{error}!</span>}
+        {touched && error && (
+        <span className={classes.error}>
+          {error}
+          !
+        </span>
+        )}
       </div>
     );
   }
+  return (
+    <div className={classes.container}>
+      <input
+        {...input}
+        placeholder={label}
+        type={type}
+        className={classNames(classes.input, {
+          [classes.notValid]: touched && error,
+        })}
+        onFocus={() => changeFocus(name)}
+      />
+      {touched && error && (
+        <span className={classes.error}>
+          {error}
+          !
+        </span>
+      )}
+    </div>
+  );
 };
 
 export default PayInput;

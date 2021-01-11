@@ -1,19 +1,19 @@
-import React from "react";
-import { connect } from "react-redux";
-import styles from "./ContestSideBar.module.sass";
-import { withRouter } from "react-router-dom";
-import CONSTANTS from "../../constants";
-import moment from "moment";
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import moment from 'moment';
+import styles from './ContestSideBar.module.sass';
+import CONSTANTS from '../../constants';
 
 const ContestSideBar = (props) => {
   const getTimeStr = () => {
     const diff = moment.duration(
-      moment().diff(moment(props.contestData.createdAt))
+      moment().diff(moment(props.contestData.createdAt)),
     );
-    let str = "";
+    let str = '';
     if (diff._data.days !== 0) str = `${diff._data.days} days `;
     if (diff._data.hours !== 0) str += `${diff._data.hours} hours`;
-    if (str.length === 0) str = "less than one hour";
+    if (str.length === 0) str = 'less than one hour';
     return str;
   };
 
@@ -67,14 +67,14 @@ const ContestSideBar = (props) => {
             <div className={styles.customerInfo}>
               <img
                 src={
-                  User.avatar === "anon.png"
+                  User.avatar === 'anon.png'
                     ? CONSTANTS.ANONYM_IMAGE_PATH
                     : `${CONSTANTS.publicURL}${User.avatar}`
                 }
                 alt="user"
               />
               <div className={styles.customerNameContainer}>
-                <span>{User.firstName + " " + User.lastName}</span>
+                <span>{`${User.firstName} ${User.lastName}`}</span>
                 <span>{User.displayName}</span>
               </div>
             </div>
@@ -87,8 +87,6 @@ const ContestSideBar = (props) => {
   return renderContestInfo();
 };
 
-const mapStateToProps = (state) => {
-  return state.auth;
-};
+const mapStateToProps = (state) => state.auth;
 
 export default connect(mapStateToProps, null)(ContestSideBar);

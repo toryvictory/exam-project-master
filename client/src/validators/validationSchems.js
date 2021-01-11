@@ -1,64 +1,64 @@
-import * as yup from "yup";
-import valid from "card-validator";
+import * as yup from 'yup';
+import valid from 'card-validator';
 
 export default {
   LoginSchem: yup.object().shape({
-    email: yup.string().email("check email").required("required"),
+    email: yup.string().email('check email').required('required'),
     password: yup
       .string()
       .test(
-        "test-password",
-        "min 6 symbols",
-        (value) => value && value.trim().length >= 6
+        'test-password',
+        'min 6 symbols',
+        (value) => value && value.trim().length >= 6,
       )
-      .required("required"),
+      .required('required'),
   }),
   RegistrationSchem: yup.object().shape({
-    email: yup.string().email("check email").required("Email is required"),
+    email: yup.string().email('check email').required('Email is required'),
     password: yup
       .string()
       .test(
-        "test-password",
-        "min 6 symbols",
-        (value) => value && value.trim().length >= 6
+        'test-password',
+        'min 6 symbols',
+        (value) => value && value.trim().length >= 6,
       )
-      .required("required"),
+      .required('required'),
     confirmPassword: yup
       .string()
-      .required("confirm password is required")
-      .oneOf([yup.ref("password")], "confirmation pass must match password"),
+      .required('confirm password is required')
+      .oneOf([yup.ref('password')], 'confirmation pass must match password'),
     firstName: yup
       .string()
       .test(
-        "test-firstName",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-firstName',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("First Name is required"),
+      .required('First Name is required'),
     lastName: yup
       .string()
       .test(
-        "test-lastName",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-lastName',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("Last Name is required"),
+      .required('Last Name is required'),
     displayName: yup
       .string()
       .test(
-        "test-displayName",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-displayName',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("Display Name is required"),
+      .required('Display Name is required'),
     role: yup
       .string()
       .matches(/(customer|creator)/)
-      .required("Role is required"),
+      .required('Role is required'),
     agreeOfTerms: yup
       .boolean()
-      .oneOf([true], "Must Accept Terms and Conditions")
-      .required("Must Accept Terms and Conditions"),
+      .oneOf([true], 'Must Accept Terms and Conditions')
+      .required('Must Accept Terms and Conditions'),
   }),
   ContestSchem: yup.object().shape({
     contestType: yup
@@ -69,29 +69,29 @@ export default {
     title: yup
       .string()
       .test(
-        "test-title",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-title',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("title of contest required"),
+      .required('title of contest required'),
     typeOfName: yup.string(),
-    industry: yup.string().required("industry required"),
+    industry: yup.string().required('industry required'),
     focusOfWork: yup
       .string()
       .test(
-        "test-focusOfWork",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-focusOfWork',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("focus of work required"),
+      .required('focus of work required'),
     targetCustomer: yup
       .string()
       .test(
-        "test-targetCustomer",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-targetCustomer',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("target customers required"),
+      .required('target customers required'),
     styleName: yup.string(),
     nameVenture: yup.string(),
     typeOfTagline: yup.string(),
@@ -104,93 +104,93 @@ export default {
     industry: yup.string(),
   }),
   LogoOfferSchema: yup.object().shape({
-    offerData: yup.mixed().required("required"),
+    offerData: yup.mixed().required('required'),
   }),
   TextOfferSchema: yup.object().shape({
     offerData: yup
       .string()
       .test(
-        "test-offerData",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-offerData',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("suggestion is required"),
+      .required('suggestion is required'),
   }),
   PaymentSchema: yup.object().shape({
     number: yup
       .string()
       .test(
-        "test-cardNumber",
-        "Credit Card number is invalid",
-        (value) => valid.number(value).isValid
+        'test-cardNumber',
+        'Credit Card number is invalid',
+        (value) => valid.number(value).isValid,
       )
-      .required("required"),
+      .required('required'),
     name: yup
       .string()
-      .min(1, "required atleast one symbol")
-      .required("required"),
+      .min(1, 'required atleast one symbol')
+      .required('required'),
     cvc: yup
       .string()
-      .test("test-cvc", "cvc is invalid", (value) => valid.cvv(value).isValid)
-      .required("required"),
+      .test('test-cvc', 'cvc is invalid', (value) => valid.cvv(value).isValid)
+      .required('required'),
     expiry: yup
       .string()
       .test(
-        "test-expiry",
-        "expiry is invalid",
-        (value) => valid.expirationDate(value).isValid
+        'test-expiry',
+        'expiry is invalid',
+        (value) => valid.expirationDate(value).isValid,
       )
-      .required("required"),
+      .required('required'),
   }),
   CashoutSchema: yup.object().shape({
-    sum: yup.number().min(5, "min sum is 5$").required("required"),
+    sum: yup.number().min(5, 'min sum is 5$').required('required'),
     number: yup
       .string()
       .test(
-        "test-cardNumber",
-        "Credit Card number is invalid",
-        (value) => valid.number(value).isValid
+        'test-cardNumber',
+        'Credit Card number is invalid',
+        (value) => valid.number(value).isValid,
       )
-      .required("required"),
-    name: yup.string().min(1).required("required"),
+      .required('required'),
+    name: yup.string().min(1).required('required'),
     cvc: yup
       .string()
-      .test("test-cvc", "cvc is invalid", (value) => valid.cvv(value).isValid)
-      .required("required"),
+      .test('test-cvc', 'cvc is invalid', (value) => valid.cvv(value).isValid)
+      .required('required'),
     expiry: yup
       .string()
       .test(
-        "test-expiry",
-        "expiry is invalid",
-        (value) => valid.expirationDate(value).isValid
+        'test-expiry',
+        'expiry is invalid',
+        (value) => valid.expirationDate(value).isValid,
       )
-      .required("required"),
+      .required('required'),
   }),
   UpdateUserSchema: yup.object().shape({
     firstName: yup
       .string()
       .test(
-        "test-firstName",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-firstName',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("required"),
+      .required('required'),
     lastName: yup
       .string()
       .test(
-        "test-lastName",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-lastName',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("required"),
+      .required('required'),
     displayName: yup
       .string()
       .test(
-        "test-displayName",
-        "required",
-        (value) => value && value.trim().length >= 1
+        'test-displayName',
+        'required',
+        (value) => value && value.trim().length >= 1,
       )
-      .required("required"),
+      .required('required'),
     file: yup.mixed(),
   }),
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import { selectBundle } from '../../actions/actionCreator';
 import { connect } from 'react-redux';
+import { selectBundle } from '../../actions/actionCreator';
 import BundleBox from '../../components/BundleBox/BundleBox';
 import { ROLES } from '../../constants';
 import styles from './StartContestPage.module.sass';
@@ -8,12 +8,12 @@ import Footer from '../../components/Footer/Footer';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import Header from '../../components/Header/Header';
 
-const StartContestPage = props => {
+const StartContestPage = (props) => {
   if (props.auth.user.role !== ROLES.CUSTOMER) {
     props.history.replace('/');
   }
 
-  const setBundle = bundleStr => {
+  const setBundle = (bundleStr) => {
     const array = bundleStr.toLowerCase().split('+');
     const bundleList = {};
     bundleList.first = array[0];
@@ -42,7 +42,9 @@ const StartContestPage = props => {
       <div className={styles.baseBundleContainer}>
         <div className={styles.infoBaseBundles}>
           <span className={styles.headerInfo}>
-            Our Most Popular <span>Categories</span>
+            Our Most Popular
+            {' '}
+            <span>Categories</span>
           </span>
           <span className={styles.info}>
             Pick from our most popular categories, launch a contest and begin
@@ -113,15 +115,13 @@ const StartContestPage = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { bundleStore, auth } = state;
   return { bundleStore, auth };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    choseBundle: bundle => dispatch(selectBundle(bundle)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  choseBundle: (bundle) => dispatch(selectBundle(bundle)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartContestPage);

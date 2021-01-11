@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./TryAgain.module.sass";
+import React from 'react';
+import styles from './TryAgain.module.sass';
 
 const TryAgain = (props) => {
   const { getData } = props;

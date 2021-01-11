@@ -25,9 +25,9 @@ import {
   removeChatFromCatalogSaga,
   changeCatalogName,
 } from './chatSagas';
-import {updateUserData} from './userSaga';
+import { updateUserData } from './userSaga';
 import AUTH_ACTION_TYPES from '../actions/auth/authActionTypes';
-import EDIT_USER_ACTION_TYPES from "../actions/user/editUserActionTypes";
+import EDIT_USER_ACTION_TYPES from '../actions/user/editUserActionTypes';
 
 function* rootSaga() {
   // my super cool code
@@ -36,7 +36,7 @@ function* rootSaga() {
   yield takeLatest(AUTH_ACTION_TYPES.SIGNUP_REQUEST, AuthSagas.signUpSaga);
   yield takeLatest(
     AUTH_ACTION_TYPES.REFRESH_AUTH_REQUEST,
-    AuthSagas.refreshAuthSaga
+    AuthSagas.refreshAuthSaga,
   );
   yield takeLatest(AUTH_ACTION_TYPES.LOGOUT_REQUEST, AuthSagas.logoutSaga);
   yield takeLatest(EDIT_USER_ACTION_TYPES.UPDATE_USER_DATA, updateUserData);
@@ -49,7 +49,7 @@ function* rootSaga() {
   yield takeEvery(ACTION.GET_CONTESTS_FOR_CREATIVE, activeContestsSaga);
   yield takeLatest(
     ACTION.DOWNLOAD_CONTEST_FILE_ACTION,
-    downloadContestFileSaga
+    downloadContestFileSaga,
   );
   yield takeLatest(ACTION.UPDATE_CONTEST_ACTION, updateContestSaga);
   yield takeEvery(ACTION.SET_OFFER_ACTION, addOfferSaga);
@@ -66,10 +66,9 @@ function* rootSaga() {
   yield takeLatest(ACTION.DELETE_CATALOG_REQUEST, deleteCatalog);
   yield takeLatest(
     ACTION.REMOVE_CHAT_FROM_CATALOG_REQUEST,
-    removeChatFromCatalogSaga
+    removeChatFromCatalogSaga,
   );
   yield takeLatest(ACTION.CHANGE_CATALOG_NAME_REQUEST, changeCatalogName);
-
 }
 
 export default rootSaga;

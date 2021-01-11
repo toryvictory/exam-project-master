@@ -1,9 +1,9 @@
 import React from 'react';
-import Error from '../Error/Error';
 import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import Error from '../Error/Error';
 import { authActionRegister, clearAuth } from '../../actions/actionCreator';
 import styles from './RegistrationForm.module.sass';
-import { Field, reduxForm } from 'redux-form';
 import FormInput from '../FormInput/FormInput';
 import RoleInput from '../RoleInput/RoleInput';
 import AgreeTermOfServiceInput from '../AgreeTermOfServiceInput/AgreeTermOfServiceInput';
@@ -16,7 +16,7 @@ class RegistrationForm extends React.Component {
     this.props.authClear();
   }
 
-  clicked = values => {
+  clicked = (values) => {
     this.props.register({
       firstName: values.firstName,
       lastName: values.lastName,
@@ -28,7 +28,9 @@ class RegistrationForm extends React.Component {
   };
 
   render() {
-    const { handleSubmit, submitting, auth, authClear } = this.props;
+    const {
+      handleSubmit, submitting, auth, authClear,
+    } = this.props;
     const { error } = auth;
     return (
       <div className={styles.signUpFormContainer}>
@@ -167,26 +169,24 @@ class RegistrationForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.auth,
-    initialValues: {
-      role: ROLES.CUSTOMER,
-    },
-  };
-};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  initialValues: {
+    role: ROLES.CUSTOMER,
+  },
+});
 
-const mapDispatchToProps = dispatch => ({
-  register: data => dispatch(authActionRegister(data)),
+const mapDispatchToProps = (dispatch) => ({
+  register: (data) => dispatch(authActionRegister(data)),
   authClear: () => dispatch(clearAuth()),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(
   reduxForm({
     form: 'login',
     validate: customValidator(Schems.RegistrationSchem),
-  })(RegistrationForm)
+  })(RegistrationForm),
 );

@@ -14,7 +14,7 @@ import AUTH_ACTION_TYPES from './authActionTypes';
  * @param {string} values.password
  * @returns {Action}
  */
-export const loginRequest = values => ({
+export const loginRequest = (values) => ({
   type: AUTH_ACTION_TYPES.LOGIN_REQUEST,
   payload: {
     values,
@@ -26,7 +26,7 @@ export const loginRequest = values => ({
  * @param {object} values
  * @returns {Action}
  */
-export const signUpRequest = values => ({
+export const signUpRequest = (values) => ({
   type: AUTH_ACTION_TYPES.SIGNUP_REQUEST,
   payload: {
     values,
@@ -38,7 +38,7 @@ export const signUpRequest = values => ({
  * @param {object} values
  * @returns {Action}
  */
-export const refreshAuthRequest = values => ({
+export const refreshAuthRequest = (values) => ({
   type: AUTH_ACTION_TYPES.REFRESH_AUTH_REQUEST,
   payload: {
     values,
@@ -60,7 +60,7 @@ export const authRequest = () => ({
  * @param {object} data.tokenPair
  * @returns {Action}
  */
-export const authRequestSuccess = data => ({
+export const authRequestSuccess = (data) => ({
   type: AUTH_ACTION_TYPES.AUTH_REQUEST_SUCCESS,
   payload: {
     data,
@@ -72,7 +72,7 @@ export const authRequestSuccess = data => ({
  * @param {object} err
  * @returns {Action}
  */
-export const authRequestFailed = err => ({
+export const authRequestFailed = (err) => ({
   type: AUTH_ACTION_TYPES.AUTH_REQUEST_FAILED,
   payload: {
     error: err,

@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { sendMessageAction } from "../../../../actions/actionCreator";
-import { Field, reduxForm } from "redux-form";
-import styles from "./ChatInput.module.sass";
-import CONSTANTS from "../../../../constants";
-import FormInput from "../../../FormInput/FormInput";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { sendMessageAction } from '../../../../actions/actionCreator';
+import styles from './ChatInput.module.sass';
+import CONSTANTS from '../../../../constants';
+import FormInput from '../../../FormInput/FormInput';
 
 const validate = (values) => {
   const errors = {};
   if (!values.message || !values.message.trim().length) {
-    errors.message = "Cannot be empty";
+    errors.message = 'Cannot be empty';
   }
   return errors;
 };
@@ -59,18 +59,16 @@ const mapStateToProps = (state) => {
   return { interlocutor, user };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    sendMessage: (data) => dispatch(sendMessageAction(data)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  sendMessage: (data) => dispatch(sendMessageAction(data)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(
   reduxForm({
-    form: "messageForm",
+    form: 'messageForm',
     validate,
-  })(ChatInput)
+  })(ChatInput),
 );

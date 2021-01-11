@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Header from '../../components/Header/Header';
 import { Link } from 'react-router-dom';
+import Header from '../../components/Header/Header';
 import CONSTANTS from '../../constants';
 import SlideBar from '../../components/SlideBar/SlideBar';
 import Footer from '../../components/Footer/Footer';
@@ -24,11 +24,10 @@ const Home = () => {
   });
 
   const text = useMemo(
-    () =>
-      CONSTANTS.HEADER_ANIMATION_TEXT[
-        index % CONSTANTS.HEADER_ANIMATION_TEXT.length
-      ],
-    [index]
+    () => CONSTANTS.HEADER_ANIMATION_TEXT[
+      index % CONSTANTS.HEADER_ANIMATION_TEXT.length
+    ],
+    [index],
   );
   return (
     <>

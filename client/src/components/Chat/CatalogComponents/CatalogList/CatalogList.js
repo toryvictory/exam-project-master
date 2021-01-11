@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import Catalog from "../Catalog/Catalog";
-import styles from "../CatalogListContainer/CatalogListContainer.module.sass";
+import React from 'react';
+import { connect } from 'react-redux';
+import Catalog from '../Catalog/Catalog';
+import styles from '../CatalogListContainer/CatalogListContainer.module.sass';
 import {
   changeShowModeCatalog,
   deleteCatalog,
-} from "../../../../actions/actionCreator";
+} from '../../../../actions/actionCreator';
 
 const CatalogList = (props) => {
   const goToCatalog = (event, catalog) => {
@@ -28,7 +28,7 @@ const CatalogList = (props) => {
           key={catalog._id}
           deleteCatalog={deleteCatalog}
           goToCatalog={goToCatalog}
-        />
+        />,
       );
     });
     return elementList.length ? (
@@ -41,11 +41,9 @@ const CatalogList = (props) => {
   return <div className={styles.listContainer}>{getListCatalog()}</div>;
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeShowModeCatalog: (data) => dispatch(changeShowModeCatalog(data)),
-    deleteCatalog: (data) => dispatch(deleteCatalog(data)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  changeShowModeCatalog: (data) => dispatch(changeShowModeCatalog(data)),
+  deleteCatalog: (data) => dispatch(deleteCatalog(data)),
+});
 
 export default connect(null, mapDispatchToProps)(CatalogList);

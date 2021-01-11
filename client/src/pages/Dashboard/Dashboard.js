@@ -1,14 +1,13 @@
- import React from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { ROLES } from '../../constants';
 import CustomerDashboard from '../../components/CustomerDashboard/CustomerDashboard';
 import CreatorDashboard from '../../components/CreatorDashboard/CreatorDashboard';
 import Header from '../../components/Header/Header';
-import {useSelector} from 'react-redux';
-import {userSelector} from "../../selectors";
-import {useHistory} from 'react-router-dom';
+import { userSelector } from '../../selectors';
 
-
-const Dashboard = props => {
+const Dashboard = (props) => {
   const { role } = useSelector(userSelector);
   const history = useHistory();
   return (

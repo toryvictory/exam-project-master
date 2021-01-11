@@ -1,31 +1,30 @@
-import React from "react";
-import styles from "./ContestBox.module.sass";
-import moment from "moment";
-import CONSTANTS from "../../constants";
+import React from 'react';
+import moment from 'moment';
+import styles from './ContestBox.module.sass';
+import CONSTANTS from '../../constants';
 
 const ContestBox = (props) => {
   const getTimeStr = () => {
     const diff = moment.duration(moment().diff(moment(props.data.createdAt)));
-    let str = "";
+    let str = '';
     if (diff._data.days !== 0) str = `${diff._data.days}d `;
     if (diff._data.hours !== 0) str += `${diff._data.hours}h`;
-    if (str.length === 0) str = "less than one hour";
+    if (str.length === 0) str = 'less than one hour';
     return str;
   };
 
   const getPreferenceContest = () => {
-    const data = props.data;
+    const { data } = props;
     if (data.contestType === CONSTANTS.NAME_CONTEST) return data.typeOfName;
-    else if (data.contestType === CONSTANTS.LOGO_CONTEST)
-      return data.brandStyle;
-    else return data.typeOfTagline;
+    if (data.contestType === CONSTANTS.LOGO_CONTEST) return data.brandStyle;
+    return data.typeOfTagline;
   };
 
-  const ucFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
+  const ucFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-  const { id, title, contestType, prize, count, goToExtended } = props.data;
+  const {
+    id, title, contestType, prize, count, goToExtended,
+  } = props.data;
   return (
     <div
       className={styles.contestBoxContainer}
@@ -37,9 +36,11 @@ const ContestBox = (props) => {
           <span className={styles.id}>{`(#${id})`}</span>
         </div>
         <div className={styles.contestType}>
-          <span>{`${ucFirstLetter(
-            contestType
-          )} / ${getPreferenceContest()}`}</span>
+          <span>
+            {`${ucFirstLetter(
+              contestType,
+            )} / ${getPreferenceContest()}`}
+          </span>
         </div>
         <div className={styles.contestType}>
           <span>

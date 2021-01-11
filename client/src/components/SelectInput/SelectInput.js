@@ -1,5 +1,5 @@
-import React from "react";
-import { change } from "redux-form";
+import React from 'react';
+import { change } from 'redux-form';
 
 class SelectInput extends React.Component {
   getOptionsArray = () => {
@@ -28,10 +28,11 @@ class SelectInput extends React.Component {
       input,
       meta: { dispatch, form, initial },
     } = this.props;
-    if (!initial && optionsArray)
+    if (!initial && optionsArray) {
       dispatch(
-        change(form, input.name, valueArray ? valueArray[0] : optionsArray[0])
+        change(form, input.name, valueArray ? valueArray[0] : optionsArray[0]),
       );
+    }
   }
 
   render() {

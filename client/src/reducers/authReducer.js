@@ -1,6 +1,6 @@
 import produce from 'immer';
 import AUTH_ACTION_TYPES from '../actions/auth/authActionTypes';
-import EDIT_USER_ACTION_TYPES from "../actions/user/editUserActionTypes";
+import EDIT_USER_ACTION_TYPES from '../actions/user/editUserActionTypes';
 import createReducer from './helpers/createReducer';
 
 const initialState = {
@@ -11,7 +11,7 @@ const initialState = {
 
 const handlers = {
 
-  [AUTH_ACTION_TYPES.AUTH_REQUEST]: produce(draftState => {
+  [AUTH_ACTION_TYPES.AUTH_REQUEST]: produce((draftState) => {
     draftState.isFetching = true;
   }),
 
@@ -37,7 +37,7 @@ const handlers = {
     ...initialState,
   }),
 
-  [EDIT_USER_ACTION_TYPES.UPDATE_USER_DATA_REQUEST]: produce(draftState => {
+  [EDIT_USER_ACTION_TYPES.UPDATE_USER_DATA_REQUEST]: produce((draftState) => {
     draftState.isFetching = true;
   }),
 
@@ -53,7 +53,7 @@ const handlers = {
 
   [EDIT_USER_ACTION_TYPES.UPDATE_USER_DATA_ERROR]: produce((draftState, action) => {
     const {
-       error,
+      error,
     } = action;
     draftState.isFetching = false;
     draftState.error = error;

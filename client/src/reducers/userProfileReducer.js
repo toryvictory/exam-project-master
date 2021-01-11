@@ -1,6 +1,6 @@
-import ACTION from "../actions/actionTypes";
-import USER_PROFILE_ACTION_TYPES from "../actions/userProfile/userProfileActionTypes";
-import CONSTANTS from "../constants";
+import ACTION from '../actions/actionTypes';
+import USER_PROFILE_ACTION_TYPES from '../actions/userProfile/userProfileActionTypes';
+import CONSTANTS from '../constants';
 
 const initialState = {
   profileModeView: CONSTANTS.USER_INFO_MODE,

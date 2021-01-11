@@ -1,18 +1,18 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
 import {
   changeShowModeCatalog,
   changeRenameCatalogMode,
   changeCatalogName,
-} from "../../../../actions/actionCreator";
-import { Field, reduxForm } from "redux-form";
-import styles from "./CatalogHeader.module.sass";
-import FormInput from "../../../FormInput/FormInput";
+} from '../../../../actions/actionCreator';
+import styles from './CatalogHeader.module.sass';
+import FormInput from '../../../FormInput/FormInput';
 
 const validate = (values) => {
   const errors = {};
   if (!values.catalogName || !values.catalogName.trim().length) {
-    errors.catalogName = "Cannot be empty";
+    errors.catalogName = 'Cannot be empty';
   }
   return errors;
 };
@@ -76,25 +76,23 @@ const mapStateToProps = (state) => {
     catalogName,
     isRenameCatalog,
     initialValues: {
-      catalogName: catalogName,
+      catalogName,
     },
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeShowModeCatalog: () => dispatch(changeShowModeCatalog()),
-    changeRenameCatalogMode: () => dispatch(changeRenameCatalogMode()),
-    changeCatalogName: (data) => dispatch(changeCatalogName(data)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  changeShowModeCatalog: () => dispatch(changeShowModeCatalog()),
+  changeRenameCatalogMode: () => dispatch(changeRenameCatalogMode()),
+  changeCatalogName: (data) => dispatch(changeCatalogName(data)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(
   reduxForm({
-    form: "catalogRename",
+    form: 'catalogRename',
     validate,
-  })(CatalogListHeader)
+  })(CatalogListHeader),
 );

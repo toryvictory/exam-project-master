@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 const FieldFileInput = (props) => {
   const getFileName = () => {
     if (props.input.value) return props.input.value.name;
-    else return "";
+    return '';
   };
 
   const onChange = (e) => {

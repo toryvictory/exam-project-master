@@ -1,9 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
-import SelectInput from "../../../SelectInput/SelectInput";
-import { addChatToCatalog } from "../../../../actions/actionCreator";
-import styles from "./AddToCatalog.module.sass";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import SelectInput from '../../../SelectInput/SelectInput';
+import { addChatToCatalog } from '../../../../actions/actionCreator';
+import styles from './AddToCatalog.module.sass';
 
 const AddToCatalog = (props) => {
   const getCatalogsNames = () => {
@@ -58,21 +58,17 @@ const AddToCatalog = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return state.chatStore;
-};
+const mapStateToProps = (state) => state.chatStore;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addChatToCatalog: (data) => dispatch(addChatToCatalog(data)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  addChatToCatalog: (data) => dispatch(addChatToCatalog(data)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(
   reduxForm({
-    form: "addChatToCatalog",
-  })(AddToCatalog)
+    form: 'addChatToCatalog',
+  })(AddToCatalog),
 );

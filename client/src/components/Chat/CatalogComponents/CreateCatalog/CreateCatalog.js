@@ -1,14 +1,14 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
-import FormInput from "../../../FormInput/FormInput";
-import styles from "./CreateCatalog.module.sass";
-import { createCatalog } from "../../../../actions/actionCreator";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import FormInput from '../../../FormInput/FormInput';
+import styles from './CreateCatalog.module.sass';
+import { createCatalog } from '../../../../actions/actionCreator';
 
 const validate = (values) => {
   const errors = {};
   if (!values.catalogName || !values.catalogName.trim().length) {
-    errors.catalogName = "Cannot be empty";
+    errors.catalogName = 'Cannot be empty';
   }
   return errors;
 };
@@ -39,22 +39,18 @@ const CreateCatalog = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createCatalog: (data) => dispatch(createCatalog(data)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  createCatalog: (data) => dispatch(createCatalog(data)),
+});
 
-const mapStateToProps = (state) => {
-  return state.chatStore;
-};
+const mapStateToProps = (state) => state.chatStore;
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(
   reduxForm({
-    form: "createCatalog",
+    form: 'createCatalog',
     validate,
-  })(CreateCatalog)
+  })(CreateCatalog),
 );

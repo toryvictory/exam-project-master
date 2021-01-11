@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import CONSTANTS from "../../../../constants";
+import React from 'react';
+import { connect } from 'react-redux';
+import classNames from 'classnames';
+import CONSTANTS from '../../../../constants';
 import {
   changeTypeOfChatAdding,
   changeShowAddChatToCatalogMenu,
   getCatalogList,
-} from "../../../../actions/actionCreator";
-import styles from "./CatalogCreation.module.sass";
-import AddToCatalog from "../AddToCatalog/AddToCatalog";
-import classNames from "classnames";
-import CreateCatalog from "../CreateCatalog/CreateCatalog";
+} from '../../../../actions/actionCreator';
+import styles from './CatalogCreation.module.sass';
+import AddToCatalog from '../AddToCatalog/AddToCatalog';
+import CreateCatalog from '../CreateCatalog/CreateCatalog';
 
 class CatalogCreation extends React.Component {
   componentDidMount() {
@@ -46,9 +46,7 @@ class CatalogCreation extends React.Component {
                 Old
               </span>
               <span
-                onClick={() =>
-                  changeTypeOfChatAdding(CREATE_NEW_CATALOG_AND_ADD_CHAT)
-                }
+                onClick={() => changeTypeOfChatAdding(CREATE_NEW_CATALOG_AND_ADD_CHAT)}
                 className={classNames({
                   [styles.active]:
                     catalogCreationMode === CREATE_NEW_CATALOG_AND_ADD_CHAT,
@@ -71,13 +69,10 @@ class CatalogCreation extends React.Component {
 
 const mapStateToProps = (state) => state.chatStore;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeTypeOfChatAdding: (data) => dispatch(changeTypeOfChatAdding(data)),
-    changeShowAddChatToCatalogMenu: () =>
-      dispatch(changeShowAddChatToCatalogMenu()),
-    getCatalogList: () => dispatch(getCatalogList()),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  changeTypeOfChatAdding: (data) => dispatch(changeTypeOfChatAdding(data)),
+  changeShowAddChatToCatalogMenu: () => dispatch(changeShowAddChatToCatalogMenu()),
+  getCatalogList: () => dispatch(getCatalogList()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CatalogCreation);

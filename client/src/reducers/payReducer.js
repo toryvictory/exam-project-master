@@ -1,9 +1,9 @@
-import ACTION from "../actions/actionTypes";
+import ACTION from '../actions/actionTypes';
 
 const initialState = {
   isFetching: false,
   error: null,
-  focusOnElement: "number",
+  focusOnElement: 'number',
 };
 
 export default function (state = initialState, action) {
