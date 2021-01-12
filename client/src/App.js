@@ -2,6 +2,7 @@ import React, { useLayoutEffect, lazy, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
 import Payment from './pages/Payment/Payment';
 import StartContestPage from './pages/StartContestPage/StartContestPage';
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -10,7 +11,6 @@ import Home from './pages/Home/Home';
 import ContestPage from './pages/ContestPage/ContestPage';
 import UserProfile from './pages/UserProfile/UserProfile';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
 import CONSTANTS, { REFRESH_TOKEN_KEY } from './constants';
 import browserHistory from './browserHistory';
@@ -30,7 +30,7 @@ function App() {
       dispatch(
         refreshAuthRequest({
           refreshToken: localStorage.getItem(REFRESH_TOKEN_KEY),
-        })
+        }),
       );
     }
   }, []);
@@ -40,7 +40,7 @@ function App() {
       <ToastContainer
         position="top-center"
         autoClose={5000}
-        hideProgressBar={true}
+        hideProgressBar
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -52,8 +52,6 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path={['/login', '/signup']} component={AuthPage} />
-          {/*<Route exact path="/login" component={LoginPage} />
-        <Route exact path="/signup" component={RegistrationPage} />*/}
           <Route path="/howItWorks" component={HowItWorks} />
           <PrivateRoute
             roles={['customer']}
