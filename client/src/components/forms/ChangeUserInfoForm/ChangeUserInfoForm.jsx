@@ -1,26 +1,12 @@
 import React, { useCallback } from 'react';
-import { Formik, Form, useField } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
-import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import { authSelector } from '../../../selectors';
+import TextInput from '../../InputComponents/TextInput/TextInput';
 import ImageUpload from '../../InputComponents/ImageUpload/ImageUpload';
 import styles from './ChangeUserInfoForm.module.sass';
-
-const MyTextInput = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
-  return (
-    <div className={styles.container}>
-      <label className={styles.label} htmlFor={props.id || props.name}>{label}</label>
-      <div className={styles.inputContainer}>
-        <input className={classNames(styles.input, { [styles.notValid]: meta.touched && meta.error })} {...field} {...props} />
-        {meta.touched && meta.error ? (
-          <div className={styles.error}>{meta.error}</div>
-        ) : null}
-      </div>
-    </div>
-  );
-};
 
 const ChangeUserInfoForm = (props) => {
   const { user, isFetching } = useSelector(authSelector);
@@ -60,17 +46,17 @@ const ChangeUserInfoForm = (props) => {
       {(formProps) => (
         <Form className={styles.updateContainer}>
 
-          <MyTextInput
+          <TextInput
             label="First Name"
             name="firstName"
             type="text"
           />
-          <MyTextInput
+          <TextInput
             label="Last Name"
             name="lastName"
             type="text"
           />
-          <MyTextInput
+          <TextInput
             label="Display Name"
             name="displayName"
             type="text"
@@ -94,6 +80,10 @@ const ChangeUserInfoForm = (props) => {
       )}
     </Formik>
   );
+};
+
+ChangeUserInfoForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ChangeUserInfoForm;
