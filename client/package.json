@@ -25,6 +25,7 @@
     "react-confirm": "^0.1.18",
     "react-confirm-alert": "^2.4.1",
     "react-credit-cards": "^0.7.0",
+    "react-datetime": "^3.0.4",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.8.5",
     "react-flickity-component": "^3.6.0",
@@ -41,6 +42,7 @@
     "redux-saga": "^1.0.2",
     "reselect": "^4.0.0",
     "socket.io-client": "^2.2.0",
+    "uuid": "^8.3.2",
     "validator": "^10.11.0",
     "yup": "^0.27.0"
   },
