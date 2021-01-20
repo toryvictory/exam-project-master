@@ -21,6 +21,7 @@ import { refreshAuthRequest } from './actions/auth/authActionCreators';
 
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const HowItWorks = lazy(() => import('./pages/HowItWorks/HowItWorks'));
+const EventsPage = lazy(() => import('./pages/Events/EventsPage'));
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,12 @@ function App() {
             exact
             path="/payment"
             component={Payment}
+          />
+          <PrivateRoute
+            roles={['customer']}
+            exact
+            path="/events"
+            component={EventsPage}
           />
           <PrivateRoute
             roles={['customer']}

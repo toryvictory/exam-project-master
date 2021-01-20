@@ -46,6 +46,11 @@ const LoginButtons = () => {
               </Link>
             </li>
             <li>
+              <Link to="/events" style={{ textDecoration: 'none' }}>
+                <span>My Events</span>
+              </Link>
+            </li>
+            <li>
               <a
                 href="http://www.google.com"
                 target="_blank"
