@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { sub } from 'date-fns';
 import EventForm from '../../components/forms/EventForm/EventForm';
 import { addEvent } from '../../actions/events/eventsActionCreators';
 import { userSelector } from '../../selectors';
@@ -14,10 +15,16 @@ const EventsPage = () => {
   const user = useSelector(userSelector) || {};
   const { id } = user;
   const handleEventFormSubmit = (values) => {
-    const event = values;
+    const event = {};
+    event.eventName = values.eventName;
     event.userId = id;
-    event.eventDateTime = event.eventDateTime.toDate();
+    event.eventDateTime = values.eventDateTime.toDate();
     event.timerStartDate = new Date();
+    event.notificationDate = sub(event.eventDateTime, {
+      days: values.notificationDaysEarlier,
+      hours: values.notificationHoursEarlier,
+      minutes: values.notificationMinutesEarlier,
+    });
     dispatch(addEvent(event));
   };
 
