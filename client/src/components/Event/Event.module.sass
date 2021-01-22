@@ -17,7 +17,6 @@
       color: red
       -webkit-text-fill-color: red
 
-
   .name
     font-family: 'Raleway', sans-serif
     color: $bold-text-color
@@ -25,3 +24,14 @@
     position: absolute
     top: 5px
     left: 5px
+    white-space: nowrap
+    text-overflow: ellipsis
+    max-width: 1000px
+    overflow: hidden
+    @media screen and (max-width: $large-breakpoint)
+      max-width: 620px
+    @media screen and (max-width: $medium-breakpoint)
+      max-width: 450px
+    @media screen and (max-width: $small-breakpoint)
+      max-width: 200px
+
