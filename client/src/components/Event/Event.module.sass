@@ -1,3 +1,5 @@
+@import "./../../common/styles/_vars.sass"
+
 .eventContainer
   margin: 10px auto
   position: relative
@@ -5,14 +7,21 @@
 
   .deleteButton
     all: unset
-    color: red
-    -webkit-text-fill-color: red
+    color: $footer-accent-color
+    -webkit-text-fill-color: $footer-accent-color
     cursor: pointer
     position: absolute
-    top: 0px
+    top: 0
     right: 5px
+    &:hover
+      color: red
+      -webkit-text-fill-color: red
+
 
   .name
+    font-family: 'Raleway', sans-serif
+    color: $bold-text-color
+    font-weight: bold
     position: absolute
     top: 5px
     left: 5px

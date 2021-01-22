@@ -19,7 +19,7 @@ const Event = ({ event }) => {
       </div>
       <Timer event={event} />
       <button className={styles.deleteButton} type="button" onClick={() => dispatch(deleteEvent(event))}>
-        <Icon path={mdiDeleteForeverOutline} size={1} />
+        <Icon path={mdiDeleteForeverOutline} size={1} title="delete event" />
       </button>
     </div>
   );
