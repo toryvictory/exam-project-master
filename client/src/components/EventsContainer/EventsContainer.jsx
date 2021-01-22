@@ -16,25 +16,27 @@ const EventsContainer = ({ userId }) => {
 
   const events = useSelector((state) => state.eventsStore.events);
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.headingContainer}>
-        <h1 className={styles.heading}>Your events</h1>
-        <div className={styles.subHeading}>
-          <span>Remaining time </span>
-          <Icon
-            className={styles.icon}
-            path={mdiClockTimeFourOutline}
-            title="clock"
-            size={1}
-          />
+  if (events.length > 0) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.headingContainer}>
+          <h1 className={styles.heading}>Your events</h1>
+          <div className={styles.subHeading}>
+            <span>Remaining time </span>
+            <Icon
+              className={styles.icon}
+              path={mdiClockTimeFourOutline}
+              title="clock"
+              size={1}
+            />
+          </div>
         </div>
+        <ul>
+          {events.length ? events.map((i) => <li key={`${i.eventId}${i.userId}`}><Event event={i} /></li>) : null}
+        </ul>
       </div>
-      <ul>
-        {events.length ? events.map((i) => <li key={`${i.eventId}${i.userId}`}><Event event={i} /></li>) : null }
-      </ul>
-    </div>
-  );
+    );
+  } return null;
 };
 
 EventsContainer.propTypes = {
