@@ -30,9 +30,9 @@ const EventForm = (props) => {
       .required()
       .test('is-future_date', 'The date cannot be in the past', (current) => current.isAfter(moment()))
       .test('is-within-three-years', 'The date must be in the diapason of three years from now', (current) => current.isBefore(inThreeYears)),
-    notificationDaysEarlier: Yup.number().notRequired(),
-    notificationHoursEarlier: Yup.number().notRequired(),
-    notificationMinutesEarlier: Yup.number().notRequired(),
+    notificationDaysEarlier: Yup.number().default(0),
+    notificationHoursEarlier: Yup.number().default(0),
+    notificationMinutesEarlier: Yup.number().default(0),
   });
 
   const { onSubmit } = props;
