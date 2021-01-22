@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sub } from 'date-fns';
+import { toast } from 'react-toastify';
 import EventForm from '../../components/forms/EventForm/EventForm';
 import { addEvent } from '../../actions/events/eventsActionCreators';
 import { userSelector } from '../../selectors';
@@ -27,6 +28,15 @@ const EventsPage = () => {
     });
     event.isNotificationOn = false;
     dispatch(addEvent(event));
+    toast('Your event has been added!', {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   return (
