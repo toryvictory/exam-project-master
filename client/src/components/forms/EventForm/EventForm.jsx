@@ -54,20 +54,26 @@ const EventForm = (props) => {
     >
       {(formikProps) => (
         <Form className={styles.formContainer}>
+          <h1 className={styles.formHeading}> Create Event Countdown</h1>
           <TextInput
             name="eventName"
             label="Event name"
-            placeholder="Name of the Event"
+            placeholder="Event 1"
             type="text"
+            containerClass={styles.inputWrapper}
+            labelClass={styles.label}
+            inputContainerClass={styles.inputContainer}
           />
           <DateTimeInput
             name="eventDateTime"
-            label="Select the date and time of the event"
+            label="Date and time of the event"
             onChange={(value) => { formikProps.setFieldValue('eventDateTime', value); }}
             isValidDate={validDate}
+            containerClass={styles.inputWrapper}
+            labelClass={styles.label}
           />
           <DaysHoursMinutesInput setFieldValue={formikProps.setFieldValue} />
-          <button className={commonStyles.appButton} type="submit">
+          <button className={`${commonStyles.appButton} ${styles.submitButton}`} type="submit">
             Confirm
           </button>
         </Form>
