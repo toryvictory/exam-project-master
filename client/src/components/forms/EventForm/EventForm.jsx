@@ -38,10 +38,11 @@ const EventForm = (props) => {
   const { onSubmit } = props;
 
   const handleSubmit = useCallback(
-    (values) => {
+    (values, { resetForm }) => {
       onSubmit(values);
+      resetForm(initialValues);
     },
-    [onSubmit],
+    [onSubmit, initialValues],
   );
 
   return (
