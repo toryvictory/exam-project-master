@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../TextInput/TextInput.module.sass';
+import NumberSelect from '../NumberSelect/NumberSelect';
 
 const DaysHoursMinutesInput = ({ setFieldValue }) => (
   <div className={styles.container}>
+    <span>Notify me</span>
     <div className={styles.inputContainer}>
-      <input
-        type="number"
+      <NumberSelect
         min={0}
         max={30}
         onChange={({ target: { value } }) => {
@@ -14,8 +15,7 @@ const DaysHoursMinutesInput = ({ setFieldValue }) => (
         }}
       />
       <span>days</span>
-      <input
-        type="number"
+      <NumberSelect
         min={0}
         max={23}
         onChange={({ target: { value } }) => {
@@ -23,15 +23,15 @@ const DaysHoursMinutesInput = ({ setFieldValue }) => (
         }}
       />
       <span>hours</span>
-      <input
-        type="number"
+      <NumberSelect
         min={0}
         max={59}
         onChange={({ target: { value } }) => {
           setFieldValue('notificationMinutesEarlier', Number(value));
         }}
       />
-      <span>minutes</span>
+      <span>minutes </span>
+      <span>before the event.</span>
     </div>
   </div>
 );
