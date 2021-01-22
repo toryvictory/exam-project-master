@@ -62,3 +62,24 @@ export const deleteEventError = (err) => ({
     err,
   },
 });
+
+export const toggleEventNotification = (event) => ({
+  type: EVENTS_ACTION_TYPES.TOGGLE_EVENT_NOTIFICATION,
+  payload: {
+    event,
+  },
+});
+
+export const toggleEventNotificationSuccess = (events) => ({
+  type: EVENTS_ACTION_TYPES.TOGGLE_EVENT_NOTIFICATION_SUCCESS,
+  payload: {
+    events,
+  },
+});
+
+export const toggleEventNotificationError = (err) => ({
+  type: EVENTS_ACTION_TYPES.TOGGLE_EVENT_NOTIFICATION_ERROR,
+  payload: {
+    err,
+  },
+});

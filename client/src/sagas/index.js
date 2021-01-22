@@ -26,7 +26,9 @@ import {
   changeCatalogName,
 } from './chatSagas';
 import { updateUserData } from './userSaga';
-import { getEventsSaga, addEventSaga, deleteEventSaga } from './eventsSaga';
+import {
+  getEventsSaga, addEventSaga, deleteEventSaga, toggleEventNotificationSaga,
+} from './eventsSaga';
 import AUTH_ACTION_TYPES from '../actions/auth/authActionTypes';
 import EDIT_USER_ACTION_TYPES from '../actions/user/editUserActionTypes';
 import EVENTS_ACTION_TYPES from '../actions/events/eventsActionTypes';
@@ -45,6 +47,7 @@ function* rootSaga() {
   yield takeLatest(EVENTS_ACTION_TYPES.GET_EVENTS, getEventsSaga);
   yield takeLatest(EVENTS_ACTION_TYPES.ADD_EVENT, addEventSaga);
   yield takeLatest(EVENTS_ACTION_TYPES.DELETE_EVENT, deleteEventSaga);
+  yield takeLatest(EVENTS_ACTION_TYPES.TOGGLE_EVENT_NOTIFICATION, toggleEventNotificationSaga);
   // legacy
   yield takeEvery(ACTION.GET_DATA_FOR_CONTEST_ACTION, dataForContestSaga);
   yield takeLatest(ACTION.PAYMENT_ACTION, paymentSaga);

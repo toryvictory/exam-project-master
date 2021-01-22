@@ -8,14 +8,16 @@ import Timer from '../Timer/Timer';
 import { deleteEvent } from '../../actions/events/eventsActionCreators';
 
 const Event = ({ event }) => {
-  const { eventName, eventDateTime, timerStartDate } = event;
+  const {
+    eventName,
+  } = event;
   const dispatch = useDispatch();
   return (
     <div className={styles.eventContainer}>
       <div className={styles.name}>
         {eventName}
       </div>
-      <Timer timerStartDate={timerStartDate} dueDate={eventDateTime} />
+      <Timer event={event} />
       <button className={styles.deleteButton} type="button" onClick={() => dispatch(deleteEvent(event))}>
         <Icon path={mdiDeleteForeverOutline} size={1} />
       </button>
@@ -28,6 +30,7 @@ Event.propTypes = {
     eventName: PropTypes.string.isRequired,
     eventDateTime: PropTypes.instanceOf(Date).isRequired,
     timerStartDate: PropTypes.instanceOf(Date).isRequired,
+    notificationDate: PropTypes.instanceOf(Date).isRequired,
     eventId: PropTypes.string.isRequired,
   }).isRequired,
 };

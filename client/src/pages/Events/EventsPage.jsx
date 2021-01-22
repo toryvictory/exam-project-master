@@ -25,6 +25,7 @@ const EventsPage = () => {
       hours: values.notificationHoursEarlier,
       minutes: values.notificationMinutesEarlier,
     });
+    event.isNotificationOn = false;
     dispatch(addEvent(event));
   };
 

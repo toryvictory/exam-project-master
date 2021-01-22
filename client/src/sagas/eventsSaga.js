@@ -18,6 +18,7 @@ const getEvents = (userId) => {
       for (let i = 0; i < events.length; i++) {
         events[i].eventDateTime = parseISO(events[i].eventDateTime);
         events[i].timerStartDate = parseISO(events[i].timerStartDate);
+        events[i].notificationDate = parseISO(events[i].notificationDate);
       }
     } else {
       events = [];
@@ -63,6 +64,25 @@ export function* deleteEventSaga(action) {
     for (let i = 0; i < events.length; i++) {
       if (event.eventId === events[i].eventId) {
         events.splice(i, 1);
+      }
+    }
+
+    localStorage.setItem(`Events for user ${userId}`, JSON.stringify(events));
+    yield put(deleteEventSuccess(events));
+  } catch (err) {
+    yield put(deleteEventError(err));
+  }
+}
+
+export function* toggleEventNotificationSaga(action) {
+  try {
+    const { payload: { event } } = action;
+    const { userId } = event;
+    const events = getEvents(userId);
+
+    for (let i = 0; i < events.length; i++) {
+      if (event.eventId === events[i].eventId) {
+        events[i].isNotificationOn = !events[i].isNotificationOn;
       }
     }
 
