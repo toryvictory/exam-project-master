@@ -8,11 +8,14 @@ import StartContestButton from './StartContestButton/StartContestButton';
 import FAQ from './FAQ/FAQ';
 import GetInTouchPanel from './GetInTouchPanel/GetInTouchPanel';
 import ScrollUpButton from '../../components/ScrollUpButton/ScrollUpButton';
+import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
+import data from '../../components/ButtonGroup/buttonsText';
 
 const HowItWorks = () => (
   <div className={styles.pageContainer}>
     <Header />
     <main>
+      <ButtonGroup data={data} />
       <div className={styles.sectionContainer}>
         <IntroductoryVideoAndText />
       </div>
