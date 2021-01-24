@@ -51,7 +51,7 @@ function App() {
       <Suspense fallback={<Spinner />}>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path={['/login', '/signup']} component={AuthPage} />
+          <Route path={['/login', '/signup', '/resetPassword']} component={AuthPage} />
           <Route path="/howItWorks" component={HowItWorks} />
           <PrivateRoute
             roles={['customer']}

@@ -1,3 +1,5 @@
+@import "src/common/styles/vars"
+
 .loginForm
   width: 600px
   display: flex
@@ -26,7 +28,8 @@
       outline: none
       border: 3px solid white
       border-radius: 10px
-
+    &:hover
+      cursor: pointer
 
   .inscription
     font-size: 16px
@@ -114,3 +117,13 @@
     color: white
     margin-top: 20px
     margin-bottom: 28px
+
+.resetLink
+  display: block
+  margin-left: 20px
+  margin-bottom: 25px
+  color: #ffffff
+  text-decoration: none
+  &:hover
+    color: $accent-text-color
+
