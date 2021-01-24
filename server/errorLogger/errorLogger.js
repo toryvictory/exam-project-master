@@ -1,50 +1,45 @@
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
 
 exports.errorLogger = async (err, req, res, next) => {
-  let code;
-  await res.on('finish', () => {
-    code = res.statusCode;
+  const onPromisified = (event) => new Promise((resolve) => res.on(event, () => resolve()));
+  const existsPromisified = util.promisify(fs.exists);
+  const mkdirPromisified = util.promisify(fs.mkdir);
+  const writeFilePromisified = util.promisify(fs.writeFile);
+  const readFilePromisified = util.promisify(fs.readFile);
 
-    const errorLog = {
-      message: err.message,
-      time: Date.now(),
-      code,
-      stackTrace: err.stack,
-    };
-
+  try {
     const pathToDir = path.resolve(__dirname, '../errorLogs');
-    if (!fs.existsSync(pathToDir)) {
-      fs.mkdirSync(pathToDir);
+
+    if (!await existsPromisified(pathToDir)) {
+      await mkdirPromisified(pathToDir);
     }
     const logFileName = 'errorLogs.json';
     const logFilePath = path.resolve(__dirname, pathToDir, logFileName);
 
-    if (!fs.existsSync(logFilePath)) {
-      const logs = [errorLog];
-      const jsonLogs = JSON.stringify(logs, null, 2);
-      fs.writeFile(logFilePath, jsonLogs, (e) => {
-        if (e) {
-          throw e;
-        }
-      });
-    } else {
-      fs.readFile(logFilePath, 'utf8', (error, data) => {
-        if (error) {
-          throw error;
-        } else {
-          const logs = JSON.parse(data);
-          logs.push(errorLog);
+    onPromisified('finish').then(async () => {
+      const errorLog = {
+        message: err.message,
+        time: Date.now(),
+        code: res.statusCode,
+        stackTrace: err.stack,
+      };
 
-          const jsonLogs = JSON.stringify(logs, null, 2);
-          fs.writeFile(logFilePath, jsonLogs, (e) => {
-            if (e) {
-              throw e;
-            }
-          });
-        }
-      });
-    }
-  });
-  next(err);
+      if (!await existsPromisified(logFilePath)) {
+        const logs = [errorLog];
+        const jsonLogs = JSON.stringify(logs, null, 2);
+        await writeFilePromisified(logFilePath, jsonLogs, 'utf8');
+      } else {
+        const data = await readFilePromisified(logFilePath, 'utf8');
+        const logs = JSON.parse(data);
+        logs.push(errorLog);
+        const jsonLogs = JSON.stringify(logs, null, 2);
+        await writeFilePromisified(logFilePath, jsonLogs, 'utf8');
+      }
+    });
+    next(err);
+  } catch (e) {
+    next(e);
+  }
 };
