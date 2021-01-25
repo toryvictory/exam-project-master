@@ -21,7 +21,7 @@ const validationSchema = Yup.object({
 });
 
 function SignInForm(props) {
-  const { onSubmit } = props;
+  const { onSubmit, isPassReset } = props;
 
   const handleSubmit = useCallback(
     (values) => {
@@ -54,7 +54,7 @@ function SignInForm(props) {
               clearError={() => dispatch(logoutRequest())}
             />
             )}
-            <h2>LOGIN TO YOUR ACCOUNT</h2>
+            <h2>{isPassReset ? 'CHANGE YOUR PASSWORD' : 'LOGIN TO YOUR ACCOUNT'}</h2>
             <Form>
               <div className={styles.inputContainer}>
                 <Field
@@ -69,17 +69,17 @@ function SignInForm(props) {
               <div className={styles.inputContainer}>
                 <Field
                   name="password"
-                  placeholder="Password"
+                  placeholder={isPassReset ? 'Your new password' : 'Password'}
                   className={passwordFieldClasses}
                 />
                 { errors.password && touched.password
                   ? (<div className={styles.fieldWarning}>{errors.password}</div>)
                   : null }
               </div>
-              <Link className={styles.resetLink} to="/resetPassword">Forgot your password?</Link>
+              { !isPassReset && <Link className={styles.resetLink} to="/resetPassword">Forgot your password?</Link>}
               <button type="submit" className={styles.submitContainer}>
                 <span className={styles.inscription}>
-                  {isFetching ? 'Submitting...' : 'LOGIN'}
+                  {isFetching ? 'Submitting...' : (isPassReset ? 'RESET PASSWORD' : 'LOGIN')}
                 </span>
               </button>
             </Form>
@@ -92,6 +92,11 @@ function SignInForm(props) {
 
 SignInForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isPassReset: PropTypes.bool,
+};
+
+SignInForm.defaultProps = {
+  isPassReset: false,
 };
 
 export default SignInForm;

@@ -10,22 +10,41 @@ import CONSTANTS from '../../constants';
 import RegistrationPageFAQ from '../../components/RegistrationPageFAQ/RegistrationPageFAQ';
 
 function AuthPage() {
-  const [isLogin, setIsLogin] = useState();
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
   const location = useLocation();
+  const [page, setPage] = useState(location.pathname.substring(1));
 
   useLayoutEffect(() => {
-    setIsLogin(location.pathname === '/login');
+    setPage(location.pathname.substring(1));
   }, [location.pathname]);
 
-  const Form = isLogin ? SignInForm : SignUpForm;
+  let Form;
+  let actionCreator;
+
+  switch (page) {
+    case 'login':
+      Form = SignInForm;
+      actionCreator = loginRequest;
+      break;
+    case 'signup':
+      Form = SignUpForm;
+      actionCreator = signUpRequest;
+      break;
+    case 'resetPassword':
+      Form = SignInForm;
+      actionCreator = loginRequest;
+      break;
+    default:
+      Form = SignInForm;
+      actionCreator = loginRequest;
+  }
 
   const handleSubmit = useCallback(
     (values) => {
-      dispatch(isLogin ? loginRequest(values) : signUpRequest(values));
+      dispatch(actionCreator(values));
     },
-    [isLogin, dispatch],
+    [dispatch, actionCreator],
   );
 
   if (user) {
@@ -42,19 +61,19 @@ function AuthPage() {
             </Link>
             <div className={styles.linkLoginContainer}>
 
-              <Link to={isLogin ? '/signup' : '/login'} style={{ textDecoration: 'none' }}>
+              <Link to={page === 'login' ? '/signup' : '/login'} style={{ textDecoration: 'none' }}>
                 <span>
-                  {isLogin ? 'SIGN UP' : 'LOGIN'}
+                  {page === 'login' ? 'SIGN UP' : 'LOGIN'}
                   {' '}
                 </span>
               </Link>
             </div>
           </div>
           <div className={styles.formContainer}>
-            <Form onSubmit={handleSubmit} />
+            <Form onSubmit={handleSubmit} isPassReset={page === 'resetPassword'} />
           </div>
         </div>
-        { !isLogin
+        { page === 'signup'
             && <RegistrationPageFAQ /> }
       </div>
     </>
