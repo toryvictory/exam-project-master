@@ -10,6 +10,7 @@ import getContestByIdReducer from './getContestByIdReducer';
 import updateContestReducer from './updateContestReducer';
 import chatReducer from './chatReducer';
 import userProfileReducer from './userProfileReducer';
+import passwordReducer from './passwordReducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   updateContestStore: updateContestReducer,
   chatStore: chatReducer,
   userProfile: userProfileReducer,
+  password: passwordReducer,
 });
 
 export default rootReducer;

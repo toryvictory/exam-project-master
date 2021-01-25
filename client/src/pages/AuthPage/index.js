@@ -2,6 +2,7 @@ import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { loginRequest, signUpRequest } from '../../actions/auth/authActionCreators';
+import { passwordReset } from '../../actions/passwordReset/passwordActionCreators';
 import SignInForm from '../../components/forms/SignInForm';
 import SignUpForm from '../../components/forms/SignUpForm';
 import { userSelector } from '../../selectors';
@@ -33,11 +34,9 @@ function AuthPage() {
       break;
     case 'resetPassword':
       Form = SignInForm;
-      actionCreator = loginRequest;
+      actionCreator = passwordReset;
       break;
     default:
-      Form = SignInForm;
-      actionCreator = loginRequest;
   }
 
   const handleSubmit = useCallback(

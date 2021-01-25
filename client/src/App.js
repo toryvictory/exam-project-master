@@ -99,7 +99,7 @@ function App() {
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/contest/:id" component={ContestPage} />
           <PrivateRoute exact path="/account" component={UserProfile} />
-          <Route path="/confirmPasswordReset" component={ConfirmPasswordReset} />
+          <Route path="/confirmPasswordReset/:token" component={ConfirmPasswordReset} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>

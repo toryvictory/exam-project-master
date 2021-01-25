@@ -26,8 +26,10 @@ import {
   changeCatalogName,
 } from './chatSagas';
 import { updateUserData } from './userSaga';
+import { resetPasswordSaga, confirmPasswordResetSaga } from './passwordSagas';
 import AUTH_ACTION_TYPES from '../actions/auth/authActionTypes';
 import EDIT_USER_ACTION_TYPES from '../actions/user/editUserActionTypes';
+import PASSWORD_ACTION_TYPES from '../actions/passwordReset/passwordActionTypes';
 
 function* rootSaga() {
   // my super cool code
@@ -40,6 +42,8 @@ function* rootSaga() {
   );
   yield takeLatest(AUTH_ACTION_TYPES.LOGOUT_REQUEST, AuthSagas.logoutSaga);
   yield takeLatest(EDIT_USER_ACTION_TYPES.UPDATE_USER_DATA, updateUserData);
+  yield takeLatest(PASSWORD_ACTION_TYPES.PASSWORD_RESET, resetPasswordSaga);
+  yield takeLatest(PASSWORD_ACTION_TYPES.PASSWORD_RESET_CONFIRMATION, confirmPasswordResetSaga);
   // legacy
   yield takeEvery(ACTION.GET_DATA_FOR_CONTEST_ACTION, dataForContestSaga);
   yield takeLatest(ACTION.PAYMENT_ACTION, paymentSaga);
