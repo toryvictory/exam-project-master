@@ -17,6 +17,7 @@ import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import PrivateRoute from './components/PrivateRoute';
 import Spinner from './components/Spinner/Spinner';
+import ConfirmPasswordReset from './pages/ConfirmPasswordReset/ConfirmPasswordReset';
 import { refreshAuthRequest } from './actions/auth/authActionCreators';
 
 const AuthPage = lazy(() => import('./pages/AuthPage'));
@@ -98,6 +99,7 @@ function App() {
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/contest/:id" component={ContestPage} />
           <PrivateRoute exact path="/account" component={UserProfile} />
+          <Route path="/confirmPasswordReset" component={ConfirmPasswordReset} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>
