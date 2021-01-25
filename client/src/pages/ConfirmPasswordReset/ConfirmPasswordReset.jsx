@@ -5,6 +5,7 @@ import { passwordResetConfirmation } from '../../actions/passwordReset/passwordA
 import styles from './ConfirmPasswordReset.module.sass';
 import * as selectors from '../../selectors';
 import Spinner from '../../components/Spinner/Spinner';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 const ConfirmPasswordReset = () => {
   const { token } = useParams();
@@ -14,10 +15,17 @@ const ConfirmPasswordReset = () => {
     dispatch(passwordResetConfirmation(token));
   }, [dispatch]);
 
-  const { isFetching } = useSelector(selectors.passwordSelector);
+  const { isFetching, error } = useSelector(selectors.passwordSelector);
 
   if (isFetching) {
     return <Spinner />;
+  }
+
+  if (error?.response) {
+    return <ErrorPage errorMessage={`${error.response.status} ${error.response.data.errors[0]?.message}`} />;
+  }
+  if (error) {
+    return <ErrorPage errorMessage={error.message} />;
   }
 
   return (
