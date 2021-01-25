@@ -4,7 +4,7 @@ import AUTH_ACTION_TYPES from './authActionTypes';
  *
  * @typedef {object} Action
  * @property {string} type
- * @property {string} [payload]
+ * @property {object} [payload]
  */
 
 /**
@@ -79,10 +79,18 @@ export const authRequestFailed = (err) => ({
   },
 });
 
+/**
+ *
+ * @returns {Action}
+ */
 export const logoutRequest = () => ({
   type: AUTH_ACTION_TYPES.LOGOUT_REQUEST,
 });
 
+/**
+ *
+ * @returns {Action}
+ */
 export const logoutRequestSuccess = () => ({
   type: AUTH_ACTION_TYPES.LOGOUT_REQUEST_SUCCESS,
 });

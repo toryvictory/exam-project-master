@@ -50,6 +50,9 @@ class AuthApi {
      */
     refresh = (data) => this.#_client.post(`${this.url}/refresh`, data);
 
+    /**
+    * @return {undefined}
+    */
     logout = () => {
       this.#_token = null;
       localStorage.removeItem(REFRESH_TOKEN_KEY);
