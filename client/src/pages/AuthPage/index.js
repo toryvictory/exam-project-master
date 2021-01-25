@@ -9,6 +9,7 @@ import { userSelector } from '../../selectors';
 import styles from './AuthPage.module.sass';
 import CONSTANTS from '../../constants';
 import RegistrationPageFAQ from '../../components/RegistrationPageFAQ/RegistrationPageFAQ';
+import RequestSentPage from '../../components/RequestSentPage/RequestSentPage';
 
 function AuthPage() {
   const user = useSelector(userSelector);
@@ -39,15 +40,23 @@ function AuthPage() {
     default:
   }
 
+  const [isSubmitted, setSubmitted] = useState(false);
   const handleSubmit = useCallback(
     (values) => {
       dispatch(actionCreator(values));
+      if (page === 'resetPassword') {
+        setSubmitted(true);
+      }
     },
-    [dispatch, actionCreator],
+    [dispatch, actionCreator, page],
   );
 
   if (user) {
     return <Redirect to="/" />;
+  }
+
+  if (isSubmitted) {
+    return <RequestSentPage />;
   }
 
   return (
