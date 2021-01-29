@@ -10,10 +10,12 @@ const initialState = {
 const handlers = {
   [PASSWORD_ACTION_TYPES.PASSWORD_RESET_REQUEST]: produce((draftState) => {
     draftState.isFetching = true;
+    draftState.error = null;
   }),
 
   [PASSWORD_ACTION_TYPES.PASSWORD_RESET_REQUEST_SUCCESS]: produce((draftState) => {
     draftState.isFetching = false;
+    draftState.error = null;
   }),
 
   [PASSWORD_ACTION_TYPES.PASSWORD_RESET_REQUEST_FAILED]: produce((draftState, action) => {
@@ -26,10 +28,12 @@ const handlers = {
 
   [PASSWORD_ACTION_TYPES.PASSWORD_RESET_CONFIRMATION_REQUEST]: produce((draftState) => {
     draftState.isFetching = true;
+    draftState.error = null;
   }),
 
   [PASSWORD_ACTION_TYPES.PASSWORD_RESET_CONFIRMATION_REQUEST_SUCCESS]: produce((draftState) => {
     draftState.isFetching = false;
+    draftState.error = null;
   }),
 
   [PASSWORD_ACTION_TYPES.PASSWORD_RESET_CONFIRMATION_REQUEST_FAILED]: produce((draftState, action) => {
