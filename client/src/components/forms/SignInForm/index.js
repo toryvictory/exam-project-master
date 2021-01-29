@@ -20,6 +20,18 @@ const validationSchema = Yup.object({
   password: Yup.string().required(),
 });
 
+const passwordRule = [
+  /(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])^.{8,255}$/,
+  'Your password must be at least 8 characters, and include at least one lowercase letter, one uppercase letter, and a number. ',
+];
+
+const validationSchemaResetPassword = Yup.object({
+  email: Yup.string().trim().email().required(),
+  password: Yup.string()
+    .matches(...passwordRule)
+    .required(),
+});
+
 function SignInForm(props) {
   const { onSubmit, isPassReset } = props;
 
@@ -37,7 +49,7 @@ function SignInForm(props) {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={validationSchema}
+      validationSchema={isPassReset ? validationSchemaResetPassword : validationSchema}
     >
       {({ touched, errors }) => {
         const emailFieldClasses = classNames(styles.input,
