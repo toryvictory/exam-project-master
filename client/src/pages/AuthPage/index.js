@@ -77,7 +77,7 @@ function AuthPage() {
               </Link>
             </div>
           </div>
-          <div className={styles.formContainer}>
+          <div key={page} className={styles.formContainer}>
             <Form onSubmit={handleSubmit} isPassReset={page === 'resetPassword'} />
           </div>
         </div>
