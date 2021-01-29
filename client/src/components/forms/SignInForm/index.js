@@ -58,7 +58,7 @@ function SignInForm(props) {
           { [styles.notValid]: errors.password && touched.password });
 
         return (
-          <div className={styles.loginForm}>
+          <div className={classNames(styles.loginForm, { [styles.resetForm]: isPassReset })}>
             {error && (
             <Error
               data={error.response.data}
