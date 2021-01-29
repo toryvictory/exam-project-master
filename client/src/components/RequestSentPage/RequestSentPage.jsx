@@ -11,6 +11,9 @@ const RequestSentPage = () => {
   if (isFetching) {
     return <Spinner />;
   }
+  if (error?.response) {
+    return <ErrorPage errorMessage={`${error.response.status} ${error.response.data.errors[0]?.message}`} />;
+  }
   if (error) {
     return <ErrorPage errorMessage={error.message} />;
   }
