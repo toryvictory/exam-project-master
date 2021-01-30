@@ -61,8 +61,8 @@ function SignInForm(props) {
           <div className={classNames(styles.loginForm, { [styles.resetForm]: isPassReset })}>
             {error && (
             <Error
-              data={error.response.data}
-              status={error.response.status}
+              data={error.response?.data}
+              status={error.response?.status}
               clearError={() => dispatch(logoutRequest())}
             />
             )}
