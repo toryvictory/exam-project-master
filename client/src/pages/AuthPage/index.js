@@ -55,7 +55,7 @@ function AuthPage() {
     return <Redirect to="/" />;
   }
 
-  if (isSubmitted) {
+  if (isSubmitted && page === 'resetPassword') {
     return <RequestSentPage />;
   }
 
