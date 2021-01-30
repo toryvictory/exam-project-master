@@ -21,7 +21,12 @@ client.interceptors.request.use(
 
 client.interceptors.response.use(
   (response) => response,
-  auth.interceptResponseError,
+  (err) => {
+    if (err.response) {
+      return auth.interceptResponseError(err);
+    }
+    throw err;
+  },
 );
 
 export default client;
