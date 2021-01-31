@@ -193,6 +193,9 @@ module.exports.payment = async (req, res, next) => {
       transaction,
     });
 
+    if (!clientCreditCard) {
+      throw new Error('Transaction declined by the bank');
+    }
     await clientCreditCard.update(
       {
         balance: Sequelize.literal(`"CreditCards"."balance" - ${price}`),
