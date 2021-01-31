@@ -3,6 +3,10 @@
   flex-direction: row
   justify-content: center
   align-items: flex-start
+  box-sizing: border-box
+  padding-left: 30px
+  padding-right: 10px
+  margin-right: 10px
   border: 1px solid #c0c0c0
   border-radius: 4px
   width: 100%
@@ -10,6 +14,7 @@
     flex-direction: column
     justify-content: flex-start
     align-items: center
+    padding-left: 10px
   .buttonEdit
     padding: 15px 35px
     border-radius: 12px
@@ -29,8 +34,6 @@
   .infoContainer
     display: flex
     flex-direction: column
-    justify-content: flex-end
-    align-items: center
     .avatar
       align-self: center
       width: 140px
@@ -42,9 +45,11 @@
       flex-direction: row
       flex-wrap: wrap
       margin-bottom: 25px
-      align-items: center
-      width: 250px
+      align-items: baseline
       justify-content: space-between
+      max-width: 500px
+      @media screen and (max-width: 1050px)
+        max-width: 250px
       .label
         font-family: sans-serif
         font-size: 16px
@@ -54,5 +59,8 @@
         font-size: 16px
         color: #455a89
         margin-left: auto
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
 
 
