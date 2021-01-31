@@ -10,12 +10,8 @@ import styles from './Header.module.sass';
 import CONSTANTS from '../../constants';
 
 function Header() {
-  const { isFetching, user } = useSelector(authSelector);
+  const { user } = useSelector(authSelector);
   const { role } = user || {};
-
-  if (isFetching) {
-    return null;
-  }
 
   return (
     <div className={styles.headerContainer}>
