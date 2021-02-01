@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Route, Redirect, useHistory } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Spinner from '../Spinner/Spinner';
 import checkRole from './helpers/checkRole';
 import { authSelector } from '../../selectors';
 import { REFRESH_TOKEN_KEY } from '../../constants';
 
 function PrivateRoute({ roles, ...rest }) {
-  const history = useHistory();
   const { isFetching, user } = useSelector(authSelector);
 
   let willFetchUser;
@@ -18,9 +18,16 @@ function PrivateRoute({ roles, ...rest }) {
 
   if (user) {
     if (roles && !checkRole(user.role, roles)) {
-      alert('Forbidden route'); // need pretty popup
-      history.goBack();
-      return;
+      toast.error('Forbidden route!', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return <Redirect to="/" />;
     }
     return <Route {...rest} />;
   }
@@ -40,6 +47,10 @@ PrivateRoute.propTypes = {
     }),
     PropTypes.arrayOf(PropTypes.string),
   ]),
+};
+
+PrivateRoute.defaultProps = {
+  roles: ['customer', 'creator'],
 };
 
 export default PrivateRoute;
