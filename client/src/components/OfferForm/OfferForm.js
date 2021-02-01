@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
@@ -14,10 +14,12 @@ import Error from '../Error/Error';
 let contestType;
 
 const OfferForm = (props) => {
+  const node = window.document.getElementById('imagePreview');
   const renderOfferInput = () => {
     if (props.contestType === CONTANTS.LOGO_CONTEST) {
       return (
         <Field
+          key={node?.src}
           name="offerData"
           component={ImageUpload}
           classes={({
@@ -56,6 +58,7 @@ const OfferForm = (props) => {
     data.append('customerId', customerId);
     await props.setNewOffer(data);
     reset();
+    node.src = '';
   };
 
   contestType = props.contestType;
