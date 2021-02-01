@@ -138,7 +138,7 @@ module.exports.setNewOffer = async (req, res, next) => {
     controller
       .getNotificationController()
       .emitEntryCreated(req.body.customerId);
-    const user = { ...req.tokenPayload, id: req.tokenPayload.userId };
+    const user = await User.findByPk(req.tokenPayload.userId);
     res.send({ ...result, User: user });
   } catch (e) {
     return next(new ServerError());
