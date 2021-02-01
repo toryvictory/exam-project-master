@@ -12,7 +12,7 @@ import ContestPage from './pages/ContestPage/ContestPage';
 import UserProfile from './pages/UserProfile/UserProfile';
 import 'react-toastify/dist/ReactToastify.css';
 import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
-import CONSTANTS, { REFRESH_TOKEN_KEY } from './constants';
+import CONSTANTS, { REFRESH_TOKEN_KEY, ROLES } from './constants';
 import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import PrivateRoute from './components/PrivateRoute';
@@ -54,19 +54,19 @@ function App() {
           <Route path={['/login', '/signup']} component={AuthPage} />
           <Route path="/howItWorks" component={HowItWorks} />
           <PrivateRoute
-            roles={['customer']}
+            roles={[ROLES.CUSTOMER]}
             exact
             path="/payment"
             component={Payment}
           />
           <PrivateRoute
-            roles={['customer']}
+            roles={[ROLES.CUSTOMER]}
             exact
             path="/startContest"
             component={StartContestPage}
           />
           <PrivateRoute
-            roles={['customer']}
+            roles={[ROLES.CUSTOMER]}
             exact
             path="/startContest/nameContest"
           >
@@ -76,7 +76,7 @@ function App() {
             />
           </PrivateRoute>
           <PrivateRoute
-            roles={['customer']}
+            roles={[ROLES.CUSTOMER]}
             exact
             path="/startContest/taglineContest"
           >
@@ -86,7 +86,7 @@ function App() {
             />
           </PrivateRoute>
           <PrivateRoute
-            roles={['customer']}
+            roles={[ROLES.CUSTOMER]}
             exact
             path="/startContest/logoContest"
           >

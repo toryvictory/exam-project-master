@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import Spinner from '../Spinner/Spinner';
 import checkRole from './helpers/checkRole';
 import { authSelector } from '../../selectors';
-import { REFRESH_TOKEN_KEY } from '../../constants';
+import { REFRESH_TOKEN_KEY, ROLES } from '../../constants';
 
 function PrivateRoute({ roles, ...rest }) {
   const { isFetching, user } = useSelector(authSelector);
@@ -50,7 +50,7 @@ PrivateRoute.propTypes = {
 };
 
 PrivateRoute.defaultProps = {
-  roles: ['customer', 'creator'],
+  roles: [ROLES.CUSTOMER, ROLES.CREATOR],
 };
 
 export default PrivateRoute;
