@@ -97,13 +97,13 @@ const StartContestPage = (props) => {
             setBundle={setBundle}
           />
           <BundleBox
-            path={['Logo.png', 'Tagline.png']}
+            path={['Tagline.png', 'Logo.png']}
             header="Tagline+Logo"
             describe="Description for Logo + Tagline will come here."
             setBundle={setBundle}
           />
           <BundleBox
-            path={['Name.png', 'Logo.png', 'Tagline.png']}
+            path={['Name.png', 'Tagline.png', 'Logo.png']}
             header="Name+Tagline+Logo"
             describe="Establish your entire brand identity and save with this bundle."
             setBundle={setBundle}
