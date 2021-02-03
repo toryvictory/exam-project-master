@@ -225,6 +225,18 @@ const mapStateToProps = (state, ownProps) => ({
   initialValues: ownProps.defaultData,
 });
 
+const waitForWarningElement = (i = 0) => {
+  if (document.querySelector('[class*="warning"]')) {
+    document.querySelector('[class*="warning"]').scrollIntoView({ behavior: 'instant', block: 'center' });
+  } else {
+    i += 1;
+    if (i > 150) {
+      return;
+    }
+    setTimeout(() => waitForWarningElement(i), 10);
+  }
+};
+
 export default withRouter(
   connect(
     mapStateToProps,
@@ -233,6 +245,7 @@ export default withRouter(
       form: 'contestForm',
       validate: customValidator(Schems.ContestSchem),
       onSubmit: submit,
+      onSubmitFail: waitForWarningElement,
     })(ContestForm),
   ),
 );
