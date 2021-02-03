@@ -36,13 +36,18 @@ class SelectInput extends React.Component {
   }
 
   render() {
-    const { input, header, classes } = this.props;
+    const {
+      input, header, classes, meta: { touched, error },
+    } = this.props;
     return (
       <div className={classes.inputContainer}>
         <span className={classes.inputHeader}>{header}</span>
         <select {...input} className={classes.selectInput}>
           {this.getOptionsArray()}
         </select>
+        {classes.warning && touched && error && (
+          <span className={classes.warning}>{error}</span>
+        )}
       </div>
     );
   }

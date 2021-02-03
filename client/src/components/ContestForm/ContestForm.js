@@ -157,6 +157,7 @@ class ContestForm extends React.Component {
                     inputContainer: styles.selectInputContainer,
                     inputHeader: styles.selectHeader,
                     selectInput: styles.select,
+                    warning: styles.warningSelect,
                   }}
                   header="Describe industry associated with your venture"
                   optionsArray={this.props.dataForContest.data.industry}
