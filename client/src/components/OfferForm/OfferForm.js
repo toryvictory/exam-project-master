@@ -19,7 +19,7 @@ const OfferForm = (props) => {
     if (props.contestType === CONTANTS.LOGO_CONTEST) {
       return (
         <Field
-          key={node?.src}
+          key={node?.src ? node?.src : '1'}
           name="offerData"
           component={ImageUpload}
           classes={({
@@ -58,7 +58,9 @@ const OfferForm = (props) => {
     data.append('customerId', customerId);
     await props.setNewOffer(data);
     reset();
-    node.src = '';
+    if (node?.src) {
+      node.src = '';
+    }
   };
 
   contestType = props.contestType;
