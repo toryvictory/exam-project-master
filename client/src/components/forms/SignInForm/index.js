@@ -42,8 +42,8 @@ function SignInForm(props) {
         <div className={styles.loginForm}>
           {error && (
             <Error
-              data={error.response.data}
-              status={error.response.status}
+              data={error.response?.data}
+              status={error.response?.status}
               clearError={() => dispatch(logoutRequest())}
             />
           )}

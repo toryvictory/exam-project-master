@@ -64,8 +64,8 @@ function SignUpForm(props) {
         <div className={styles.signUpFormContainer}>
           {error && (
             <Error
-              data={error.response.data}
-              status={error.response.status}
+              data={error.response?.data}
+              status={error.response?.status}
               clearError={() => dispatch(logoutRequest())}
             />
           )}
