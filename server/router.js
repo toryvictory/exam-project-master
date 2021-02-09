@@ -1,6 +1,7 @@
 const express = require('express');
 const basicMiddlewares = require('./middlewares/basicMiddlewares');
 const userController = require('./controllers/userController');
+const creditCardController = require('./controllers/creditCardController');
 const contestController = require('./controllers/contestController');
 const chatController = require('./controllers/chatController');
 const upload = require('./utils/fileUpload');
@@ -25,7 +26,7 @@ router.post(
   upload.uploadContestFiles,
   basicMiddlewares.parseBody,
   validateBody(contestSchema),
-  userController.payment,
+  creditCardController.payment,
 );
 
 router.post('/getCustomersContests', contestController.getCustomersContests);
@@ -72,7 +73,7 @@ router.post(
 router.post(
   '/cashout',
   basicMiddlewares.onlyForCreative,
-  userController.cashout,
+  creditCardController.cashout,
 );
 
 router.post('/newMessage', chatController.addMessage);

@@ -1,5 +1,5 @@
-'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class CreditCard extends Model {}
   CreditCard.init(
@@ -25,12 +25,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DECIMAL,
         allowNull: false,
         defaultValue: 0,
+        get() {
+          const value = this.getDataValue('balance');
+          return value === null ? null : parseFloat(value);
+        },
       },
     },
     {
       sequelize,
       modelName: 'CreditCard',
-    }
+    },
   );
   return CreditCard;
 };

@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
@@ -24,7 +22,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          cardNumber: '4000000000000000',
+          cardNumber: '4100000000000001',
           name: 'creative',
           expiry: '12/22',
           cvc: '000',
@@ -33,7 +31,7 @@ module.exports = {
           updatedAt: new Date(),
         },
       ],
-      {}
+      {},
     );
   },
 
