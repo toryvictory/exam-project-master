@@ -222,7 +222,10 @@ const resolveOffer = async (
   controller
     .getNotificationController()
     .emitChangeOfferStatus(creatorId, 'Someone of your offers WIN', contestId);
-  return updatedOffers[0].dataValues;
+  const winningOffer = updatedOffers.filter(
+    (offer) => offer.dataValues.status === CONSTANTS.OFFER_STATUS_WON,
+  );
+  return winningOffer[0].dataValues;
 };
 
 module.exports.setOfferStatus = async (req, res, next) => {
