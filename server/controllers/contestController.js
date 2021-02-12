@@ -8,18 +8,23 @@ const {
   Contest,
 } = require('../models');
 const ServerError = require('../errors/ServerError');
-const contestQueries = require('./queries/contestQueries');
 const UtilFunctions = require('../utils/functions');
 const CONSTANTS = require('../constants');
 
 module.exports.dataForContest = async (req, res, next) => {
   const response = {};
+  const {
+    body: {
+      characteristic1,
+      characteristic2,
+    },
+  } = req;
   try {
     const whereOption = {
       type: {
         [Sequelize.Op.or]: _.compact([
-          req.body.characteristic1,
-          req.body.characteristic2,
+          characteristic1,
+          characteristic2,
           'industry',
         ]),
       },
@@ -45,8 +50,17 @@ module.exports.dataForContest = async (req, res, next) => {
 
 module.exports.getContestById = async (req, res, next) => {
   try {
+    const {
+      headers: {
+        contestid,
+      },
+      tokenPayload: {
+        role,
+        userId,
+      },
+    } = req;
     let contestInfo = await Contest.findOne({
-      where: { id: req.headers.contestid },
+      where: { id: contestid },
       order: [[Offer, 'id', 'asc']],
       include: [
         {
@@ -60,8 +74,8 @@ module.exports.getContestById = async (req, res, next) => {
           model: Offer,
           required: false,
           where:
-            req.tokenPayload.role === CONSTANTS.CREATOR
-              ? { userId: req.tokenPayload.userId }
+            role === CONSTANTS.CREATOR
+              ? { userId }
               : {},
           attributes: { exclude: ['userId', 'contestId'] },
           include: [
@@ -75,7 +89,7 @@ module.exports.getContestById = async (req, res, next) => {
             {
               model: Rating,
               required: false,
-              where: { userId: req.tokenPayload.userId },
+              where: { userId },
               attributes: { exclude: ['userId', 'offerId'] },
             },
           ],
@@ -96,32 +110,60 @@ module.exports.getContestById = async (req, res, next) => {
 };
 
 module.exports.downloadFile = async (req, res, next) => {
-  const file = CONSTANTS.CONTESTS_DEFAULT_DIR + req.params.fileName;
+  const {
+    params: {
+      fileName,
+    },
+  } = req;
+  const file = CONSTANTS.CONTESTS_DEFAULT_DIR + fileName;
   res.download(file);
 };
 
 module.exports.updateContest = async (req, res, next) => {
   if (req.file) {
-    req.body.fileName = req.file.filename;
-    req.body.originalFileName = req.file.originalname;
+    const {
+      file: {
+        filename,
+        originalname,
+      },
+    } = req;
+    req.body.fileName = filename;
+    req.body.originalFileName = originalname;
   }
   const { contestId } = req.body;
   delete req.body.contestId;
   try {
-    const updatedContest = await contestQueries.updateContest(req.body, {
-      id: contestId,
-      userId: req.tokenPayload.userId,
+    const [updatedCount, [updatedContest]] = await Contest.update(req.body, {
+      where: {
+        id: contestId,
+        userId: req.tokenPayload.userId,
+      },
+      returning: true,
     });
-    res.send(updatedContest);
+    if (updatedCount !== 1) {
+      throw new ServerError('cannot update Contest');
+    }
+    res.send(updatedContest.dataValues);
   } catch (e) {
     next(e);
   }
 };
 
 module.exports.getCustomersContests = (req, res, next) => {
+  const {
+    headers: {
+      status,
+    },
+    tokenPayload: {
+      userId,
+    },
+    body: {
+      limit,
+    },
+  } = req;
   Contest.findAll({
-    where: { status: req.headers.status, userId: req.tokenPayload.userId },
-    limit: req.body.limit,
+    where: { status, userId },
+    limit,
     offset: req.body.offset ? req.body.offset : 0,
     order: [['id', 'DESC']],
     include: [
@@ -177,6 +219,6 @@ module.exports.getContests = (req, res, next) => {
       res.send({ contests, haveMore });
     })
     .catch((err) => {
-      next(new ServerError());
+      next(new ServerError(err));
     });
 };
