@@ -12,6 +12,7 @@ import Schems from '../../validators/validationSchems';
 import FieldFileInput from '../InputComponents/FieldFileInput/FieldFileInput';
 import FormTextArea from '../InputComponents/FormTextArea/FormTextArea';
 import TryAgain from '../TryAgain/TryAgain';
+import { clearDataForContest, getDataForContest, saveContestToStore } from '../../actions/actionCreator';
 
 let submitFunc;
 
@@ -21,7 +22,30 @@ class ContestForm extends React.Component {
     submitFunc = props.submitData;
   }
 
+  getPreference = (contestType) => {
+    switch (contestType) {
+      case CONSTANTS.NAME_CONTEST: {
+        this.props.getData({
+          characteristic1: 'nameStyle',
+          characteristic2: 'typeOfName',
+        });
+        break;
+      }
+      case CONSTANTS.TAGLINE_CONTEST: {
+        this.props.getData({ characteristic1: 'typeOfTagline' });
+        break;
+      }
+      case CONSTANTS.LOGO_CONTEST: {
+        this.props.getData({ characteristic1: 'brandStyle' });
+        break;
+      }
+    }
+  };
+
   componentDidMount() {
+    if (!this.props.location.pathname.startsWith('/startContest')) {
+      this.getPreference(this.props.contestType);
+    }
     this.props.initialize(this.props.defaultData);
   }
 
@@ -225,6 +249,10 @@ const mapStateToProps = (state, ownProps) => ({
   initialValues: ownProps.defaultData,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  getData: (data) => dispatch(getDataForContest(data)),
+});
+
 const waitForWarningElement = (i = 0) => {
   if (document.querySelector('[class*="warning"]')) {
     document.querySelector('[class*="warning"]').scrollIntoView({ behavior: 'instant', block: 'center' });
@@ -240,6 +268,7 @@ const waitForWarningElement = (i = 0) => {
 export default withRouter(
   connect(
     mapStateToProps,
+    mapDispatchToProps,
   )(
     reduxForm({
       form: 'contestForm',

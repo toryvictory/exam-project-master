@@ -36,8 +36,8 @@ const ContestCreationPage = (props) => {
     };
   }, []);
 
-  const getPreference = () => {
-    switch (contestType) {
+  const getPreference = (type) => {
+    switch (type) {
       case CONSTANTS.NAME_CONTEST: {
         getData({
           characteristic1: 'nameStyle',
@@ -53,6 +53,8 @@ const ContestCreationPage = (props) => {
         getData({ characteristic1: 'brandStyle' });
         break;
       }
+      default:
+        break;
     }
   };
 
