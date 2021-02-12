@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const createHttpError = require('http-errors');
 const {
   sequelize,
   Sequelize,
@@ -6,10 +7,7 @@ const {
   Rating,
   User,
 } = require('../models');
-const ServerError = require('../errors/ServerError');
 const controller = require('../socketInit');
-const userQueries = require('./queries/userQueries');
-const ratingQueries = require('./queries/ratingQueries');
 
 module.exports.updateUser = async (req, res, next) => {
   try {
@@ -26,7 +24,7 @@ module.exports.updateUser = async (req, res, next) => {
       returning: true,
     });
     if (updatedCount !== 1) {
-      throw new ServerError('cannot update user');
+      throw createHttpError(400, 'cannot update user');
     }
     const userData = updatedUser.get();
     const user = _.omit(userData, ['password']);
@@ -40,37 +38,44 @@ module.exports.updateUser = async (req, res, next) => {
   }
 };
 
-function getQuery(offerId, userId, mark, isFirst, transaction) {
-  const getCreateQuery = () => ratingQueries.createRating(
-    {
-      offerId,
-      mark,
-      userId,
-    },
-    transaction,
-  );
-  const getUpdateQuery = () => ratingQueries.updateRating(
-    { mark },
-    { offerId, userId },
-    transaction,
-  );
-  return isFirst ? getCreateQuery : getUpdateQuery;
-}
-
 module.exports.changeMark = async (req, res, next) => {
   let sum = 0;
   let avg = 0;
   let transaction;
   const {
-    isFirst, offerId, mark, creatorId,
-  } = req.body;
-  const { userId } = req.tokenPayload;
+    tokenPayload: {
+      userId,
+    },
+    body: {
+      isFirst, offerId, mark, creatorId,
+    },
+  } = req;
   try {
     transaction = await sequelize.transaction({
       isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED,
     });
-    const query = getQuery(offerId, userId, mark, isFirst, transaction);
-    await query();
+
+    if (isFirst) {
+      await Rating.create(
+        {
+          offerId,
+          mark,
+          userId,
+        },
+        { transaction },
+      );
+    } else {
+      const [updatedCount] = await Rating.update(
+        { mark },
+        {
+          where: { offerId, userId },
+          transaction,
+        },
+      );
+      if (updatedCount !== 1) {
+        throw createHttpError(400, 'cannot update this offer\'s rating');
+      }
+    }
     const offersArray = await Rating.findAll({
       include: [
         {
@@ -86,7 +91,19 @@ module.exports.changeMark = async (req, res, next) => {
     }
     avg = sum / offersArray.length;
 
-    await userQueries.updateUser({ rating: avg }, creatorId, transaction);
+    const [updatedCount] = await User.update(
+      { rating: avg },
+      {
+        where: {
+          id: creatorId,
+        },
+        transaction,
+      },
+    );
+
+    if (updatedCount !== 1) {
+      throw createHttpError(400, 'cannot update user rating');
+    }
     transaction.commit();
     controller.getNotificationController().emitChangeMark(creatorId);
     res.send({ userId: creatorId, rating: avg });
