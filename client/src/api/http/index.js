@@ -5,6 +5,7 @@ import UserApi from './UserApi';
 import ContestApi from './ContestApi';
 import ChatApi from './ChatApi';
 import PayApi from './PayApi';
+import OfferApi from './OfferApi';
 
 const {
   api: { http },
@@ -17,6 +18,7 @@ export const userApi = new UserApi({ client });
 export const contestApi = new ContestApi({ client });
 export const chatApi = new ChatApi({ client });
 export const payApi = new PayApi({ client });
+export const offerApi = new OfferApi({ client });
 
 client.interceptors.request.use(
   auth.interceptRequest,
