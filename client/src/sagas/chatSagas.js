@@ -2,11 +2,11 @@ import { put, select } from 'redux-saga/effects';
 import remove from 'lodash/remove';
 import { isEqual } from 'lodash';
 import ACTION from '../actions/actionTypes';
-import * as restController from '../api/rest/restController';
+import * as Api from '../api/http';
 
 export function* previewSaga() {
   try {
-    const { data } = yield restController.getPreviewChat();
+    const { data } = yield Api.chatApi.getPreviewChat();
     yield put({ type: ACTION.GET_PREVIEW_CHAT, data });
   } catch (err) {
     yield put({ type: ACTION.GET_PREVIEW_CHAT_ERROR, error: err.response });
@@ -15,7 +15,7 @@ export function* previewSaga() {
 
 export function* getDialog(action) {
   try {
-    const { data } = yield restController.getDialog(action.data);
+    const { data } = yield Api.chatApi.getDialog(action.data);
     yield put({ type: ACTION.GET_DIALOG_MESSAGES, data });
   } catch (err) {
     yield put({ type: ACTION.GET_DIALOG_MESSAGES_ERROR, error: err.response });
@@ -24,7 +24,7 @@ export function* getDialog(action) {
 
 export function* sendMessage(action) {
   try {
-    const { data } = yield restController.newMessage(action.data);
+    const { data } = yield Api.chatApi.newMessage(action.data);
     const { messagesPreview } = yield select((state) => state.chatStore);
     let isNew = true;
     messagesPreview.forEach((preview) => {
@@ -58,7 +58,7 @@ export function* sendMessage(action) {
 
 export function* changeChatFavorite(action) {
   try {
-    const { data } = yield restController.changeChatFavorite(action.data);
+    const { data } = yield Api.chatApi.changeChatFavorite(action.data);
     const { messagesPreview } = yield select((state) => state.chatStore);
     messagesPreview.forEach((preview) => {
       if (isEqual(preview.participants, data.participants)) preview.favoriteList = data.favoriteList;
@@ -74,7 +74,7 @@ export function* changeChatFavorite(action) {
 
 export function* changeChatBlock(action) {
   try {
-    const { data } = yield restController.changeChatBlock(action.data);
+    const { data } = yield Api.chatApi.changeChatBlock(action.data);
     const { messagesPreview } = yield select((state) => state.chatStore);
     messagesPreview.forEach((preview) => {
       if (isEqual(preview.participants, data.participants)) preview.blackList = data.blackList;
@@ -90,7 +90,7 @@ export function* changeChatBlock(action) {
 
 export function* getCatalogListSaga(action) {
   try {
-    const { data } = yield restController.getCatalogList(action.data);
+    const { data } = yield Api.chatApi.getCatalogList(action.data);
     yield put({ type: ACTION.RECEIVE_CATALOG_LIST, data });
   } catch (err) {
     yield put({ type: ACTION.RECEIVE_CATALOG_LIST_ERROR, error: err.response });
@@ -99,7 +99,7 @@ export function* getCatalogListSaga(action) {
 
 export function* addChatToCatalog(action) {
   try {
-    const { data } = yield restController.addChatToCatalog(action.data);
+    const { data } = yield Api.chatApi.addChatToCatalog(action.data);
     const { catalogList } = yield select((state) => state.chatStore);
     for (let i = 0; i < catalogList.length; i++) {
       if (catalogList[i]._id === data._id) {
@@ -115,7 +115,7 @@ export function* addChatToCatalog(action) {
 
 export function* createCatalog(action) {
   try {
-    const { data } = yield restController.createCatalog(action.data);
+    const { data } = yield Api.chatApi.createCatalog(action.data);
     yield put({ type: ACTION.CREATE_CATALOG_SUCCESS, data });
   } catch (err) {
     yield put({ type: ACTION.CREATE_CATALOG_ERROR, error: err.response });
@@ -124,7 +124,7 @@ export function* createCatalog(action) {
 
 export function* deleteCatalog(action) {
   try {
-    yield restController.deleteCatalog(action.data);
+    yield Api.chatApi.deleteCatalog(action.data);
     const { catalogList } = yield select((state) => state.chatStore);
     const newCatalogList = remove(
       catalogList,
@@ -138,7 +138,7 @@ export function* deleteCatalog(action) {
 
 export function* removeChatFromCatalogSaga(action) {
   try {
-    const { data } = yield restController.removeChatFromCatalog(action.data);
+    const { data } = yield Api.chatApi.removeChatFromCatalog(action.data);
     const { catalogList } = yield select((state) => state.chatStore);
     for (let i = 0; i < catalogList.length; i++) {
       if (catalogList[i]._id === data._id) {
@@ -160,7 +160,7 @@ export function* removeChatFromCatalogSaga(action) {
 
 export function* changeCatalogName(action) {
   try {
-    const { data } = yield restController.changeCatalogName(action.data);
+    const { data } = yield Api.chatApi.changeCatalogName(action.data);
     const { catalogList } = yield select((state) => state.chatStore);
     for (let i = 0; i < catalogList.length; i++) {
       if (catalogList[i]._id === data._id) {

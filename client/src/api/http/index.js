@@ -3,6 +3,7 @@ import config from '../../app/config';
 import AuthApi from './AuthApi';
 import UserApi from './UserApi';
 import ContestApi from './ContestApi';
+import ChatApi from './ChatApi';
 
 const {
   api: { http },
@@ -13,6 +14,7 @@ const client = axios.create(http);
 export const auth = new AuthApi({ client });
 export const userApi = new UserApi({ client });
 export const contestApi = new ContestApi({ client });
+export const chatApi = new ChatApi({ client });
 
 client.interceptors.request.use(
   auth.interceptRequest,
