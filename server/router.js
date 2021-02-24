@@ -68,7 +68,7 @@ router.post(
 router.post(
   '/changeMark',
   basicMiddlewares.onlyForCustomer,
-  userController.changeMark,
+  offerController.changeMark,
 );
 
 router.post(
