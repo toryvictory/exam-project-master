@@ -1,23 +1,5 @@
 import ACTION from './actionTypes';
 
-export const authActionLogin = (data) => ({
-  type: ACTION.AUTH_ACTION_LOGIN,
-  data,
-});
-
-export const authActionRegister = (data) => ({
-  type: ACTION.AUTH_ACTION_REGISTER,
-  data,
-});
-
-export const clearErrorSignUpAndLogin = () => ({
-  type: ACTION.AUTH_ACTION_CLEAR_ERROR,
-});
-
-export const clearUserStore = () => ({
-  type: ACTION.CLEAR_USER_STORE,
-});
-
 export const clearAddOfferError = () => ({
   type: ACTION.CLEAR_ADD_OFFER_ERROR,
 });
@@ -28,11 +10,6 @@ export const clearChangeMarkError = () => ({
 
 export const clearSetOfferStatusError = () => ({
   type: ACTION.CLEAR_SET_OFFER_STATUS_ERROR,
-});
-
-export const getUserAction = (data) => ({
-  type: ACTION.GET_USER_ACTION,
-  replace: data,
 });
 
 export const getDataForContest = (data) => ({
@@ -103,11 +80,6 @@ export const createCatalog = (data) => ({
   data,
 });
 
-export const updateUserData = (data) => ({
-  type: ACTION.UPDATE_USER_DATA,
-  data,
-});
-
 export const cashOut = (data) => ({
   type: ACTION.CASHOUT_ACTION,
   data,
@@ -115,19 +87,6 @@ export const cashOut = (data) => ({
 
 export const clearContestList = () => ({
   type: ACTION.CLEAR_CONTESTS_LIST,
-});
-
-export const onlyForNotAuthorize = (data) => ({
-  type: ACTION.ONLY_FOR_NOT_AUTHORIZE_USERS,
-  replace: data,
-});
-
-export const headerRequest = () => ({
-  type: ACTION.HEADER_REQUEST_AUTHORIZE,
-});
-
-export const clearAuth = () => ({
-  type: ACTION.AUTH_ACTION_CLEAR,
 });
 
 export const getPreviewChat = () => ({
