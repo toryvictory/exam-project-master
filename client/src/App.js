@@ -1,5 +1,7 @@
-import React, { useLayoutEffect, lazy, Suspense } from 'react';
-import { useDispatch } from 'react-redux';
+import React, {
+  useLayoutEffect, lazy, Suspense, useEffect,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
@@ -18,6 +20,8 @@ import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatCo
 import PrivateRoute from './components/PrivateRoute';
 import Spinner from './components/Spinner/Spinner';
 import { refreshAuthRequest } from './actions/auth/authActionCreators';
+import { controller } from './api/ws/socketController';
+import { userSelector } from './selectors';
 
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const HowItWorks = lazy(() => import('./pages/HowItWorks/HowItWorks'));
@@ -34,6 +38,16 @@ function App() {
       );
     }
   }, []);
+
+  const user = useSelector(userSelector);
+  const { id } = user || {};
+
+  useEffect(() => {
+    if (user) {
+      controller.subscribe(id);
+      return () => controller.unsubscribe(id);
+    }
+  }, [user]);
 
   return (
     <Router history={browserHistory}>
