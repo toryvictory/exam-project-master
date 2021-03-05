@@ -1,0 +1,57 @@
+@import "./../../../common/styles/_templates.sass"
+
+$line-height: 18px
+$max-lines: 2
+
+.container
+  display: flex
+  flex-direction: column
+  transition: all 0.3s ease 0s
+  box-sizing: border-box
+  max-width: 280px
+  padding: 16px
+  margin: 15px
+  border-radius: 5px
+  border: 1px solid #e7eaf3
+  font-family: 'Poppins', 'Helvetica', 'Arial', sans-serif
+  font-size: 12px
+  &:focus
+    outline: none
+  &:hover
+    box-shadow: 0 0 10px rgba(44,185,183,.125)
+
+.answer
+  @extend %overflow-ellipsis
+  white-space: nowrap
+  max-width: 80px
+  padding: 7px 15px
+  margin: 0 auto
+  border-radius: 160px
+  background-color: #77838f
+  color: #fff
+  font-weight: 500
+  text-transform: capitalize
+
+.clarification
+  @extend %overflow-ellipsis
+  position: relative
+  display: -webkit-box
+  -webkit-line-clamp: $max-lines
+  -webkit-box-orient: vertical
+  max-width: 248px
+  max-height: $max-lines * $line-height
+  padding-right: 12px
+  margin: 16px auto 0
+  color: #77838f
+  font-weight: 400
+  text-align: center
+
+.container_active
+  border-color: transparent
+  box-shadow: 0 0 0 3px rgba(44,185,183,.5) !important
+
+.answer_active
+  background-color: #2cb9b7
+
+.clarification_active
+  color: #555c6b
