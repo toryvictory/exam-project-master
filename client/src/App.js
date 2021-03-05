@@ -25,6 +25,7 @@ import { userSelector } from './selectors';
 
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const HowItWorks = lazy(() => import('./pages/HowItWorks/HowItWorks'));
+const EventsPage = lazy(() => import('./pages/Events/EventsPage'));
 
 function App() {
   const dispatch = useDispatch();
@@ -75,6 +76,12 @@ function App() {
           />
           <PrivateRoute
             roles={[ROLES.CUSTOMER]}
+            exact
+            path="/events"
+            component={EventsPage}
+          />
+          <PrivateRoute
+            roles={['customer']}
             exact
             path="/startContest"
             component={StartContestPage}

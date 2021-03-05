@@ -1,10 +1,11 @@
 import React from 'react';
 import { useField } from 'formik';
 import classNames from 'classnames';
+import Datetime from 'react-datetime';
 import PropTypes from 'prop-types';
-import styles from './TextInput.module.sass';
+import styles from '../TextInput/TextInput.module.sass';
 
-const TextInput = ({
+const DateTimeInput = ({
   label, containerClass, labelClass, inputContainerClass, ...props
 }) => {
   const [field, meta] = useField(props);
@@ -13,7 +14,11 @@ const TextInput = ({
     <div className={containerClass || styles.container}>
       <label className={labelClass || styles.label} htmlFor={props.id || props.name}>{label}</label>
       <div className={inputContainerClass || styles.inputContainer}>
-        <input className={inputClasses} {...field} {...props} />
+        <Datetime
+          inputProps={{ className: inputClasses, readOnly: true }}
+          {...field}
+          {...props}
+        />
         {meta.touched && meta.error ? (
           <div className={styles.error}>{meta.error}</div>
         ) : null}
@@ -22,18 +27,18 @@ const TextInput = ({
   );
 };
 
-TextInput.propTypes = {
+DateTimeInput.propTypes = {
   label: PropTypes.string,
   containerClass: PropTypes.string,
   labelClass: PropTypes.string,
   inputContainerClass: PropTypes.string,
 };
 
-TextInput.defaultProps = {
+DateTimeInput.defaultProps = {
   label: null,
   containerClass: '',
   labelClass: '',
   inputContainerClass: '',
 };
 
-export default TextInput;
+export default DateTimeInput;

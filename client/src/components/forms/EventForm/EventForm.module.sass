@@ -1,0 +1,43 @@
+@import "./../../../common/styles/_vars.sass"
+.formContainer
+  position: relative
+  font-family: 'Raleway', sans-serif
+  color: $regular-text-color
+  font-size: 18px
+  margin: 40px auto
+  padding: 30px 40px 80px
+  border: 1px solid lightgray
+  -webkit-box-shadow: 7px 5px 14px 0 lightgray
+  box-shadow: 7px 5px 14px 0 lightgray
+  @media screen and (max-width: $medium-breakpoint)
+    margin-left: 40px
+    margin-right: 15px
+
+  .inputWrapper
+    display: flex
+    flex-wrap: wrap
+    margin-bottom: 10px
+  .label
+    margin-right: 10px
+    @media screen and (max-width: 415px)
+      margin-right: 0
+      margin-bottom: 5px
+  .submitButton
+    font-family: 'Raleway', sans-serif
+    font-size: 16px
+    position: absolute
+    bottom: 30px
+    right: 40px
+    padding: 10px 20px
+  input
+    font-family: 'Raleway', sans-serif
+
+.formHeading
+  font-size: 24px
+  font-weight: bold
+  color: $bold-text-color
+  margin-top: 0
+
+.inputContainer
+  display: flex
+  flex-direction: column
