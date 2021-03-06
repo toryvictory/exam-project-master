@@ -27,7 +27,7 @@ const LoginButtons = () => {
     history,
   ]);
 
-  useLayoutEffect(() => { dispatch(getEvents(id)); }, []);
+  useLayoutEffect(() => { dispatch(getEvents(id)); }, [id]);
 
   if (user) {
     return (
