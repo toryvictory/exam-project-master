@@ -29,9 +29,11 @@ import { updateUserData } from './userSaga';
 import {
   getEventsSaga, addEventSaga, deleteEventSaga, toggleEventNotificationSaga,
 } from './eventsSaga';
+import { resetPasswordSaga, confirmPasswordResetSaga } from './passwordSagas';
 import AUTH_ACTION_TYPES from '../actions/auth/authActionTypes';
 import EDIT_USER_ACTION_TYPES from '../actions/user/editUserActionTypes';
 import EVENTS_ACTION_TYPES from '../actions/events/eventsActionTypes';
+import PASSWORD_ACTION_TYPES from '../actions/passwordReset/passwordActionTypes';
 
 function* rootSaga() {
   // my super cool code
@@ -44,6 +46,8 @@ function* rootSaga() {
   );
   yield takeLatest(AUTH_ACTION_TYPES.LOGOUT_REQUEST, AuthSagas.logoutSaga);
   yield takeLatest(EDIT_USER_ACTION_TYPES.UPDATE_USER_DATA, updateUserData);
+  yield takeLatest(PASSWORD_ACTION_TYPES.PASSWORD_RESET, resetPasswordSaga);
+  yield takeLatest(PASSWORD_ACTION_TYPES.PASSWORD_RESET_CONFIRMATION, confirmPasswordResetSaga);
   yield takeLatest(EVENTS_ACTION_TYPES.GET_EVENTS, getEventsSaga);
   yield takeLatest(EVENTS_ACTION_TYPES.ADD_EVENT, addEventSaga);
   yield takeLatest(EVENTS_ACTION_TYPES.DELETE_EVENT, deleteEventSaga);

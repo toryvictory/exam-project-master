@@ -1,3 +1,5 @@
+@import "src/common/styles/vars"
+
 .loginForm
   width: 600px
   display: flex
@@ -26,7 +28,8 @@
       outline: none
       border: 3px solid white
       border-radius: 10px
-
+    &:hover
+      cursor: pointer
 
   .inscription
     font-size: 16px
@@ -108,9 +111,22 @@
     margin-bottom: 15px
 
   h2
+    display: inline-block
+    margin: 20px 20px 28px
+    padding: 10px 0
     text-align: center
     font-size: 34px
     letter-spacing: 0.6px
     color: white
-    margin-top: 20px
-    margin-bottom: 28px
+
+.resetLink
+  display: inline-block
+  margin-left: 20px
+  margin-bottom: 25px
+  color: #ffffff
+  text-decoration: none
+  &:hover
+    color: $accent-text-color
+
+.resetForm
+  background: linear-gradient(292deg, rgba(241,135,98,1) 17%, rgba(62,169,245,1) 49%, rgba(241,135,98,1) 79%)

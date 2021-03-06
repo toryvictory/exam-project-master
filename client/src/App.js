@@ -19,6 +19,7 @@ import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import PrivateRoute from './components/PrivateRoute';
 import Spinner from './components/Spinner/Spinner';
+import ConfirmPasswordReset from './pages/ConfirmPasswordReset/ConfirmPasswordReset';
 import { refreshAuthRequest } from './actions/auth/authActionCreators';
 import { controller } from './api/ws/socketController';
 import { userSelector } from './selectors';
@@ -66,7 +67,7 @@ function App() {
       <Suspense fallback={<Spinner />}>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path={['/login', '/signup']} component={AuthPage} />
+          <Route path={['/login', '/signup', '/resetPassword']} component={AuthPage} />
           <Route path="/howItWorks" component={HowItWorks} />
           <PrivateRoute
             roles={[ROLES.CUSTOMER]}
@@ -119,6 +120,7 @@ function App() {
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/contest/:id" component={ContestPage} />
           <PrivateRoute exact path="/account" component={UserProfile} />
+          <Route path="/confirmPasswordReset/:token" component={ConfirmPasswordReset} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>

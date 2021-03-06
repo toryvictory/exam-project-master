@@ -42,3 +42,11 @@ exports.contestSchema = yup.object().shape({
   typeOfTagline: yup.string().min(1),
   brandStyle: yup.string().min(1),
 });
+
+exports.passwordResetSchema = yup.object().shape({
+  email: yup.string().trim().email().required(),
+  password: yup
+    .string()
+    .matches(...passwordRule)
+    .required(),
+});

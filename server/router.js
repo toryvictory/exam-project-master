@@ -9,11 +9,16 @@ const upload = require('./utils/fileUpload');
 const authRouter = require('./routes/auth');
 const checkAuthorization = require('./middlewares/checkAuthorization');
 const validateBody = require('./middlewares/validateBody');
-const { contestSchema } = require('./validation/schemas');
+const { contestSchema, passwordResetSchema } = require('./validation/schemas');
+const passwordController = require('./controllers/passwordController');
 
 const router = express.Router();
 
 router.use('/auth', authRouter);
+
+router.post('/resetPassword', validateBody(passwordResetSchema), passwordController.resetPassword);
+
+router.post('/confirmPasswordReset', passwordController.confirmPasswordReset);
 
 router.use(checkAuthorization);
 
