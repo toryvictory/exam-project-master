@@ -27,6 +27,7 @@ import { userSelector } from './selectors';
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const HowItWorks = lazy(() => import('./pages/HowItWorks/HowItWorks'));
 const EventsPage = lazy(() => import('./pages/Events/EventsPage'));
+const OfferModeration = lazy(() => import('./pages/OfferModeration/OfferModeration'));
 
 function App() {
   const dispatch = useDispatch();
@@ -120,6 +121,7 @@ function App() {
           <PrivateRoute exact path="/dashboard" component={Dashboard} roles={[ROLES.CUSTOMER, ROLES.CREATOR]} />
           <PrivateRoute exact path="/contest/:id" component={ContestPage} roles={[ROLES.CUSTOMER, ROLES.CREATOR]} />
           <PrivateRoute exact path="/account" component={UserProfile} roles={[ROLES.CUSTOMER, ROLES.CREATOR]} />
+          <PrivateRoute path="/offerModeration" component={OfferModeration} roles={[ROLES.MODERATOR]} />
           <Route path="/confirmPasswordReset/:token" component={ConfirmPasswordReset} />
           <Route component={NotFound} />
         </Switch>

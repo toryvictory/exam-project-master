@@ -6,7 +6,7 @@ import { mdiChevronDown } from '@mdi/js';
 import { userSelector } from '../../../selectors';
 import { logoutRequest } from '../../../actions/auth/authActionCreators';
 import styles from '../Header.module.sass';
-import CONSTANTS from '../../../constants';
+import CONSTANTS, { ROLES } from '../../../constants';
 import { getEvents } from '../../../actions/events/eventsActionCreators';
 
 const LoginButtons = () => {
@@ -46,44 +46,64 @@ const LoginButtons = () => {
           <span>{`Hi, ${displayName}`}</span>
 
           <Icon path={mdiChevronDown} className={styles.iconChevron} />
+
           <ul>
-            <li>
-              <Link to="/dashboard" style={{ textDecoration: 'none' }}>
-                <span>View Dashboard</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/account" style={{ textDecoration: 'none' }}>
-                <span>My Account</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/events" style={{ textDecoration: 'none' }}>
-                <span>My Events</span>
-                {!!eventsNotificationsCount
-                && <span className={`${styles.userNotification} ${styles.userNotification_li}`}>{eventsNotificationsCount}</span>}
-              </Link>
-            </li>
-            <li>
-              <a
-                href="http://www.google.com"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: 'none' }}
-              >
-                <span>Messages</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="http://www.google.com"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: 'none' }}
-              >
-                <span>Affiliate Dashboard</span>
-              </a>
-            </li>
+            {(user.role === ROLES.CUSTOMER || user.role === ROLES.CREATOR)
+              && (
+                <>
+                  <li>
+                    <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+                      <span>View Dashboard</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/account" style={{ textDecoration: 'none' }}>
+                      <span>My Account</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/events" style={{ textDecoration: 'none' }}>
+                      <span>My Events</span>
+                      {!!eventsNotificationsCount
+                && (
+                <span
+                  className={`${styles.userNotification} ${styles.userNotification_li}`}
+                >
+                  {eventsNotificationsCount}
+                </span>
+                )}
+                    </Link>
+                  </li>
+                  <li>
+                    <a
+                      href="http://www.google.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <span>Messages</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="http://www.google.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <span>Affiliate Dashboard</span>
+                    </a>
+                  </li>
+                </>
+              )}
+            {(user.role === ROLES.MODERATOR)
+              && (
+              <li>
+                <Link to="/offerModeration" style={{ textDecoration: 'none' }}>
+                  <span>Offer Moderation</span>
+                </Link>
+              </li>
+              )}
             <li>
               <span onClick={logout}>Logout</span>
             </li>
