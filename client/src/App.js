@@ -82,7 +82,7 @@ function App() {
             component={EventsPage}
           />
           <PrivateRoute
-            roles={['customer']}
+            roles={[ROLES.CUSTOMER]}
             exact
             path="/startContest"
             component={StartContestPage}
@@ -117,9 +117,9 @@ function App() {
               title="LOGO"
             />
           </PrivateRoute>
-          <PrivateRoute exact path="/dashboard" component={Dashboard} />
-          <PrivateRoute exact path="/contest/:id" component={ContestPage} />
-          <PrivateRoute exact path="/account" component={UserProfile} />
+          <PrivateRoute exact path="/dashboard" component={Dashboard} roles={[ROLES.CUSTOMER, ROLES.CREATOR]} />
+          <PrivateRoute exact path="/contest/:id" component={ContestPage} roles={[ROLES.CUSTOMER, ROLES.CREATOR]} />
+          <PrivateRoute exact path="/account" component={UserProfile} roles={[ROLES.CUSTOMER, ROLES.CREATOR]} />
           <Route path="/confirmPasswordReset/:token" component={ConfirmPasswordReset} />
           <Route component={NotFound} />
         </Switch>
