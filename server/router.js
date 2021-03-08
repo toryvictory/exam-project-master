@@ -108,4 +108,6 @@ router.post(
 
 router.post('/getCatalogs', chatController.getCatalogs);
 
+router.get('/getOffers', offerController.getOffers);
+
 module.exports = router;

@@ -268,3 +268,12 @@ module.exports.changeMark = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.getOffers = async (req, res, next) => {
+  try {
+    const offers = await Offer.findAll();
+    res.send({ data: offers });
+  } catch (err) {
+    next(err);
+  }
+};
