@@ -15,6 +15,10 @@ const OfferModeration = () => {
   useLayoutEffect(() => dispatch(getOffers()), [dispatch]);
   const [status, setStatus] = useState(CONSTANTS.MODERATION_STATUS_PENDING);
   const { offers, error, isFetching } = useSelector((state) => state.offersStore);
+  const filteredOffers = offers.filter((offer) => offer.moderationStatus === status);
+  if (status !== CONSTANTS.MODERATION_STATUS_PENDING) {
+    filteredOffers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
   if (isFetching) { return <Spinner />; }
   return (
     <div className={styles.pageContainer}>
@@ -67,7 +71,7 @@ const OfferModeration = () => {
         <div className={styles.offersContainer}>
           {
             error ? <TryAgain getData={() => dispatch(getOffers())} />
-              : <OffersList offers={offers.filter((offer) => offer.moderationStatus === status)} />
+              : <OffersList offers={filteredOffers} />
           }
         </div>
       </main>
