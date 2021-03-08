@@ -1,5 +1,5 @@
-'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Offer extends Model {
     static associate({ User, Contest, Rating }) {
@@ -47,11 +47,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         defaultValue: 'pending',
       },
+      moderationStatus: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'pending',
+      },
     },
     {
       sequelize,
       modelName: 'Offer',
-    }
+    },
   );
   return Offer;
 };
