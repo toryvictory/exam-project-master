@@ -25,6 +25,12 @@ class OfferApi {
    * @returns {Promise}
    */
   changeMark = (data) => this.#_client.post('changeMark', data);
+
+  /**
+   *
+   * @returns {Promise}
+   */
+  getOffers = () => this.#_client.get('getOffers');
 }
 
 export default OfferApi;

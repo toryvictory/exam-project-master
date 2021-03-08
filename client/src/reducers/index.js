@@ -12,6 +12,7 @@ import chatReducer from './chatReducer';
 import userProfileReducer from './userProfileReducer';
 import eventsReducer from './eventsReducer';
 import passwordReducer from './passwordReducer';
+import offersReducer from './offersReducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   userProfile: userProfileReducer,
   password: passwordReducer,
   eventsStore: eventsReducer,
+  offersStore: offersReducer,
 });
 
 export default rootReducer;

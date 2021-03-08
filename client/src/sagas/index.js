@@ -11,7 +11,7 @@ import {
   getContestByIdSaga,
   downloadContestFileSaga,
 } from './contestsSagas';
-import { changeMarkSaga, setOfferStatusSaga, addOfferSaga } from './offerSagas';
+import { changeMarkSaga, setOfferStatusSaga, addOfferSaga, getOffersSaga } from './offerSagas';
 import {
   previewSaga,
   getDialog,
@@ -34,6 +34,7 @@ import AUTH_ACTION_TYPES from '../actions/auth/authActionTypes';
 import EDIT_USER_ACTION_TYPES from '../actions/user/editUserActionTypes';
 import EVENTS_ACTION_TYPES from '../actions/events/eventsActionTypes';
 import PASSWORD_ACTION_TYPES from '../actions/passwordReset/passwordActionTypes';
+import OFFERS_ACTION_TYPES from '../actions/offers/offersActionTypes';
 
 function* rootSaga() {
   // my super cool code
@@ -67,6 +68,7 @@ function* rootSaga() {
   yield takeEvery(ACTION.SET_OFFER_ACTION, addOfferSaga);
   yield takeLatest(ACTION.SET_OFFER_STATUS_ACTION, setOfferStatusSaga);
   yield takeLatest(ACTION.CHANGE_MARK_ACTION, changeMarkSaga);
+  yield takeLatest(OFFERS_ACTION_TYPES.GET_OFFERS, getOffersSaga);
   yield takeLatest(ACTION.GET_PREVIEW_CHAT_ASYNC, previewSaga);
   yield takeLatest(ACTION.GET_DIALOG_MESSAGES_ASYNC, getDialog);
   yield takeLatest(ACTION.SEND_MESSAGE_ACTION, sendMessage);

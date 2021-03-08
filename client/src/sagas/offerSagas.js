@@ -2,6 +2,7 @@ import { put, select } from 'redux-saga/effects';
 import ACTION from '../actions/actionTypes';
 import * as Api from '../api/http';
 import CONSTANTS from '../constants';
+import { getOffersRequest, getOffersRequestSuccess, getOffersRequestFailed } from '../actions/offers/offersActionCreators';
 
 export function* changeMarkSaga(action) {
   try {
@@ -48,5 +49,15 @@ export function* setOfferStatusSaga(action) {
     yield put({ type: ACTION.CHANGE_STORE_FOR_STATUS, data: offers });
   } catch (e) {
     yield put({ type: ACTION.SET_OFFER_STATUS_ERROR, error: e.response });
+  }
+}
+
+export function* getOffersSaga() {
+  try {
+    yield put(getOffersRequest());
+    const { data } = yield Api.offerApi.getOffers();
+    yield put(getOffersRequestSuccess(data));
+  } catch (e) {
+    yield put(getOffersRequestFailed(e.response));
   }
 }
