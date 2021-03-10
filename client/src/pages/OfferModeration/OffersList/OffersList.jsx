@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import OfferBox from '../../../components/OfferBox/OfferBox';
 
 const OffersList = ({ offers }) => (
-  <div>
-    {JSON.stringify(offers)}
-  </div>
+  <ul>
+    {offers.map((offer) => <OfferBox data={offer} />)}
+  </ul>
 );
 
 OffersList.propTypes = {
