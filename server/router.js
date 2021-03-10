@@ -110,4 +110,6 @@ router.post('/getCatalogs', chatController.getCatalogs);
 
 router.get('/getOffers', offerController.getOffers);
 
+router.patch('/changeOfferModerationStatus', offerController.changeOfferModerationStatus);
+
 module.exports = router;

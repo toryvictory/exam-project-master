@@ -272,7 +272,32 @@ module.exports.changeMark = async (req, res, next) => {
 module.exports.getOffers = async (req, res, next) => {
   try {
     const offers = await Offer.findAll();
-    res.send(offers);
+    res.status(200).send(offers);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.changeOfferModerationStatus = async (req, res, next) => {
+  const {
+    body: {
+      id,
+      moderationStatus,
+    },
+  } = req;
+  try {
+    const [updatedCount, [offer]] = await Offer.update(
+      { moderationStatus },
+      {
+        where: { id },
+        returning: true,
+      },
+    );
+
+    if (updatedCount !== 1) {
+      throw createHttpError(400, 'cannot update offer moderation status');
+    }
+    res.status(200).send(offer.dataValues);
   } catch (err) {
     next(err);
   }
