@@ -12,7 +12,7 @@ import styles from './OfferModeration.module.sass';
 
 const OfferModeration = () => {
   const dispatch = useDispatch();
-  useLayoutEffect(() => dispatch(getOffers()), [dispatch]);
+  useLayoutEffect(() => { dispatch(getOffers()); }, [dispatch]);
   const [status, setStatus] = useState(CONSTANTS.MODERATION_STATUS_PENDING);
   const { offers, error, isFetching } = useSelector((state) => state.offersStore);
   const filteredOffers = offers.filter((offer) => offer.moderationStatus === status);
