@@ -46,3 +46,50 @@ export const getOffersRequestFailed = (err) => ({
     error: err,
   },
 });
+
+/**
+ *
+ * @param {object} values
+ * @param {number} values.id
+ * @param {string} values.moderationStatus
+ * @returns {Action}
+ */
+export const changeOfferModerationStatus = (values) => ({
+  type: OFFERS_ACTION_TYPES.CHANGE_OFFER_MODERATION_STATUS,
+  payload: {
+    values,
+  },
+});
+
+/**
+ *
+ * @param {object} values
+ * @returns {Action}
+ */
+export const changeOfferModerationStatusRequest = () => ({
+  type: OFFERS_ACTION_TYPES.CHANGE_OFFER_MODERATION_STATUS_REQUEST,
+});
+
+/**
+ *
+ * @param {object} data
+ * @returns {Action}
+ */
+export const changeOfferModerationStatusRequestSuccess = (data) => ({
+  type: OFFERS_ACTION_TYPES.CHANGE_OFFER_MODERATION_STATUS_REQUEST_SUCCESS,
+  payload: {
+    data,
+  },
+});
+
+/**
+ *
+ * @param {object} err
+ * @returns {Action}
+ */
+export const changeOfferModerationStatusRequestFailed = (err) => ({
+  type: OFFERS_ACTION_TYPES.CHANGE_OFFER_MODERATION_STATUS_REQUEST_FAILED,
+  payload: {
+    error: err,
+  },
+});

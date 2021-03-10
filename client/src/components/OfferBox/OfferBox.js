@@ -18,7 +18,9 @@ import ModerationStatus from './auxiliaryComponents/ModerationStatus';
 const OfferBox = (props) => {
   const { id, role } = useSelector(userSelector);
   const { data, setOfferStatus, needButtons } = props;
-  const { User, status, moderationStatus } = data;
+  const {
+    User, status, moderationStatus, id: offerId,
+  } = data;
   return (
     <div className={styles.offerContainer}>
       { (role === ROLES.MODERATOR || role === ROLES.CREATOR)
@@ -33,7 +35,13 @@ const OfferBox = (props) => {
           {role === ROLES.CUSTOMER && <OfferRating data={data} />}
         </div>
         {role === ROLES.CUSTOMER && <OfferChat userId={id} interlocutor={User} />}
-        {role === ROLES.MODERATOR && <ModerationButtons moderationStatus={moderationStatus} />}
+        {role === ROLES.MODERATOR
+        && (
+        <ModerationButtons
+          moderationStatus={moderationStatus}
+          offerId={offerId}
+        />
+        )}
       </div>
       {(role === ROLES.CUSTOMER && needButtons(status))
       && (

@@ -2,7 +2,14 @@ import { put, select } from 'redux-saga/effects';
 import ACTION from '../actions/actionTypes';
 import * as Api from '../api/http';
 import CONSTANTS from '../constants';
-import { getOffersRequest, getOffersRequestSuccess, getOffersRequestFailed } from '../actions/offers/offersActionCreators';
+import {
+  getOffersRequest,
+  getOffersRequestSuccess,
+  getOffersRequestFailed,
+  changeOfferModerationStatusRequest,
+  changeOfferModerationStatusRequestSuccess,
+  changeOfferModerationStatusRequestFailed,
+} from '../actions/offers/offersActionCreators';
 
 export function* changeMarkSaga(action) {
   try {
@@ -58,6 +65,16 @@ export function* getOffersSaga() {
     const { data } = yield Api.offerApi.getOffers();
     yield put(getOffersRequestSuccess(data));
   } catch (e) {
-    yield put(getOffersRequestFailed(e.response));
+    yield put(getOffersRequestFailed(e));
+  }
+}
+
+export function* changeOfferModerationStatus(action) {
+  try {
+    yield put(changeOfferModerationStatusRequest());
+    const { data } = yield Api.offerApi.changeOfferModerationStatus(action.payload.values);
+    yield put(changeOfferModerationStatusRequestSuccess(data));
+  } catch (e) {
+    yield put(changeOfferModerationStatusRequestFailed(e));
   }
 }

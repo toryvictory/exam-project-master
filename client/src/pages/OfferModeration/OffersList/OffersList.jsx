@@ -4,7 +4,7 @@ import OfferBox from '../../../components/OfferBox/OfferBox';
 
 const OffersList = ({ offers }) => (
   <ul>
-    {offers.map((offer) => <OfferBox data={offer} />)}
+    {offers.map((offer) => <OfferBox key={offer.id} data={offer} />)}
   </ul>
 );
 
