@@ -21,7 +21,7 @@ const OfferBox = (props) => {
   const { User, status, moderationStatus } = data;
   return (
     <div className={styles.offerContainer}>
-      { (role === ROLES.CUSTOMER || role === ROLES.CREATOR)
+      { (role === ROLES.MODERATOR || role === ROLES.CREATOR)
       && <ModerationStatus moderationStatus={moderationStatus} />}
       { (role === ROLES.CUSTOMER || role === ROLES.CREATOR)
       && <OfferStatus status={status} /> }
