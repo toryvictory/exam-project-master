@@ -11,6 +11,8 @@ const checkAuthorization = require('./middlewares/checkAuthorization');
 const validateBody = require('./middlewares/validateBody');
 const { contestSchema, passwordResetSchema } = require('./validation/schemas');
 const passwordController = require('./controllers/passwordController');
+const checkRole = require('./middlewares/checkRole');
+const { MODERATOR } = require('./constants');
 
 const router = express.Router();
 
@@ -108,8 +110,8 @@ router.post(
 
 router.post('/getCatalogs', chatController.getCatalogs);
 
-router.get('/getOffers', offerController.getOffers);
+router.get('/getOffers', checkRole([MODERATOR]), offerController.getOffers);
 
-router.patch('/changeOfferModerationStatus', offerController.changeOfferModerationStatus);
+router.patch('/changeOfferModerationStatus', checkRole([MODERATOR]), offerController.changeOfferModerationStatus);
 
 module.exports = router;
