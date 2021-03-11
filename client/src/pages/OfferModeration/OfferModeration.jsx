@@ -18,6 +18,8 @@ const OfferModeration = () => {
   const filteredOffers = offers.filter((offer) => offer.moderationStatus === status);
   if (status !== CONSTANTS.MODERATION_STATUS_PENDING) {
     filteredOffers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } else {
+    filteredOffers.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
   }
   if (isFetching) { return <Spinner />; }
   return (
