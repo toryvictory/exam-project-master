@@ -1,18 +1,20 @@
 const express = require('express');
-const basicMiddlewares = require('./middlewares/basicMiddlewares');
+const authRouter = require('./routes/auth');
 const userController = require('./controllers/userController');
 const creditCardController = require('./controllers/creditCardController');
 const contestController = require('./controllers/contestController');
 const chatController = require('./controllers/chatController');
+const passwordController = require('./controllers/passwordController');
 const offerController = require('./controllers/offerController');
 const upload = require('./utils/fileUpload');
-const authRouter = require('./routes/auth');
+const permissions = require('./middlewares/permissions');
 const checkAuthorization = require('./middlewares/checkAuthorization');
+const checkRole = require('./middlewares/checkRole');
+const parseBody = require('./middlewares/parseBody');
 const validateBody = require('./middlewares/validateBody');
 const { contestSchema, passwordResetSchema } = require('./validation/schemas');
-const passwordController = require('./controllers/passwordController');
-const checkRole = require('./middlewares/checkRole');
-const { MODERATOR } = require('./constants');
+
+const { CUSTOMER, CREATOR, MODERATOR } = require('./constants');
 
 const router = express.Router();
 
@@ -30,9 +32,9 @@ router.post('/dataForContest', contestController.dataForContest);
 
 router.post(
   '/pay',
-  basicMiddlewares.onlyForCustomer,
+  checkRole([CUSTOMER]),
   upload.uploadContestFiles,
-  basicMiddlewares.parseBody,
+  parseBody,
   validateBody(contestSchema),
   creditCardController.payment,
 );
@@ -41,13 +43,13 @@ router.post('/getCustomersContests', contestController.getCustomersContests);
 
 router.get(
   '/getContestById',
-  basicMiddlewares.canGetContest,
+  permissions.canGetContest,
   contestController.getContestById,
 );
 
 router.post(
   '/getAllContests',
-  basicMiddlewares.onlyForCreative,
+  checkRole([CREATOR]),
   contestController.getContests,
 );
 
@@ -62,25 +64,25 @@ router.post(
 router.post(
   '/setNewOffer',
   upload.uploadLogoFiles,
-  basicMiddlewares.canSendOffer,
+  permissions.canSendOffer,
   offerController.setNewOffer,
 );
 
 router.post(
   '/setOfferStatus',
-  basicMiddlewares.onlyForCustomerWhoCreateContest,
+  permissions.onlyForCustomerWhoCreateContest,
   offerController.setOfferStatus,
 );
 
 router.post(
   '/changeMark',
-  basicMiddlewares.onlyForCustomer,
+  checkRole([CUSTOMER]),
   offerController.changeMark,
 );
 
 router.post(
   '/cashout',
-  basicMiddlewares.onlyForCreative,
+  checkRole([CREATOR]),
   creditCardController.cashout,
 );
 
