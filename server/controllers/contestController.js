@@ -59,6 +59,14 @@ module.exports.getContestById = async (req, res, next) => {
         userId,
       },
     } = req;
+
+    let offerConstraint;
+    if (role === CONSTANTS.CREATOR) {
+      offerConstraint = { userId };
+    } else if (role === CONSTANTS.CUSTOMER) {
+      offerConstraint = { moderationStatus: CONSTANTS.MODERATION_STATUS_APPROVED };
+    }
+
     let contestInfo = await Contest.findOne({
       where: { id: contestid },
       order: [[Offer, 'id', 'asc']],
@@ -73,10 +81,7 @@ module.exports.getContestById = async (req, res, next) => {
         {
           model: Offer,
           required: false,
-          where:
-            role === CONSTANTS.CREATOR
-              ? { userId }
-              : {},
+          where: offerConstraint,
           attributes: { exclude: ['userId', 'contestId'] },
           include: [
             {
@@ -171,6 +176,9 @@ module.exports.getCustomersContests = (req, res, next) => {
         model: Offer,
         required: false,
         attributes: ['id'],
+        where: {
+          moderationStatus: CONSTANTS.MODERATION_STATUS_APPROVED,
+        },
       },
     ],
   })
