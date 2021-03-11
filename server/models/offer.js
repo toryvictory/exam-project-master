@@ -1,4 +1,5 @@
 const { Model } = require('sequelize');
+const { MODERATION_STATUS_PENDING, MODERATION_STATUS_APPROVED, MODERATION_STATUS_REJECTED } = require('../constants');
 
 module.exports = (sequelize, DataTypes) => {
   class Offer extends Model {
@@ -51,6 +52,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 'pending',
+        validate: {
+          isIn: [[
+            MODERATION_STATUS_PENDING,
+            MODERATION_STATUS_APPROVED,
+            MODERATION_STATUS_REJECTED]],
+        },
       },
     },
     {
