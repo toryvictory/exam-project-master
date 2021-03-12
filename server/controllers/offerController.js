@@ -11,6 +11,7 @@ const {
 const ServerError = require('../errors/ServerError');
 const controller = require('../socketInit');
 const CONSTANTS = require('../constants');
+const EmailService = require('../services/emailService/offerProcessedByModeratorEmail');
 
 module.exports.setNewOffer = async (req, res, next) => {
   const {
@@ -299,8 +300,30 @@ module.exports.changeOfferModerationStatus = async (req, res, next) => {
     if (updatedCount !== 1) {
       throw createHttpError(400, 'cannot update offer moderation status');
     }
+    req.offer = offer;
     res.status(200).send(offer.dataValues);
+    next();
   } catch (err) {
     next(err);
+  }
+};
+
+module.exports.sendOfferModerationEmail = async (req, res, next) => {
+  const {
+    offer,
+  } = req;
+  let isApproved;
+  if (offer.moderationStatus === CONSTANTS.MODERATION_STATUS_APPROVED) {
+    isApproved = true;
+  } else if (offer.moderationStatus === CONSTANTS.MODERATION_STATUS_REJECTED) {
+    isApproved = false;
+  }
+  try {
+    const contest = await Contest.findByPk(offer.contestId);
+    const user = await User.findByPk(offer.userId);
+    const fullName = `${user.firstName} ${user.lastName}`;
+    await EmailService.sendOfferModerationEmail(user.email, isApproved, fullName, contest.title);
+  } catch (err) {
+    console.log(err);
   }
 };

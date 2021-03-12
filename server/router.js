@@ -114,6 +114,9 @@ router.post('/getCatalogs', chatController.getCatalogs);
 
 router.get('/getOffers', checkRole([MODERATOR]), offerController.getOffers);
 
-router.patch('/changeOfferModerationStatus', checkRole([MODERATOR]), offerController.changeOfferModerationStatus);
+router.patch('/changeOfferModerationStatus',
+  checkRole([MODERATOR]),
+  offerController.changeOfferModerationStatus,
+  offerController.sendOfferModerationEmail);
 
 module.exports = router;
