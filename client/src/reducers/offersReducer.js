@@ -12,6 +12,7 @@ const handlers = {
 
   [OFFERS_ACTION_TYPES.GET_OFFERS_REQUEST]: produce((draftState) => {
     draftState.isFetching = true;
+    draftState.error = null;
   }),
 
   [OFFERS_ACTION_TYPES.GET_OFFERS_REQUEST_SUCCESS]: produce((draftState, action) => {
@@ -32,20 +33,17 @@ const handlers = {
     draftState.error = error;
   }),
 
-  [OFFERS_ACTION_TYPES.CHANGE_OFFER_MODERATION_STATUS_REQUEST]: produce((draftState) => {
-    draftState.isFetching = true;
-  }),
-
-  [OFFERS_ACTION_TYPES.CHANGE_OFFER_MODERATION_STATUS_REQUEST_SUCCESS]: produce((draftState, action) => {
-    const {
-      payload: {
-        data,
-      },
-    } = action;
-    draftState.isFetching = false;
-    const index = draftState.offers.findIndex((offer) => offer.id === data.id);
-    draftState.offers[index] = data;
-  }),
+  [OFFERS_ACTION_TYPES.CHANGE_OFFER_MODERATION_STATUS_REQUEST_SUCCESS]:
+    produce((draftState, action) => {
+      const {
+        payload: {
+          data,
+        },
+      } = action;
+      draftState.isFetching = false;
+      const index = draftState.offers.findIndex((offer) => offer.id === data.id);
+      draftState.offers[index] = data;
+    }),
 
   [OFFERS_ACTION_TYPES.CHANGE_OFFER_MODERATION_STATUS_REQUEST_FAILED]:
     produce((draftState, action) => {

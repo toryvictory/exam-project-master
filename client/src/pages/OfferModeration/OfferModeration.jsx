@@ -21,7 +21,14 @@ const OfferModeration = () => {
   } else {
     filteredOffers.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
   }
-  if (isFetching) { return <Spinner />; }
+  let offersComponent;
+  if (error) {
+    offersComponent = <TryAgain getData={() => dispatch(getOffers())} />;
+  } else if (isFetching) {
+    offersComponent = <Spinner />;
+  } else {
+    offersComponent = <OffersList offers={filteredOffers} />;
+  }
   return (
     <div className={styles.pageContainer}>
       <Header />
@@ -71,10 +78,7 @@ const OfferModeration = () => {
           </div>
         </div>
         <div className={styles.offersContainer}>
-          {
-            error ? <TryAgain getData={() => dispatch(getOffers())} />
-              : <OffersList offers={filteredOffers} />
-          }
+          {offersComponent}
         </div>
       </main>
       <Footer />

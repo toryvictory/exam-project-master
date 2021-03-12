@@ -71,7 +71,6 @@ export function* getOffersSaga() {
 
 export function* changeOfferModerationStatus(action) {
   try {
-    yield put(changeOfferModerationStatusRequest());
     const { data } = yield Api.offerApi.changeOfferModerationStatus(action.payload.values);
     yield put(changeOfferModerationStatusRequestSuccess(data));
   } catch (e) {
