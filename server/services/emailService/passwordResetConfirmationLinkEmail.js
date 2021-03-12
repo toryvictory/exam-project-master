@@ -1,10 +1,10 @@
 const transporter = require('./index');
 const config = require('../../configs/config');
 
-const { email: { userEmail }, url } = config;
+const { email: { shEmail }, url } = config;
 
 const createMailOptions = (email, token) => ({
-  from: userEmail,
+  from: shEmail,
   to: email,
   subject: 'Please confirm password reset',
   html: `<p>Squadhelp has received password reset request for the account associated with this email address.</p>

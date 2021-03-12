@@ -11,8 +11,8 @@ const config = {
     roles: ['customer', 'creator', 'moderator'],
   },
   email: {
-    userEmail: 'servicesquadhelp@gmail.com',
-    passwordEmail: 'squadhelp1SQUADHELP',
+    shEmail: 'servicesquadhelp@gmail.com',
+    shEmailPassword: 'squadhelp1SQUADHELP',
   },
 };
 
