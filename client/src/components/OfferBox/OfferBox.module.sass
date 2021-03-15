@@ -10,7 +10,8 @@
   position: relative
   align-items: flex-start
   @media(max-width: 450px)
-    padding: 10px 0
+    padding-top: 20px
+    padding-bottom: 10px
   i
     position: absolute
     left: calc(100% - 35px)
@@ -55,7 +56,7 @@
     align-items: center
     justify-content: space-between
     position: relative
-    @media(max-width: 500px)
+    @media(max-width: 600px)
       flex-direction: column
     .userInfo
       min-width: 215px
@@ -137,6 +138,8 @@
   position: absolute
   top: 5px
   left: 5px
+  @media (max-width: 500px)
+    font-size: 10px
 
 .pendingModeration
   color: #6e7072

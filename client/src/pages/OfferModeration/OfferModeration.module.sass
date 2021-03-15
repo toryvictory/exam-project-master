@@ -1,27 +1,30 @@
 .pageContainer
   display: flex
   flex-direction: column
+  justify-content: space-between
   min-height: 100vh
 
 .mainContainer
-  width: 1200px
-  margin: 0 auto
-  margin-top: 50px
-  padding-left: 40px
   display: flex
   flex-direction: row
   justify-content: flex-start
-  @media(max-width: 1400px)
-    width: auto
-  @media(max-width: 1000px)
+  width: 1000px
+  margin: 50px auto 0
+  padding-left: 40px
+  @media(max-width: 1070px)
     flex-direction: column
+    width: 700px
+  @media(max-width: 800px)
+    width: 280px
+    margin-top: 0
+    padding-left: 15px
   .errorContainer
-    margin: 0 auto
-    text-align: center
     display: flex
     flex-direction: column
+    margin: 0 auto
     width: 260px
     padding: 15px
+    text-align: center
     .message
       color: red
       font-size: 18px
@@ -32,49 +35,64 @@
     display: flex
     justify-content: center
     width: 100%
-    margin-top: 15px
   .filterContainer
-    min-width: 250px
-    height: 350px
-    padding-top: 30px
-    margin-right: 50px
     display: flex
     flex-direction: column
-    box-shadow: 0 5px 10px 3px rgba(0,0,0,0.1)
     align-items: flex-start
-    background-color: white
+    min-width: 250px
+    height: 200px
+    padding-top: 20px
+    margin-top: 15px
+    margin-right: 50px
     margin-bottom: 15px
-    @media(max-width: 1000px)
-      padding-top: 10px
+    box-shadow: 0 5px 10px 3px rgba(0,0,0,0.1)
+    background-color: white
+    @media(max-width: 1070px)
       flex-direction: row
-      margin-right: 0
       justify-content: center
+      align-self: center
+      width: 350px
       height: 80px
+      padding-top: 10px
+      margin-right: 0
+    @media(max-width: 450px)
+      width: 250px
+      height: 40px
+      padding-bottom: 10px
     .filter
-      margin-top: 15px
       align-self: stretch
+      margin-top: 15px
+      padding: 10px
+      border-radius: 10px
       text-align: center
       color: #46568a
       font-size: 18px
-      border-radius: 10px
-      padding: 10px
-      @media(max-width: 1000px)
+      @media(max-width: 1070px)
         height: 40px
+        width: 80px
         margin: 0 5px
+      @media(max-width: 450px)
+        max-width: 50px
+        font-size: 12px
       &:hover
         background-color: #eefaea
     .activeFilter
+      align-self: stretch
       transition: 0.5s background-color
       margin-top: 15px
-      align-self: stretch
+      padding: 10px
+      border-radius: 10px
+      background-color: #4e618d
       text-align: center
       font-size: 18px
-      border-radius: 10px
-      padding: 10px
-      background-color: #4e618d
       color: white
       &:focus
         outline: none
-      @media(max-width: 1000px)
+      @media(max-width: 1070px)
         height: 40px
         margin: 0 5px
+        max-width: 80px
+      @media(max-width: 450px)
+        max-width: 50px
+        height: 20px
+        font-size: 12px
