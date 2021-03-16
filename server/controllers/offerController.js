@@ -271,10 +271,22 @@ module.exports.changeMark = async (req, res, next) => {
 };
 
 module.exports.getOffers = async (req, res, next) => {
+  const {
+    query: {
+      status, page, limit,
+    },
+  } = req;
+  const offset = (page - 1) * limit;
   try {
-    const offers = await Offer.findAll({
-      raw: true,
-    });
+    const offers = await Offer.findAll(
+      {
+        where: { moderationStatus: status },
+        limit,
+        offset,
+        order: [['createdAt', `${status === CONSTANTS.MODERATION_STATUS_PENDING ? 'ASC' : 'DESC'}`]],
+        raw: true,
+      },
+    );
     res.status(200).send(offers);
   } catch (err) {
     next(err);
