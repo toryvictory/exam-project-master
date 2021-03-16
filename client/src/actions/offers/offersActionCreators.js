@@ -8,11 +8,15 @@ import OFFERS_ACTION_TYPES from './offersActionTypes';
  */
 
 /**
- *
+ * @property {object} params
+ * @property {string} params.status
+ * @property {number} params.page
+ * @property {number} params.limit
  * @returns {Action}
  */
-export const getOffers = () => ({
+export const getOffers = (params) => ({
   type: OFFERS_ACTION_TYPES.GET_OFFERS,
+  params,
 });
 
 /**

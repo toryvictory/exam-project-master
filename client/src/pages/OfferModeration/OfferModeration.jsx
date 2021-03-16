@@ -1,6 +1,8 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
+import qs from 'query-string';
 import { getOffers } from '../../actions/offers/offersActionCreators';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -11,23 +13,35 @@ import CONSTANTS from '../../constants';
 import styles from './OfferModeration.module.sass';
 
 const OfferModeration = () => {
+  const { search } = useLocation();
+  const params = qs.parse(search);
+  const { page: qpPage, limit: qpLimit, status: qpStatus } = params;
+  const page = parseInt(qpPage, 10) || 1;
+  const limit = parseInt(qpLimit, 10) || 8;
+  const [status, setStatus] = useState([
+    CONSTANTS.MODERATION_STATUS_APPROVED,
+    CONSTANTS.MODERATION_STATUS_REJECTED,
+  ].includes(qpStatus) ? qpStatus : CONSTANTS.MODERATION_STATUS_PENDING);
+
   const dispatch = useDispatch();
-  useLayoutEffect(() => { dispatch(getOffers()); }, [dispatch]);
-  const [status, setStatus] = useState(CONSTANTS.MODERATION_STATUS_PENDING);
+  useEffect(() => {
+    dispatch(getOffers({ status, page, limit }));
+  },
+  [dispatch, status, page, limit]);
+
+  const history = useHistory();
+  useEffect(() => history.push({ search: qs.stringify({ status, page, limit }) }),
+    [status, page, limit]);
+
   const { offers, error, isFetching } = useSelector((state) => state.offersStore);
-  const filteredOffers = offers.filter((offer) => offer.moderationStatus === status);
-  if (status !== CONSTANTS.MODERATION_STATUS_PENDING) {
-    filteredOffers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  } else {
-    filteredOffers.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-  }
+
   let offersComponent;
   if (error) {
     offersComponent = <TryAgain getData={() => dispatch(getOffers())} />;
   } else if (isFetching) {
     offersComponent = <Spinner />;
   } else {
-    offersComponent = <OffersList offers={filteredOffers} />;
+    offersComponent = <OffersList offers={offers} />;
   }
   return (
     <div className={styles.pageContainer}>

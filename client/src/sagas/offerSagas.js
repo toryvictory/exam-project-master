@@ -6,7 +6,6 @@ import {
   getOffersRequest,
   getOffersRequestSuccess,
   getOffersRequestFailed,
-  changeOfferModerationStatusRequest,
   changeOfferModerationStatusRequestSuccess,
   changeOfferModerationStatusRequestFailed,
 } from '../actions/offers/offersActionCreators';
@@ -59,10 +58,11 @@ export function* setOfferStatusSaga(action) {
   }
 }
 
-export function* getOffersSaga() {
+export function* getOffersSaga(action) {
+  const { params } = action;
   try {
     yield put(getOffersRequest());
-    const { data } = yield Api.offerApi.getOffers();
+    const { data } = yield Api.offerApi.getOffers(params);
     yield put(getOffersRequestSuccess(data));
   } catch (e) {
     yield put(getOffersRequestFailed(e));

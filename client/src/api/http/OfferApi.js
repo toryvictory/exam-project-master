@@ -27,10 +27,15 @@ class OfferApi {
   changeMark = (data) => this.#_client.post('changeMark', data);
 
   /**
-   *
+   * @param {object} params
+   * @param {number} params.limit
+   * @param {number} params.page
+   * @param {string} params.status
    * @returns {Promise}
    */
-  getOffers = () => this.#_client.get('getOffers');
+  getOffers = (params) => this.#_client.get('getOffers', {
+    params,
+  });
 
   /**
    *
