@@ -22,12 +22,15 @@
   .resolve
     color: green
   .btnsContainer
-    margin: 5px 0
+    margin: 15px 0 5px
     align-self: stretch
     display: flex
     flex-direction: row
     align-items: center
     justify-content: space-between
+    @media (max-width: 500px)
+      font-size: 12px
+      align-self: center
     .resolveBtn
       width: 100px
       cursor: pointer
@@ -84,7 +87,6 @@
       flex-direction: column
       justify-content: flex-start
       align-items: center
-      margin-right: 20px
       @media(max-width: 800px)
         margin-top: 10px
         max-width: 200px
