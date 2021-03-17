@@ -4,6 +4,7 @@ import OFFERS_ACTION_TYPES from '../actions/offers/offersActionTypes';
 
 const initialState = {
   offers: [],
+  count: 0,
   isFetching: false,
   error: null,
 };
@@ -18,11 +19,15 @@ const handlers = {
   [OFFERS_ACTION_TYPES.GET_OFFERS_REQUEST_SUCCESS]: produce((draftState, action) => {
     const {
       payload: {
-        data,
+        data: {
+          offers,
+          count,
+        },
       },
     } = action;
     draftState.isFetching = false;
-    draftState.offers = data;
+    draftState.offers = offers;
+    draftState.count = count;
   }),
 
   [OFFERS_ACTION_TYPES.GET_OFFERS_REQUEST_FAILED]: produce((draftState, action) => {

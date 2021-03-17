@@ -11,13 +11,14 @@ import Spinner from '../../components/Spinner/Spinner';
 import TryAgain from '../../components/TryAgain/TryAgain';
 import CONSTANTS from '../../constants';
 import styles from './OfferModeration.module.sass';
+import Pagination from '../../components/Pagination/Pagination';
 
 const OfferModeration = () => {
   const { search } = useLocation();
   const params = qs.parse(search);
   const { page: qpPage, limit: qpLimit, status: qpStatus } = params;
-  const page = parseInt(qpPage, 10) || 1;
   const limit = parseInt(qpLimit, 10) || 8;
+  const [page, setPage] = useState(parseInt(qpPage, 10) || 1);
   const [status, setStatus] = useState([
     CONSTANTS.MODERATION_STATUS_APPROVED,
     CONSTANTS.MODERATION_STATUS_REJECTED,
@@ -33,7 +34,9 @@ const OfferModeration = () => {
   useEffect(() => history.push({ search: qs.stringify({ status, page, limit }) }),
     [status, page, limit]);
 
-  const { offers, error, isFetching } = useSelector((state) => state.offersStore);
+  const {
+    offers, count, error, isFetching,
+  } = useSelector((state) => state.offersStore);
 
   let offersComponent;
   if (error) {
@@ -93,6 +96,11 @@ const OfferModeration = () => {
         </div>
         <div className={styles.offersContainer}>
           {offersComponent}
+          <Pagination
+            currentPage={page}
+            setPage={setPage}
+            totalPages={Math.ceil(count / limit)}
+          />
         </div>
       </main>
       <Footer />
