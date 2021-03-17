@@ -278,7 +278,7 @@ module.exports.getOffers = async (req, res, next) => {
   } = req;
   const offset = (page - 1) * limit;
   try {
-    const offers = await Offer.findAll(
+    const { count, rows: offers } = await Offer.findAndCountAll(
       {
         where: { moderationStatus: status },
         limit,
@@ -287,7 +287,7 @@ module.exports.getOffers = async (req, res, next) => {
         raw: true,
       },
     );
-    res.status(200).send(offers);
+    res.status(200).send({ offers, count });
   } catch (err) {
     next(err);
   }
