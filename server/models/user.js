@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate({
-      Contest, Offer, Rating, RefreshToken,
+      Contest, Offer, Rating, RefreshToken, Catalog,
     }) {
       // User*(role: customer) 1:n Contest
       User.hasMany(Contest, {
@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       User.hasMany(RefreshToken, {
+        foreignKey: 'userId',
+      });
+      User.hasMany(Catalog, {
         foreignKey: 'userId',
       });
     }
