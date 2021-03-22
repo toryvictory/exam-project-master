@@ -106,3 +106,52 @@ module.exports.updateNameCatalog = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.addNewChatToCatalog = async (req, res, next) => {
+  const {
+    tokenPayload:
+      {
+        userId,
+      },
+    body: {
+      chatId,
+      catalogId,
+    },
+  } = req;
+  try {
+    const catalog = await Catalog.findOne({
+      where: {
+        id: catalogId,
+        userId,
+      },
+      include: [{
+        model: ConversationCatalogs,
+        as: 'conversationCatalog',
+        required: true,
+        attributes: ['conversationId'],
+      }],
+    });
+
+    const conversation = await UserConversations.findOne({
+      where: {
+        conversationId: chatId,
+        userId,
+      },
+    });
+
+    if (!catalog || !conversation) {
+      throw createHttpError(403, 'User doesn\'t have rights to access requested chat or catalog');
+    }
+    await ConversationCatalogs.findOrCreate({
+      where: {
+        conversationId: chatId,
+        catalogId,
+      },
+    });
+    const catalogData = catalog.dataValues;
+    catalogData.chats = catalog.conversationCatalog.map((i) => i.conversationId);
+    res.send(catalogData);
+  } catch (err) {
+    next(err);
+  }
+};
