@@ -100,7 +100,7 @@ router.post('/favorite', chatControllerPg.favoriteChat);
 
 router.post('/createCatalog', chatCatalogControllerPg.createCatalog);
 
-router.post('/updateNameCatalog', chatController.updateNameCatalog);
+router.post('/updateNameCatalog', chatCatalogControllerPg.updateNameCatalog);
 
 router.post('/addNewChatToCatalog', chatController.addNewChatToCatalog);
 

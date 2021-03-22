@@ -78,3 +78,31 @@ module.exports.getCatalogs = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.updateNameCatalog = async (req, res, next) => {
+  const {
+    tokenPayload:
+      {
+        userId,
+      },
+    body: {
+      catalogName,
+      catalogId,
+    },
+  } = req;
+  try {
+    const [count, [catalog]] = await Catalog.update({ catalogName }, {
+      where: {
+        userId,
+        id: catalogId,
+      },
+      returning: true,
+    });
+    if (count !== 1) {
+      throw createHttpError(401, 'Unable to update the catalog');
+    }
+    res.send(catalog.dataValues);
+  } catch (err) {
+    next(err);
+  }
+};
