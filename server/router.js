@@ -10,6 +10,7 @@ const chatControllerPg = require('./controllers/chatControllerPg');
 const chatCatalogControllerPg = require('./controllers/chatCatalogControllerPg');
 const upload = require('./utils/fileUpload');
 const permissions = require('./middlewares/permissions');
+const chatPermissions = require('./middlewares/chatPermissions');
 const checkAuthorization = require('./middlewares/checkAuthorization');
 const checkRole = require('./middlewares/checkRole');
 const parseBody = require('./middlewares/parseBody');
@@ -98,17 +99,30 @@ router.post('/blackList', chatControllerPg.blackList);
 
 router.post('/favorite', chatControllerPg.favoriteChat);
 
-router.post('/createCatalog', chatCatalogControllerPg.createCatalog);
+router.post(
+  '/createCatalog',
+  chatPermissions.participatesInChat,
+  chatCatalogControllerPg.createCatalog,
+);
 
 router.post('/updateNameCatalog', chatCatalogControllerPg.updateNameCatalog);
 
-router.post('/addNewChatToCatalog', chatCatalogControllerPg.addNewChatToCatalog);
+router.post(
+  '/addNewChatToCatalog',
+  chatPermissions.participatesInChat,
+  chatPermissions.ownsCatalog,
+  chatCatalogControllerPg.addNewChatToCatalog,
+);
 
-router.post('/removeChatFromCatalog', chatCatalogControllerPg.removeChatFromCatalog);
+router.post(
+  '/removeChatFromCatalog',
+  chatPermissions.participatesInChat,
+  chatPermissions.ownsCatalog,
+  chatCatalogControllerPg.removeChatFromCatalog,
+);
 
 router.post(
   '/deleteCatalog',
-
   chatController.deleteCatalog,
 );
 

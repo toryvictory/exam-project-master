@@ -1,6 +1,6 @@
 const createHttpError = require('http-errors');
 const {
-  sequelize, Catalog, ConversationCatalogs, UserConversations,
+  sequelize, Catalog, ConversationCatalogs,
 } = require('../models');
 
 module.exports.createCatalog = async (req, res, next) => {
@@ -23,15 +23,6 @@ module.exports.createCatalog = async (req, res, next) => {
     }, {
       transaction,
     });
-    const conversation = await UserConversations.findOne({
-      where: {
-        conversationId: chatId,
-        userId,
-      },
-    });
-    if (!conversation) {
-      throw createHttpError(403, 'User doesn\'t have rights to access requested chat');
-    }
     await ConversationCatalogs.create({
       catalogId: catalog.id,
       conversationId: chatId,
@@ -131,17 +122,6 @@ module.exports.addNewChatToCatalog = async (req, res, next) => {
         attributes: ['conversationId'],
       }],
     });
-
-    const conversation = await UserConversations.findOne({
-      where: {
-        conversationId: chatId,
-        userId,
-      },
-    });
-
-    if (!catalog || !conversation) {
-      throw createHttpError(403, 'User doesn\'t have rights to access requested chat or catalog');
-    }
     await ConversationCatalogs.findOrCreate({
       where: {
         conversationId: chatId,
@@ -174,17 +154,6 @@ module.exports.removeChatFromCatalog = async (req, res, next) => {
         userId,
       },
     });
-
-    const conversation = await UserConversations.findOne({
-      where: {
-        conversationId: chatId,
-        userId,
-      },
-    });
-
-    if (!catalog || !conversation) {
-      throw createHttpError(403, 'User doesn\'t have rights to access requested chat or catalog');
-    }
     await ConversationCatalogs.destroy({
       where: {
         conversationId: chatId,
