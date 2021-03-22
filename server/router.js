@@ -7,6 +7,7 @@ const chatController = require('./controllers/chatController');
 const passwordController = require('./controllers/passwordController');
 const offerController = require('./controllers/offerController');
 const chatControllerPg = require('./controllers/chatControllerPg');
+const chatCatalogControllerPg = require('./controllers/chatCatalogControllerPg');
 const upload = require('./utils/fileUpload');
 const permissions = require('./middlewares/permissions');
 const checkAuthorization = require('./middlewares/checkAuthorization');
@@ -97,7 +98,7 @@ router.post('/blackList', chatControllerPg.blackList);
 
 router.post('/favorite', chatControllerPg.favoriteChat);
 
-router.post('/createCatalog', chatController.createCatalog);
+router.post('/createCatalog', chatCatalogControllerPg.createCatalog);
 
 router.post('/updateNameCatalog', chatController.updateNameCatalog);
 
@@ -111,7 +112,7 @@ router.post(
   chatController.deleteCatalog,
 );
 
-router.post('/getCatalogs', chatController.getCatalogs);
+router.post('/getCatalogs', chatCatalogControllerPg.getCatalogs);
 
 router.get('/getOffers', checkRole([MODERATOR]), offerController.getOffers);
 
