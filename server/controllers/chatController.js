@@ -118,7 +118,7 @@ module.exports.getChat = async (req, res, next) => {
       },
     ]);
 
-    const interlocutor = await User.findOne({ where: { id: req.body.interlocutorId } });
+    const interlocutor = await User.findOne({ where: { id: interlocutorId } });
     if (!interlocutor) {
       throw createHttpError(404, 'user with this data didn`t exist');
     }
@@ -159,7 +159,7 @@ module.exports.getPreview = async (req, res, next) => {
       },
       {
         $match: {
-          'conversationData.participants': req.tokenPayload.userId,
+          'conversationData.participants': userId,
         },
       },
       {
@@ -252,7 +252,7 @@ module.exports.favoriteChat = async (req, res, next) => {
       favoriteFlag,
     },
   } = req;
-  const predicate = `favoriteList.${req.body.participants.indexOf(userId)}`;
+  const predicate = `favoriteList.${participants.indexOf(userId)}`;
   try {
     const chat = await Conversation.findOneAndUpdate(
       { participants },
