@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       Message.belongsTo(Conversation, {
         foreignKey: 'conversation',
+        as: 'conv',
       });
     }
   }

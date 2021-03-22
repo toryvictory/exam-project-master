@@ -4,6 +4,18 @@ const {
 
 module.exports = (sequelize, DataTypes) => {
   class UserConversations extends Model {
+    static associate({
+      User, Conversation,
+    }) {
+      UserConversations.belongsTo(User, {
+        foreignKey: 'userId',
+        as: 'interlocutor',
+      });
+      UserConversations.belongsTo(Conversation, {
+        foreignKey: 'conversationId',
+        as: 'conversation',
+      });
+    }
   }
   UserConversations.init({
     userId: {

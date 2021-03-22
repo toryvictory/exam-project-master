@@ -6,6 +6,7 @@ const contestController = require('./controllers/contestController');
 const chatController = require('./controllers/chatController');
 const passwordController = require('./controllers/passwordController');
 const offerController = require('./controllers/offerController');
+const chatControllerPg = require('./controllers/chatControllerPg');
 const upload = require('./utils/fileUpload');
 const permissions = require('./middlewares/permissions');
 const checkAuthorization = require('./middlewares/checkAuthorization');
@@ -86,11 +87,11 @@ router.post(
   creditCardController.cashout,
 );
 
-router.post('/newMessage', chatController.addMessage);
+router.post('/newMessage', chatControllerPg.addMessage);
 
-router.post('/getChat', chatController.getChat);
+router.post('/getChat', chatControllerPg.getChat);
 
-router.post('/getPreview', chatController.getPreview);
+router.post('/getPreview', chatControllerPg.getPreview);
 
 router.post('/blackList', chatController.blackList);
 

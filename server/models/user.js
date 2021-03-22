@@ -38,6 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       });
       User.belongsToMany(Conversation, {
         through: UserConversations,
+        foreignKey: 'userId',
+      });
+      User.hasMany(UserConversations, {
+        foreignKey: 'userId',
+        as: 'userconversation',
       });
     }
   }

@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
       });
       Conversation.belongsToMany(User, {
         through: UserConversations,
+        foreignKey: 'conversationId',
+      });
+      Conversation.hasMany(UserConversations, {
+        foreignKey: 'conversationId',
+        as: 'userconversation',
       });
     }
   }
