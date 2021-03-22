@@ -229,7 +229,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         catalogList: [...action.data.catalogList],
-        currentCatalog: action.data.currentCatalog,
+        currentCatalog: { ...state.currentCatalog, ...action.data.currentCatalog },
         isRenameCatalog: false,
       };
     }
