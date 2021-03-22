@@ -75,7 +75,6 @@ export default function (state = initialState, action) {
         chatData: action.data.conversationData,
         isShow: true,
         isExpanded: true,
-        messages: [],
       };
     }
     case ACTION.GET_DIALOG_MESSAGES: {
