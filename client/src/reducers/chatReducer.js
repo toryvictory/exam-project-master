@@ -135,7 +135,7 @@ export default function (state = initialState, action) {
     case ACTION.CHANGE_CHAT_BLOCK: {
       return {
         ...state,
-        chatData: action.data.chatData,
+        chatData: { ...state.chatData, ...action.data.chatData },
         messagesPreview: action.data.messagesPreview,
       };
     }

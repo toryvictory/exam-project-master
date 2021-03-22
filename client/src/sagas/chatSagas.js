@@ -44,7 +44,7 @@ export function* sendMessage(action) {
         message: data.message,
         messagesPreview,
         chatData: {
-          _id: data.preview._id,
+          id: data.preview.id,
           participants: data.preview.participants,
           favoriteList: data.preview.favoriteList,
           blackList: data.preview.blackList,
@@ -106,7 +106,7 @@ export function* addChatToCatalog(action) {
     const { data } = yield Api.chatApi.addChatToCatalog(action.data);
     const { catalogList } = yield select((state) => state.chatStore);
     for (let i = 0; i < catalogList.length; i++) {
-      if (catalogList[i]._id === data._id) {
+      if (catalogList[i].id === data.id) {
         catalogList[i].chats = data.chats;
         break;
       }
@@ -132,7 +132,7 @@ export function* deleteCatalog(action) {
     const { catalogList } = yield select((state) => state.chatStore);
     const newCatalogList = remove(
       catalogList,
-      (catalog) => action.data.catalogId !== catalog._id,
+      (catalog) => action.data.catalogId !== catalog.id,
     );
     yield put({ type: ACTION.DELETE_CATALOG_SUCCESS, data: newCatalogList });
   } catch (err) {
@@ -145,7 +145,7 @@ export function* removeChatFromCatalogSaga(action) {
     const { data } = yield Api.chatApi.removeChatFromCatalog(action.data);
     const { catalogList } = yield select((state) => state.chatStore);
     for (let i = 0; i < catalogList.length; i++) {
-      if (catalogList[i]._id === data._id) {
+      if (catalogList[i].id === data.id) {
         catalogList[i].chats = data.chats;
         break;
       }
@@ -167,7 +167,7 @@ export function* changeCatalogName(action) {
     const { data } = yield Api.chatApi.changeCatalogName(action.data);
     const { catalogList } = yield select((state) => state.chatStore);
     for (let i = 0; i < catalogList.length; i++) {
-      if (catalogList[i]._id === data._id) {
+      if (catalogList[i].id === data.id) {
         catalogList[i].catalogName = data.catalogName;
         break;
       }
