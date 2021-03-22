@@ -2,7 +2,7 @@ const {
   Model,
 } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   class Conversation extends Model {
     static associate({
       Message, Catalog, ConversationCatalogs, User, UserConversations,
@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       Conversation.belongsToMany(Catalog, {
         through: ConversationCatalogs,
+        foreignKey: 'conversationId',
       });
       Conversation.belongsToMany(User, {
         through: UserConversations,
@@ -20,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       Conversation.hasMany(UserConversations, {
         foreignKey: 'conversationId',
         as: 'userconversation',
+      });
+      Conversation.hasMany(ConversationCatalogs, {
+        foreignKey: 'catalogId',
+        as: 'conversationCatalog',
       });
     }
   }

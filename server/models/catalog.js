@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       });
       Catalog.belongsToMany(Conversation, {
         through: ConversationCatalogs,
+        foreignKey: 'catalogId',
+      });
+      Catalog.hasMany(ConversationCatalogs, {
+        foreignKey: 'catalogId',
+        as: 'conversationCatalog',
       });
     }
   }
