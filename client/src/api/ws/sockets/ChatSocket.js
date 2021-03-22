@@ -17,7 +17,7 @@ class ChatSocket extends WebSocket {
       const { message } = data;
       const { messagesPreview } = this.getState().chatStore;
       messagesPreview.forEach((preview) => {
-        if (isEqual(preview.participants, message.participants)) {
+        if (isEqual(preview.interlocutor.id, message.sender)) {
           preview.blackList = message.blackList;
         }
       });
@@ -33,7 +33,7 @@ class ChatSocket extends WebSocket {
       const { messagesPreview } = this.getState().chatStore;
       let isNew = true;
       messagesPreview.forEach((messagePreview) => {
-        if (isEqual(messagePreview.participants, message.participants)) {
+        if (isEqual(messagePreview.interlocutor.id, message.sender)) {
           messagePreview.text = message.body;
           messagePreview.sender = message.sender;
           messagePreview.createAt = message.createdAt;
