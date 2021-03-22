@@ -66,13 +66,12 @@ class Dialog extends React.Component {
   };
 
   blockMessage = () => {
-    const { userId, chatData } = this.props;
-    const { blackList, participants } = chatData;
-    const userIndex = participants.indexOf(userId);
+    const { chatData } = this.props;
+    const { blackList, isInterlocutorBlackList } = chatData;
     let message;
-    if (chatData && blackList[userIndex]) {
+    if (chatData && blackList) {
       message = 'You block him';
-    } else if (chatData && blackList.includes(true)) {
+    } else if (chatData && isInterlocutorBlackList) {
       message = 'He block you';
     }
     return <span className={styles.messageBlock}>{message}</span>;
@@ -85,7 +84,7 @@ class Dialog extends React.Component {
         <ChatHeader userId={userId} />
         {this.renderMainDialog()}
         <div ref={this.messagesEnd} />
-        {chatData && chatData.blackList.includes(true) ? (
+        {chatData && (chatData.blackList || chatData.isInterlocutorBlackList) ? (
           this.blockMessage()
         ) : (
           <ChatInput />

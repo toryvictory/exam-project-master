@@ -8,17 +8,14 @@ const OfferChat = ({ userId, interlocutor }) => {
   const dispatch = useDispatch();
   const { messagesPreview } = useSelector((store) => store.chatStore);
   const findConversationInfo = () => {
-    const participants = [userId, interlocutor.id];
-    participants.sort(
-      (participant1, participant2) => participant1 - participant2,
-    );
     for (let i = 0; i < messagesPreview.length; i++) {
-      if (isEqual(participants, messagesPreview[i].participants)) {
+      if (isEqual(userId, messagesPreview[i].userId)
+        && isEqual(interlocutor.id, messagesPreview[i].interlocutor.id)) {
         return {
-          participants: messagesPreview[i].participants,
-          _id: messagesPreview[i]._id,
+          conversationId: messagesPreview[i].conversationId,
           blackList: messagesPreview[i].blackList,
           favoriteList: messagesPreview[i].favoriteList,
+          isInterlocutorBlackList: messagesPreview[i].isInterlocutorBlackList,
         };
       }
     }
