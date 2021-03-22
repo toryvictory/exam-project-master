@@ -16,6 +16,8 @@ module.exports = {
         references: {
           model: 'Catalogs',
         },
+        onUpdate: 'cascade',
+        onDelete: 'cascade',
       },
       createdAt: {
         allowNull: false,
