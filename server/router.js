@@ -104,7 +104,7 @@ router.post('/updateNameCatalog', chatCatalogControllerPg.updateNameCatalog);
 
 router.post('/addNewChatToCatalog', chatCatalogControllerPg.addNewChatToCatalog);
 
-router.post('/removeChatFromCatalog', chatController.removeChatFromCatalog);
+router.post('/removeChatFromCatalog', chatCatalogControllerPg.removeChatFromCatalog);
 
 router.post(
   '/deleteCatalog',
