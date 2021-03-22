@@ -93,7 +93,7 @@ router.post('/getChat', chatControllerPg.getChat);
 
 router.post('/getPreview', chatControllerPg.getPreview);
 
-router.post('/blackList', chatController.blackList);
+router.post('/blackList', chatControllerPg.blackList);
 
 router.post('/favorite', chatController.favoriteChat);
 

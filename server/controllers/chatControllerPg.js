@@ -205,3 +205,37 @@ module.exports.getPreview = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.blackList = async (req, res, next) => {
+  const {
+    tokenPayload:
+      {
+        userId,
+      },
+    body: {
+      interlocutorId,
+      conversationId,
+      blackListFlag,
+    },
+  } = req;
+  try {
+    const [count, [chat]] = await UserConversations.update({
+      blackList: blackListFlag,
+    }, {
+      where: {
+        userId,
+        conversationId,
+      },
+      returning: true,
+    });
+    if (count !== 1) {
+      throw createHttpError(401, 'Unable to update the conversation status');
+    }
+    const chatData = chat.dataValues;
+    chatData.interlocutorId = interlocutorId;
+    res.send(chatData);
+    controller.getChatController().emitChangeBlockStatus(interlocutorId, chatData);
+  } catch (err) {
+    next(err);
+  }
+};
