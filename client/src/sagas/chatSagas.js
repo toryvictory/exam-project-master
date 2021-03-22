@@ -61,7 +61,7 @@ export function* changeChatFavorite(action) {
     const { data } = yield Api.chatApi.changeChatFavorite(action.data);
     const { messagesPreview } = yield select((state) => state.chatStore);
     messagesPreview.forEach((preview) => {
-      if (isEqual(preview.interlocutor.id, data.preview.interlocutor.id)) {
+      if (isEqual(preview.interlocutor.id, data.interlocutorId)) {
         preview.favoriteList = data.favoriteList;
       }
     });

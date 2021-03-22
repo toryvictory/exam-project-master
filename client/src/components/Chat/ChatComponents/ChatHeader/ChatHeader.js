@@ -83,8 +83,8 @@ const ChatHeader = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const { interlocutor, chatData, messagesPreview } = state.chatStore;
-  const { favoriteList, blackList, conversationId } = messagesPreview;
+  const { interlocutor, chatData } = state.chatStore;
+  const { favoriteList, blackList, conversationId } = chatData;
   return {
     interlocutor, chatData, favoriteList, blackList, conversationId,
   };
