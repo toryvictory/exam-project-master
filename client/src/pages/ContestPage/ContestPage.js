@@ -96,6 +96,7 @@ class ContestPage extends React.Component {
           conversationId: messagesPreview[i].conversationId,
           blackList: messagesPreview[i].blackList,
           favoriteList: messagesPreview[i].favoriteList,
+          isInterlocutorBlackList: messagesPreview[i].isInterlocutorBlackList,
         };
       }
     }

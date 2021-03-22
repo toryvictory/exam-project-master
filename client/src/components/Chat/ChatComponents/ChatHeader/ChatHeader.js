@@ -22,7 +22,7 @@ const ChatHeader = (props) => {
 
   const { avatar, firstName } = props.interlocutor;
   const {
-    backToDialogList, chatData, userId, favoriteList, blackList,
+    backToDialogList, chatData, userId, favoriteList, blackList, interlocutor, conversationId,
   } = props;
   return (
     <div className={styles.chatHeader}>
@@ -50,7 +50,8 @@ const ChatHeader = (props) => {
             <i
               onClick={(event) => changeFavorite(
                 {
-                  // participants: chatData.participants,
+                  interlocutorId: interlocutor.id,
+                  conversationId,
                   favoriteFlag: !favoriteList,
                 },
                 event,
@@ -63,7 +64,8 @@ const ChatHeader = (props) => {
             <i
               onClick={(event) => changeBlackList(
                 {
-                  // participants: chatData.participants,
+                  interlocutorId: interlocutor.id,
+                  conversationId,
                   blackListFlag: !blackList,
                 },
                 event,
@@ -82,9 +84,9 @@ const ChatHeader = (props) => {
 
 const mapStateToProps = (state) => {
   const { interlocutor, chatData, messagesPreview } = state.chatStore;
-  const { favoriteList, blackList } = messagesPreview;
+  const { favoriteList, blackList, conversationId } = messagesPreview;
   return {
-    interlocutor, chatData, favoriteList, blackList,
+    interlocutor, chatData, favoriteList, blackList, conversationId,
   };
 };
 

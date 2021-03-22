@@ -22,6 +22,7 @@ const DialogBox = (props) => {
     conversationId,
     text,
     createAt,
+    isInterlocutorBlackList,
   } = chatPreview;
   const { avatar } = interlocutor;
   return (
@@ -34,6 +35,7 @@ const DialogBox = (props) => {
           conversationId,
           blackList,
           favoriteList,
+          isInterlocutorBlackList,
         },
       })}
     >
@@ -55,7 +57,8 @@ const DialogBox = (props) => {
           <i
             onClick={(event) => changeFavorite(
               {
-                participants,
+                interlocutorId: interlocutor.id,
+                conversationId,
                 favoriteFlag: !favoriteList,
               },
               event,
@@ -68,7 +71,8 @@ const DialogBox = (props) => {
           <i
             onClick={(event) => changeBlackList(
               {
-                participants,
+                interlocutorId: interlocutor.id,
+                conversationId,
                 blackListFlag: !blackList,
               },
               event,

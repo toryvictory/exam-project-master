@@ -61,7 +61,9 @@ export function* changeChatFavorite(action) {
     const { data } = yield Api.chatApi.changeChatFavorite(action.data);
     const { messagesPreview } = yield select((state) => state.chatStore);
     messagesPreview.forEach((preview) => {
-      if (isEqual(preview.participants, data.participants)) preview.favoriteList = data.favoriteList;
+      if (isEqual(preview.interlocutor.id, data.preview.interlocutor.id)) {
+        preview.favoriteList = data.favoriteList;
+      }
     });
     yield put({
       type: ACTION.CHANGE_CHAT_FAVORITE,
@@ -77,7 +79,9 @@ export function* changeChatBlock(action) {
     const { data } = yield Api.chatApi.changeChatBlock(action.data);
     const { messagesPreview } = yield select((state) => state.chatStore);
     messagesPreview.forEach((preview) => {
-      if (isEqual(preview.participants, data.participants)) preview.blackList = data.blackList;
+      if (isEqual(preview.interlocutor.id, data.interlocutorId)) {
+        preview.blackList = data.blackList;
+      }
     });
     yield put({
       type: ACTION.CHANGE_CHAT_BLOCK,

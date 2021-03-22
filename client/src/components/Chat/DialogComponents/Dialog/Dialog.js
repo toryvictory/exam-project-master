@@ -70,9 +70,9 @@ class Dialog extends React.Component {
     const { blackList, isInterlocutorBlackList } = chatData;
     let message;
     if (chatData && blackList) {
-      message = 'You block him';
+      message = 'You blocked the user';
     } else if (chatData && isInterlocutorBlackList) {
-      message = 'He block you';
+      message = 'User blocked you';
     }
     return <span className={styles.messageBlock}>{message}</span>;
   };
