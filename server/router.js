@@ -95,7 +95,7 @@ router.post('/getPreview', chatControllerPg.getPreview);
 
 router.post('/blackList', chatControllerPg.blackList);
 
-router.post('/favorite', chatController.favoriteChat);
+router.post('/favorite', chatControllerPg.favoriteChat);
 
 router.post('/createCatalog', chatController.createCatalog);
 

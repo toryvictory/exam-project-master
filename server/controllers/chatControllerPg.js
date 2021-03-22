@@ -239,3 +239,36 @@ module.exports.blackList = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.favoriteChat = async (req, res, next) => {
+  const {
+    tokenPayload:
+      {
+        userId,
+      },
+    body: {
+      interlocutorId,
+      conversationId,
+      favoriteFlag,
+    },
+  } = req;
+  try {
+    const [count, [chat]] = await UserConversations.update({
+      favoriteList: favoriteFlag,
+    }, {
+      where: {
+        userId,
+        conversationId,
+      },
+      returning: true,
+    });
+    if (count !== 1) {
+      throw createHttpError(401, 'Unable to update the conversation status');
+    }
+    const chatData = chat.dataValues;
+    chatData.interlocutorId = interlocutorId;
+    res.send(chatData);
+  } catch (err) {
+    next(err);
+  }
+};
