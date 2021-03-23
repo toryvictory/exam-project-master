@@ -3,7 +3,6 @@ const authRouter = require('./routes/auth');
 const userController = require('./controllers/userController');
 const creditCardController = require('./controllers/creditCardController');
 const contestController = require('./controllers/contestController');
-const chatController = require('./controllers/chatController');
 const passwordController = require('./controllers/passwordController');
 const offerController = require('./controllers/offerController');
 const chatControllerPg = require('./controllers/chatControllerPg');
