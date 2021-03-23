@@ -179,6 +179,7 @@ module.exports.removeChatFromCatalog = async (req, res, next) => {
 };
 
 module.exports.deleteCatalog = async (req, res, next) => {
+  let transaction;
   const {
     tokenPayload:
       {
@@ -189,19 +190,24 @@ module.exports.deleteCatalog = async (req, res, next) => {
     },
   } = req;
   try {
+    transaction = await sequelize.transaction();
     await ConversationCatalogs.destroy({
       where: {
         catalogId,
       },
+      transaction,
     });
     await Catalog.destroy({
       where: {
         id: catalogId,
         userId,
       },
+      transaction,
     });
+    await transaction.commit();
     res.end();
   } catch (err) {
+    await transaction.rollback();
     next(err);
   }
 };
