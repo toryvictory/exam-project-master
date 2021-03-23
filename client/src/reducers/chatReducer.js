@@ -128,7 +128,7 @@ export default function (state = initialState, action) {
     case ACTION.CHANGE_CHAT_FAVORITE: {
       return {
         ...state,
-        chatData: action.data.changedPreview,
+        chatData: { ...state.chatData, ...action.data.changedPreview },
         messagesPreview: action.data.messagesPreview,
       };
     }
