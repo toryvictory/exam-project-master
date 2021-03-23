@@ -18,7 +18,7 @@ class ChatSocket extends WebSocket {
       const { messagesPreview } = this.getState().chatStore;
       messagesPreview.forEach((preview) => {
         if (isEqual(preview.interlocutor.id, message.sender)) {
-          preview.blackList = message.blackList;
+          preview.isInterlocutorBlackList = message.isInterlocutorBlackList;
         }
       });
       this.dispatch(

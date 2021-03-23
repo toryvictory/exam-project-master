@@ -233,8 +233,12 @@ module.exports.blackList = async (req, res, next) => {
     }
     const chatData = chat.dataValues;
     chatData.interlocutorId = interlocutorId;
+    const chatDataForInterlocutor = {
+      isInterlocutorBlackList: blackListFlag,
+      sender: userId,
+    };
     res.send(chatData);
-    controller.getChatController().emitChangeBlockStatus(interlocutorId, chatData);
+    controller.getChatController().emitChangeBlockStatus(interlocutorId, chatDataForInterlocutor);
   } catch (err) {
     next(err);
   }
